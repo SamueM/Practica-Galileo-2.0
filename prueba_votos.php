@@ -2,7 +2,7 @@
 require_once 'inc/funciones.php';
 sesion();
 require_once 'inc/validaciones.inc.php';
-if(!isset($_GET['tema'])){
+if(!isset($_GET['curso'])){
     header("Location:index.php");
 }
 ?>
@@ -18,24 +18,39 @@ if(!isset($_GET['tema'])){
             color: yellow ;
             text-decoration: none;
         }
-        .fa-star:hover { 
+        .fa-star:hover {
             color: yellow ;
             text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <?php 
+    <?php
         // Prueba Votos //
+        // Prueba activar y desactivar tema //
+        // Ambas funcionalidades implementadas con AJAX //
         include_once("clases/Connection.php");
-        include_once("clases/Curso.php");        
+        include_once("clases/Curso.php");
         $c = Connection::dameInstancia();
         $conexion = $c->dameConexion();
-        $consulta = "Select * from temas limit 1;";
+        $consulta = "Select * from temas where id_curso=".$_GET['curso'].";";
         $resultado = $conexion->query($consulta);
+        $activo = "";
         while($row = $resultado->fetch_assoc()){
-            echo $row['titulo'] ;
+            $activo = $row['activo']=='si'? 1: 0 ;
+            echo "<p>".$row['titulo']."</p>" ;
             echo "<div class='estrellas'></div>" ;
+            echo "<label>disponibilidad del Tema: <input ";
+            if($activo){
+              echo "checked";
+            }
+            echo " type='checkbox' value='";
+            if(!$activo){
+              echo "1";
+            } else {
+              echo "0";
+            }
+            echo "' class='valor_actual' name='".$row['id_tema']."'></label>";
         }
 
         foreach ($_SESSION as $key => $value) {
@@ -45,14 +60,8 @@ if(!isset($_GET['tema'])){
             } else {
                 echo $key." --- ".$value."</br>";
             }
-            
+
         }
-
-
-        // Voy a probar el script de modificacion de disponibilidad de un tema //
-        echo "<label>disponibilidad del curso: <input checked type='checkbox' value='1' id='valor_actual' name='1'></label>";
-
-        // Voy a probar el script de modificacion de disponibilidad de un tema //
 
     ?>
     <h1></h1>
@@ -68,14 +77,16 @@ if(!isset($_GET['tema'])){
 
              <?php
                 if( isset($_SESSION['datos']['id_usuario']) ){
+                    // Haremos la prueba con el id 3
+                    $editor = Curso::soy_editor_de_este_curso(3,$_GET['curos']);
                     echo "$('.estrellas').starrr({
-                        rating: ".Curso::valoracion_tema($_GET['tema']).", //Estrellas se estaran iluminadas en un principio
+                        rating: ".Curso::valoracion_tema($_GET['curos']).", //Estrellas se estaran iluminadas en un principio
                         max: 5, // Maximo de estrellas
-                        readOnly: 'false', // Solo Lectura
+                        readOnly: '".$editor."', // Solo Lectura
                         change:function(e,valor){
                             // Cuando cambie el valor de las estrellas Haz X
                             $.ajax({
-                                data: {'usuario' : ".$_SESSION['datos']['id_usuario'].", 'tema': ".$_GET['tema'].", 'voto': valor},
+                                data: {'usuario' : ".$_SESSION['datos']['id_usuario'].", 'tema': ".$_GET['curos'].", 'voto': valor},
                                 type: 'POST',
                                 url: 'inc/funciones_AJAX.php?codigoFuncion=1',
                             })
@@ -93,13 +104,13 @@ if(!isset($_GET['tema'])){
                     });" ;
                 } else {
                     echo "$('.estrellas').starrr({
-                        rating: ".Curso::valoracion_tema($_GET['tema']).", //Estrellas se estaran iluminadas en un principio
+                        rating: ".Curso::valoracion_tema($_GET['curso']).", //Estrellas se estaran iluminadas en un principio
                         max: 5, // Maximo de estrellas
                         readOnly: 'true', // Solo Lectura
                         change:function(e,valor){
                             // Cuando cambie el valor de las estrellas Haz X
                             $.ajax({
-                                data: {'usuario' : 1, 'tema': ".$_GET['tema']." , 'voto': valor},
+                                data: {'usuario' : 1, 'tema': ".$_GET['curso']." , 'voto': valor},
                                 type: 'POST',
                                 url: 'inc/funciones_AJAX.php?codigoFuncion=1',
                             })
@@ -116,30 +127,35 @@ if(!isset($_GET['tema'])){
                         }
                     });" ;
                 }
-                
+
 
              ?>
 
              // Voy a probar el script de modificacion de disponibilidad de un tema //
 
-             $("#valor_actual").change(function(){
-                 alert($(this).val() +" "+$(this).attr("name"));
+             $(".valor_actual").change(function(){
+                 //alert($(this).val() +" "+$(this).attr("name"));
                  // Cuando Hagamos el done cambiar el valor del checkbox //
-                /*$.ajax({
-                    data: {'tema' : $(this).attr('name'), 'valor_actual': $(this).val() },
+                 var checkbox_clickeado =  $(this) ;
+                $.ajax({
+                    data: {'tema' : checkbox_clickeado.attr('name'), 'valor_actual': checkbox_clickeado.val() },
                     type: 'POST',
-                    url: 'inc/funciones_AJAX.php?codigoFuncion=1',
-                })
-                .done(function( data, textStatus, jqXHR ) {
-                    if(data==0){
-                        alert('Comprueba si estas suscrito en el curso.');
+                    url: 'inc/funciones_AJAX.php?codigoFuncion=3',
+                    success:function(data) {
+                      if(data!=0){
+                          if(checkbox_clickeado.val()==1){
+                            checkbox_clickeado.val(0);
+                          } else {
+                            checkbox_clickeado.val(1);
+                          }
+                      }
                     }
                 })
                 .fail(function( jqXHR, textStatus, errorThrown ) {
                     if ( console && console.log ) {
                         console.log( 'La solicitud a fallado: ' +  textStatus);
                     }
-                });*/
+                });
              })
 
              // Voy a probar el script de modificacion de disponibilidad de un tema //
@@ -147,4 +163,4 @@ if(!isset($_GET['tema'])){
 
     </script>
 </body>
-</html> 
+</html>

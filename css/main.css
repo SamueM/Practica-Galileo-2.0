@@ -42,7 +42,7 @@ nav>ul>li {
 	padding: 20px 40px 20px 40px;
 }
 
-nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion {
+nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion,nav>ul>li#perfil {
 		display: none;
 }
 
@@ -499,7 +499,7 @@ footer h3 {
 ========================================================================= */
 
 @media only screen and (min-width: 788px) {
-	nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion {
+	nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion,nav>ul>li#perfil{
 		display: inline;
 	}
 
