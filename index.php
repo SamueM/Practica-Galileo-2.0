@@ -46,7 +46,7 @@ Editado por Miguel Costa 14/02/2017 13:00
 
 		<div id='slider'>
 			<div id='buscador'>
-				<form action="">
+				<form action="buscador.php" method="POST">
 					<label><p>Busca tus temas</p><input type="search" name="nombre" placeholder="Buscar"></label>
 				</form>
 			</div>

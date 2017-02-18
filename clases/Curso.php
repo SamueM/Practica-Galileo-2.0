@@ -79,7 +79,7 @@
           }
              return $rutaBD;
          }
-   	        
+
    	        public function verCursos(){
 
    		   		$sql="SELECT * FROM".$this->tabla;
@@ -158,8 +158,8 @@
    		   		}
    		   }
 
-         public function esTutor($id_curso){  
-               
+         public function esTutor($id_curso){
+
          }
          public function registrarCurso($id_usuario,$id_curso){
             $sql="SELECT * FROM inscritos_curso WHERE id_usuario='".$id_usuario."' AND id_curso='".$id_curso."'";
@@ -263,7 +263,7 @@
                    move_uploaded_file($pdf_tmp_name, $ruta);
                    //Declaramos la ruta de la imagen en la base de datos
                   $rutaBD=$nombre_pdf;
-      
+
              return $rutaBD;
          }
          public function nombreCurso($id){
@@ -280,7 +280,7 @@
 
           // Autor: Samuel M. 14/02/2017  -  17/02/2017 //
           // Metodo bucarNombre //
-          /* 
+          /*
               bucarNombre: es una funcion estatica que se usara en la pagina de busquedas,
               y que devuelve un array con el numero de resultados de la consulta como primer parametro
               y los resultados de la misma como segundo como $clave => $valor .
@@ -288,7 +288,7 @@
           public static function bucarNombre($cadena){
               $c = Connection::dameInstancia();
               $conexion = $c->dameConexion();
-              $consulta = "Select * from cursos where titulo like '%".$cadena."%' ;"; 
+              $consulta = "Select * from cursos where titulo like '%".$cadena."%' ;";
               $resultado = $conexion->query($consulta);
               if($resultado->num_rows != 0){
                   while($row = $resultado->fetch_assoc()){
@@ -333,11 +333,14 @@
               }
           }
           // Ultimos cursos Subidos //
-          // Cursos mejor Valorados //
+          /** Cursos mejor Valorados
+							devuelve un array con los registros de los cursos
+							con la puntuacion mas alta
+					 */
            public static function cursos_mejor_valorados(){
               $c = Connection::dameInstancia();
               $conexion = $c->dameConexion();
-              $consulta = "Select id_curso, id_usuario, titulo, descripcion, fecha_creacion, foto from cursos where activo=si group by  limit 3 ;" ;
+              $consulta = "Select cursos.id_curso, cursos.id_usuario, cursos.titulo, cursos.descripcion, cursos.fecha_creacion, cursos.foto, avg(votos.voto) from cursos, votos, temas where votos.id_tema=temas.id_tema and temas.id_curso=cursos.id_curso and cursos.activo='si' group by temas.id_tema order by avg(votos.voto) limit 3" ;
               $resultado = $conexion->query($consulta);
               if($resultado->num_rows ==0 ){
                   return 0 ;
@@ -347,7 +350,7 @@
                   }
                   return $rows  ;
               }
-          } // POR TERMINAR
+          } 
           // Cursos mejor valorados //
           // Valoracion de un tema //
           public static function valoracion_tema($id_tema){
@@ -376,5 +379,19 @@
               }
           }
           // Activar - desactivar Tema //
+					// Devuelve un booleano dependiendo de si eres o no el elditor del curso//
+					public static function soy_editor_de_este_curso($id_usuario,$id_curso)
+					{
+						$c = Connection::dameInstancia();
+						$conexion = $c->dameConexion();
+						$consulta = "SELECT * from cursos where id_curso =".$id_curso." and id_usuario=".$id_usuario.";" ;
+						$resultado = $conexion->query($consulta);
+						if($resultado->num_rows>0){
+								return 'true' ;
+						} else {
+								return 'false' ;
+						}
+					}
+					// Devuelve un booleano dependiendo de si eres o no el elditor del curso//
 	}
 ?>

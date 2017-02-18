@@ -1,4 +1,4 @@
-<?php 
+<?php
     include_once("clases/curso.php");
 ?>
 <!DOCTYPE html>
@@ -32,7 +32,7 @@
                     // Aqui se imprimiran los temas del curso X
                     echo "<div id=temas_de_".$id_curso_actual." style='float:left'></div><br/><br/><br/>";
                 }
-                
+
             }
         } else {
             $resultados = curso::bucarNombre("%");
@@ -45,16 +45,16 @@
                 for($i = 0; $i < count($resultados['filas_consulta']) ; $i++){
                     foreach ($resultados['filas_consulta'][$i] as $key => $value) {
                         if($key == "id_curso" ){
-                            echo $key." ----- ".$value." <button class='v_t' value='".$value."'>Ver Temas</button><br/>" ;
+                            echo "<p/>".$key." ----- ".$value." <button class='v_t' value='".$value."'>Ver Temas</button><p/>" ;
                             $id_curso_actual = $value ;
                         } else {
-                            echo $key." ----- ".$value."<br/>" ;
+                            echo "<p/>".$key." ----- ".$value."<p/>" ;
                         }
                     }
                     // Aqui se imprimiran los temas del curso X
                     echo "<div id=temas_de_".$id_curso_actual." style='float:left'></div><br/><br/><br/>";
                 }
-                
+
             }
         }
     ?>
@@ -64,33 +64,36 @@
             $(".v_t").on("click",function(){
                 //console.log($(this).val());
                 var nodo_de_ejecucion = $(this) ;
-                $.ajax({
+                if($('#temas_de_'+nodo_de_ejecucion.val()).html()==""){
+                  $.ajax({
                     data: {"curso": nodo_de_ejecucion.val() },
                     type: "POST",
                     url: "inc/funciones_AJAX.php?codigoFuncion=2",
                     //dataType:"json",
                     success: function(data){
-                        console.log(data+" "+'temas_de_'+nodo_de_ejecucion.val());
-                        var parametro = JSON.parse(data) ;
-                        var nodos = $('#temas_de_'+nodo_de_ejecucion.val()) ;
-                        for(var i =0 ; i<parametro.length ; i++){
-                            console.log("Titulo: "+parametro[i].titulo+" -- Descripccion:"+parametro[i].descripcion+"  "+nodos);
+                      console.log(data+" "+'temas_de_'+nodo_de_ejecucion.val());
+                      var parametro = JSON.parse(data) ;
+                      var nodos = $('#temas_de_'+nodo_de_ejecucion.val()) ;
+                      for(var i =0 ; i<parametro.length ; i++){
+                        console.log("Titulo: "+parametro[i].titulo+" -- Descripccion:"+parametro[i].descripcion+"  "+nodos);
 
-                            nodos.html("<p>Titulo: "+parametro[i].titulo+" -- Descripccion:"+parametro[i].descripcion+"</p>");
-                        }
+                        nodos.html(nodos.html()+"<p>Titulo: "+parametro[i].titulo+" -- Descripccion:"+parametro[i].descripcion+"</p>");
+                      }
 
                     }
-                })
-                .done(function(data){
+                  })
+                  .done(function(data){
                     if(data == 0 ){
-                        alert("No hay temas en este curso todavia :/");
+                      alert("No hay temas en este curso todavia :/");
                     }
-                })
-                .fail(function( jqXHR, textStatus, errorThrown ) {
+                  })
+                  .fail(function( jqXHR, textStatus, errorThrown ) {
                     if ( console && console.log ) {
-                        console.log( "La solicitud a fallado: " +  textStatus);
+                      console.log( "La solicitud a fallado: " +  textStatus);
                     }
-                });
+                  });
+                }
+
             });
         });
     </script>
