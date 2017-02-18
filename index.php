@@ -14,25 +14,36 @@ Editado por Miguel Costa 14/02/2017 13:00
 	<link href='http://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css' />
 	<script src="jquery/jquery-3.1.1.min.js" ></script>
 	<script src="jquery/jquery_menuMoviles_desplegable.js" ></script>
+	<script src="jquery/jquery_formularios.js" ></script>
 </head>
 <body>
 
-	<header id="header" class="">
-		<nav id='navegacion'>
+	<header>
+		<nav>
 			<ul id='lista_principal'>
 				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
 				<li id='editor'><a href="" title=""><i class="fa fa-pencil" aria-hidden="true"></i>Conviértete en editor</a></li>
 				<li id='registrarte'><a href="./php/registrate.php" title=""><i class="fa fa-unlock-alt" aria-hidden="true"></i>Regístrarte</a></li>
-				<li id='ini_sesion'><a href="./php/iniciar_sesion.php" title=""><i class="fa fa-user" aria-hidden="true"></i>Iniciar Sesión</a></li>	
+				<li id='ini_sesion'><a href="./php/iniciar_sesion.php" title=""><i class="fa fa-user" aria-hidden="true"></i>Iniciar Sesión</a></li>
 				<li id='menu_moviles'><i class="fa fa-bars" aria-hidden="true"></i></a>
 				<ul id='lista_movil'>
-					<li id='editor'><a href="" title="">Conviértete en editor</a></li>
-					<li id='registrarte'><a href="./php/registrate.php" title="">Regístrarte</a></li>
-					<li id='ini_sesion'><a href="./php/iniciar_sesion.php" title="">Iniciar Sesión</a></li>
-				</ul></li>		
-				
+					<li id='editor2'><a href="" title="">Conviértete en editor</a></li>
+					<li id='registrarte2'><a href="./php/registrate.php" title="">Regístrarte</a></li>
+					<li id='ini_sesion2'><a href="./php/iniciar_sesion.php" title="">Iniciar Sesión</a></li>
+				</ul></li>
+
 			</ul>
 		</nav>
+		<div class='formulario' id='convierteteEditor'>
+		  	<i class="fa fa-window-close-o" aria-hidden="true"></i>
+		  	<h2>Regístrate o Inicia sesión para ser editor</h2>
+
+			<form action="/">
+				<a href="./php/registrate.php" title="" class='boton'>Regístrate</a>
+				<a href="./php/iniciar_sesion.php" title="" class='boton'>Inicia sesión</a>
+			</form>
+		</div>
+
 		<div id='slider'>
 			<div id='buscador'>
 				<form action="">
@@ -41,35 +52,35 @@ Editado por Miguel Costa 14/02/2017 13:00
 			</div>
 		</div>
 	</header>
-	
+
 	<section class='cursosPopulares'>
 		<h2>Cursos más populares</h2>
 		<ul class="temas_flex">
 			<li>
                 <div class='imagen'><img src="./img/php.png" /></div>
                 <div class='modulo'>
-                	<h2>PHP</h2>   
+                	<h2>PHP</h2>
                 	<div class='descripcion'>
                 		<ul>
 			                <li>Nicolás Fdez Arellano</li>
 							<li>Tutor DAW (Desarrollo de Aplicaciones Web)</li>
-							<li>IES Galileo</li>	
-						</ul>	                
+							<li>IES Galileo</li>
+						</ul>
 		            </div>
 		            <div class='descargar'>
-		            	<p><a href="#" class="boton rojo">DESCARGAR</a></p>
+		            	<p><a href="#" class="boton">DESCARGAR</a></p>
 		            </div>
 	            </div>
 			</li>
 			<li>
                 <div class='imagen'><img src="./img/javascript.png" /></div>
                 <div class='modulo'>
-                	<h2>JAVASCRIPT</h2>   
+                	<h2>JAVASCRIPT</h2>
                 	<div class='descripcion'>
 		                <ul>
 			                <li>David Marín Álvarez</li>
-							<li>IES Galileo</li>	
-						</ul>	 
+							<li>IES Galileo</li>
+						</ul>
 		            </div>
 		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
 	            </div>
@@ -77,17 +88,17 @@ Editado por Miguel Costa 14/02/2017 13:00
 			<li>
                 <div class='imagen'><img src="./img/interfaces.png" /></div>
                 <div class='modulo'>
-                	<h2>INTERFACES</h2>   
+                	<h2>INTERFACES</h2>
                 	<div class='descripcion'>
 		                <ul>
 			                <li>Ángel T. Domínguez</li>
-							<li>IES Galileo</li>	
-						</ul>	 
+							<li>IES Galileo</li>
+						</ul>
 		            </div>
 		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
 	            </div>
 			</li>
-        </ul>   
+        </ul>
 	</section>
 
 	<section class='ultimosSubidos'>
@@ -96,13 +107,13 @@ Editado por Miguel Costa 14/02/2017 13:00
 			<li>
                 <div class='imagen'><img src="./img/php.png" /></div>
                 <div class='modulo'>
-                	<h2>PHP</h2>   
+                	<h2>PHP</h2>
                 	<div class='descripcion'>
                 		<ul>
 			                <li>Nicolás Fdez Arellano</li>
 							<li>Tutor DAW (Desarrollo de Aplicaciones Web)</li>
-							<li>IES Galileo</li>	
-						</ul>	                
+							<li>IES Galileo</li>
+						</ul>
 		            </div>
 		            <div class='descargar'>
 		            	<p><a href="#" class="boton rojo">DESCARGAR</a></p>
@@ -112,12 +123,12 @@ Editado por Miguel Costa 14/02/2017 13:00
 			<li>
                 <div class='imagen'><img src="./img/javascript.png" /></div>
                 <div class='modulo'>
-                	<h2>JAVASCRIPT</h2>   
+                	<h2>JAVASCRIPT</h2>
                 	<div class='descripcion'>
 		                <ul>
 			                <li>David Marín Álvarez</li>
-							<li>IES Galileo</li>	
-						</ul>	 
+							<li>IES Galileo</li>
+						</ul>
 		            </div>
 		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
 	            </div>
@@ -125,17 +136,17 @@ Editado por Miguel Costa 14/02/2017 13:00
 			<li>
                 <div class='imagen'><img src="./img/interfaces.png" /></div>
                 <div class='modulo'>
-                	<h2>INTERFACES</h2>   
+                	<h2>INTERFACES</h2>
                 	<div class='descripcion'>
 		                <ul>
 			                <li>Ángel T. Domínguez</li>
-							<li>IES Galileo</li>	
-						</ul>	 
+							<li>IES Galileo</li>
+						</ul>
 		            </div>
 		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
 	            </div>
 			</li>
-        </ul>   
+        </ul>
 	</section>
 
 	<footer>

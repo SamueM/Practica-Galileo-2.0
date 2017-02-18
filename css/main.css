@@ -40,27 +40,26 @@ header {
     background-position: center center;
 }
 
-#navegacion>ul {
+nav>ul {
 	display: flex;
 	justify-content: space-around;
 	background-color: #1A1A1A;
 }
 
-#navegacion>ul>li {
+nav>ul>li {
 	padding: 20px 40px 20px 40px;
 }
 
-
-	#navegacion>ul>li#editor,#navegacion>ul>li#registrarte,#navegacion>ul>li#ini_sesion {
+nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion {
 		display: none;
-	}
+}
 
-	#navegacion>ul>li#menu_moviles {
+nav>ul>li#menu_moviles {
 		display: inline;
-	}
+}
 
 
-#navegacion>ul>li>ul#lista_movil {
+nav>ul>li>ul#lista_movil {
 	background-color: grey;
 	right: 0;
 	top: 72px;
@@ -78,24 +77,24 @@ header {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#808080', GradientType=0 );
 }
 
-#navegacion>ul>li>ul#lista_movil a {
+nav>ul>li>ul#lista_movil a {
 	color: white;
 	font-size: 20px;
 	text-decoration: none;
 }
 
-#navegacion>ul>li>ul#lista_movil li {
+nav>ul>li>ul#lista_movil li {
 
 	padding: 5px;
 }
 
-#navegacion>ul>li>a {
+nav>ul>li>a {
 	text-decoration: none;
 	color: white;
 	font-size: 20px;
 }
 
-#navegacion>ul>li>a:hover,#navegacion>ul>li>a:hover>.fa {
+nav>ul>li>a:hover,nav>ul>li>a:hover>.fa {
 	color: grey;
 }
 
@@ -147,6 +146,26 @@ input[type="search"]:focus {
 
 /* FORMULARIOS
    ========================================================================= */
+/*CONVIERTE EN EDITOR*/
+
+#convierteteEditor {
+	display: none;
+	padding: 1%;
+}
+
+#convierteteEditor .boton {
+	font-size: 25px;
+}
+
+#convierteteEditor form {
+	text-align: center;
+}
+
+#convierteteEditor>i {
+	color: black;
+	cursor: pointer;
+	float: left;
+}
 
 /*FORMULARIO DE REGISTRO */
 
@@ -301,9 +320,7 @@ input.botonFormulario:active {
 a.enlace {
 	text-decoration: none;
 	color: #7892c2;
-
 	font-size: 40px;
-
 }
 
 a.enlace:hover {
@@ -463,7 +480,7 @@ footer {
 	justify-content: space-around;
 	align-items: center;
 	flex-flow: row nowrap;
-	padding: 2% 2%;
+	padding: 2% 2% 4% 2%;
 	color: white;
 	background-color: #1A1A1A;
 	font-size: 15px;
@@ -490,11 +507,11 @@ footer h3 {
 ========================================================================= */
 
 @media only screen and (min-width: 788px) {
-	#navegacion>ul>li#editor,#navegacion>ul>li#registrarte,#navegacion>ul>li#ini_sesion {
+	nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion {
 		display: inline;
 	}
 
-	#navegacion>ul>li#menu_moviles {
+	nav>ul>li#menu_moviles {
 		display: none;
 	}
 
@@ -528,21 +545,21 @@ footer h3 {
 
 	.icon {
 		  padding: 1% 2%;
-		}
+	}
 
-		input.botonFormulario {
+	input.botonFormulario {
 			font-size: 20px;
-		}
+	}
 
-		a.enlace {
-			font-size: 20px;
-		}
+	a.enlace {
+			font-size: 35px;
+	}
 
-		footer {
+	footer {
 			font-size: 25px;
-		}
+	}
 
-		.redes i {
+	footer .redes i {
 			font-size: 40px;
-		}
+	}
 }
