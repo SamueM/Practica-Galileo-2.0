@@ -2,6 +2,9 @@
 require_once '../inc/funciones.php';
 require_once '../inc/validaciones.inc.php';
 sesion();
+
+ $foto=$_SESSION['foto'];
+ $nick=$_SESSION['datos']['nick'];
 ?>
 <!DOCTYPE html>
 <!--
@@ -10,52 +13,86 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Práctica</title>
-        <link type="text/css" rel="stylesheet" href="css/font-awesome.css" />
-        <link rel="stylesheet" href="../css/main.css" />
-        <link href='http://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css' />
-        <script src="jquery/jquery-3.1.1.min.js" ></script>
-    </head>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Página perfil</title>
+  <link type="text/css" rel="stylesheet" href="../css/font-awesome.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/main_perfil.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css' />
+  <script src="../jquery/jquery-3.1.1.min.js" ></script>
+  <script type="text/javascript" src="../jquery/jquery_menu_desplegable.js"></script>
+</head>
     <body>
-       
-        <h2>
-            <?php
-           
-            if($_SESSION['datos']['solicita_edicion']=='no'){
-            echo '<a href="convierteteEnEditor_header.php">CONVIERTETE EN EDITOR</a>';
-            } else{
-                echo "SOLICITUD DE EDICION EN TRÁMITE";
-            }
-             $foto=$_SESSION['foto'];
-            //echo $foto;
-             $nick=$_SESSION['datos']['nick'];
-            ?>
-            &nbsp;&nbsp;&nbsp;&nbsp;<a href="modificaTusDatos.php"><img src="<?php echo $foto; ?>" width="50px"><?php echo $nick;?></a>
-            &nbsp;&nbsp;&nbsp;&nbsp;<a href="cerrarSesion.php">Cerrar Sesion</a></h2>
-        <p style="color:red">Pincha sobre la foto para modificar los datos!!</p>
-        <h2>Esta es la página de un usuario que se ha logueado y es un suscriptor(alumno)</h2>
-        <p>Los datos del suscriptor</p>
-        <?php
-        echo "Id del suscriptor: ".$_SESSION['id_usuario']."<br>";
-        foreach ($_SESSION['datos'] as $key => $value) {
-            /*
-             * Vamos a imprimir la fecha de nacimiento en formato válido
-             */
-            if($key=='fecha_nac'){//del archivo '../inc/validaciones.inc.php'
-                $fecha=getFechaNac($value);
-                echo $key.": ".$fecha."<br>";
-            }else{
-                echo $key.": ".$value."<br>";
-            }
-        }
-        $foto=$_SESSION['foto'];
-        //echo $foto;
-        echo '<img src="'.$foto.'" width="50px">';
-         
-        ?>
-        
+
+      <header>
+    		<nav>
+    			<ul id='lista_principal'>
+    				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+    				<li id='perfil'><img src="" alt="">Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
+    					<ul class='perfil' id='perfil_usuario'>
+    						<li>Cursos</li>
+    						<li>Gestión de usuarios</li>
+    						<li>Gestión de cursos</li>
+    						<li><a href="modificaTusDatos.php">Editar usuario</a></li>
+                <?php
+
+                if($_SESSION['datos']['solicita_edicion']=='no'){
+                echo '<li><a href="convierteteEnEditor_header.php">Conviértete en editor</a></li>';
+                }
+                ?>
+    						<li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
+    					</ul></li>
+    				</ul>
+    		</nav>
+    		<div id='slider'>
+    		</div>
+        <div class="navegacion">
+          <ul id='navegacion_secundaria'>
+                <li><a href="">Cursos</a></li>
+                <li><a href="">Administrar usuarios</a></li>
+                <li><a href="">Gestión de cursos</a></li>
+                <li><a href="modificaTusDatos.php">Editar usuario</a></li>
+          </ul>
+        </div>
+
+    	</header>
+
+      <div id='usuario'>
+    		<div id='imagen'>
+    			<a href="modificaTusDatos.php"><?php echo '<img src="'.$foto.'" />'?></a>
+    		</div>
+    		<div id='info_perfil'>
+          <?php
+          echo '<h2>'.$_SESSION['datos']['nombre'].'</h2>';
+          foreach ($_SESSION['datos'] as $key => $value) {
+              /*
+               * Vamos a imprimir la fecha de nacimiento en formato válido
+               */
+              if($key=='fecha_nac'){//del archivo '../inc/validaciones.inc.php'
+                  $fecha=getFechaNac($value);
+                  echo $key.": ".$fecha."<br>";
+              }else{
+                  echo $key.": ".$value."<br>";
+              }
+          }
+
+          ?>
+    		</div>
+    		<div id='menu_lateral'>
+          <?php
+
+          if($_SESSION['datos']['solicita_edicion']=='no'){
+            echo '<a class="enlace" href="convierteteEnEditor_header.php" class="button">¡QUIERO SER EDITOR!</a>';
+          } else {
+            echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
+          }
+          ?>
+    		</div>
+
+    	</div>
+
     </body>
 </html>

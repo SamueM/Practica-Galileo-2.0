@@ -1,3 +1,8 @@
+#slider {
+	padding: 20% 0;
+}
+
+
 #perfil_usuario {
 	position: absolute;
 	background: rgba(26,26,26,1);
@@ -9,37 +14,91 @@
 	background: linear-gradient(to bottom, rgba(26,26,26,1) 0%, rgba(128,128,128,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#808080', GradientType=0 );
 	top: 72px;
-	padding: 5px 10px 5px 10px;
+	right: 0;
+	padding: 5px 15px 5px 15px;
 	color: white;
 	display: none;
 	font-size: 20px;
 }
 
+#perfil, #inicio a {
+	color: white;
+	font-size: 25px;
+	cursor: pointer;
+}
+li#inicio,li#perfil {
+	padding: 20px 15px;
+}
+
+li#perfil:hover,li#perfil:hover i,li#inicio a:hover,li#inicio a:hover i {
+	color: grey;
+}
+
 .perfil li {
-	border-bottom: 1px solid #476E9E;
 	padding: 5px;
+	cursor: pointer;
+	font-size: 25px;
+}
+
+.perfil li a {
+	color: white;
+	text-decoration: none;
+	font-size: 25px;
+}
+
+#navegacion_secundaria {
+	display: flex;
+	flex-flow: column;
+	justify-content: space-around;
+}
+
+#navegacion_secundaria li {
+	flex: 1;
+	background-color: grey;
+	padding: 10px;
+	text-align: center;
+	border-bottom: 1px solid white;
 	cursor: pointer;
 }
 
-/* USUARIOS
-   ========================================================================= */
+#navegacion_secundaria li:hover {
+	opacity: 0.6;
+}
+
+#navegacion_secundaria li:last-child {
+	border-bottom: none;
+}
+
+
+#navegacion_secundaria li a {
+	color: white;
+	text-decoration: none;
+	font-size: 25px;
+}
 
 #usuario {
 	display: flex;
+	flex-flow: wrap;
 	justify-content: space-around;
 	font-size: 25px;
 	margin-top: 20px;
 	align-items: center;
 }
 
-#imagen {
-	flex: 2;
-	padding-left: 5%;
+#imagen, #info_perfil, #menu_lateral {
+	padding: 5%;
 }
 
-#info_perfil {
-	width: 50%;
-	flex: 3;
+#imagen {
+	flex: 1 1 auto;
+	min-width: 200px;
+	max-width: 300px;
+}
+#info_perfil {}
+#menu_lateral {}
+
+#imagen img {
+	width: 99%;
 }
 
 #info_perfil ul {
@@ -50,19 +109,13 @@
 	padding: 5px;
 }
 
-#menu_lateral {
-	flex: 1 0 0;
-	padding: 0 5% 0 5%;
-	min-width: 150px;
-}
-
-#perfil_usuario_lateral li {
-	border-bottom: 1px solid #476E9E;
-}
-
 #alumno h2 {
 	font-size: 35px;
 	border-bottom: 1px solid #476E9E;
+}
+
+#menu_lateral h3 {
+	color: #7892c2;
 }
 
 a.enlace { margin: 1em 0;}
@@ -151,4 +204,27 @@ ul#temas li h2:hover {
 
 #descripcion_curso {
 	padding:0 5% 0 5%;
+}
+
+/*MEDIA QUERIES
+========================================================================= */
+
+@media only screen and (min-width: 450px) {
+	#slider {
+		padding: 10% 0;
+	}
+
+	#navegacion_secundaria li {
+		border-bottom: none;
+		border-right: 1px solid white;
+	}
+
+	#navegacion_secundaria li:last-child {
+		border-bottom: none;
+		border-right: none;
+	}
+
+	#navegacion_secundaria {
+		flex-flow: row;
+	}
 }

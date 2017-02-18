@@ -11,6 +11,7 @@ ul {list-style: none;}
    ========================================================================= */
 html {
 	font-family: 'Pathway Gothic One', Helvetica, sans-serif;
+	min-width: 320px;
 }
 
 body{
@@ -25,19 +26,10 @@ header {
 #slider {
 	background: url('../img/programacion1.jpg');
 	width: 100%;
-    padding: 16% 0;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-#slider_perfil {
-	background: url('../img/programacion1.jpg');
-	width: 100%;
-    padding: 8% 0;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+  padding: 16% 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 nav>ul {
