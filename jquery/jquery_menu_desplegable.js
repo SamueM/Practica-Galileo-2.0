@@ -12,13 +12,4 @@ $(document).ready(function(){
 			$("#perfil_usuario").slideUp("slow");
 		}
 	});
-
-	$('li').click(function(){
-		//$('#perfil i.fa-angle-down').toggleClass('fa-angle-up');
-		if ($('.descripcion_tema',this).is(":hidden")) {
-			$('.descripcion_tema',this).slideDown("slow");
-		}else {
-			$('.descripcion_tema',this).slideUp("slow");
-		}
-	});
 });
