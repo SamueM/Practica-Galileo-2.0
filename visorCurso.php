@@ -16,7 +16,6 @@
 
 </head>
 <body>
-
 	<header id="header" class="">
 		<nav id='navegacion'>
 			<ul id='lista_principal'>
