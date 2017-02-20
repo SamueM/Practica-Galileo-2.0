@@ -1,7 +1,9 @@
 <!--
 Editado por Miguel Costa 14/02/2017 13:00
 -->
-
+<?php
+	include_once("clases/Curso.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +58,7 @@ Editado por Miguel Costa 14/02/2017 13:00
 	<section class='cursosPopulares'>
 		<h2>Cursos más populares</h2>
 		<ul class="temas_flex">
-			<li>
+			<!--<li>
                 <div class='imagen'><img src="./img/php.png" /></div>
                 <div class='modulo'>
                 	<h2>PHP</h2>
@@ -97,8 +99,14 @@ Editado por Miguel Costa 14/02/2017 13:00
 		            </div>
 		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
 	            </div>
-			</li>
-        </ul>
+			</li>-->
+			<?php
+					$cursos = Curso::cursos_mejor_valorados();
+					foreach ($cursos as $key => $value) {
+						Curso::imprimir_curso_mv($value);
+					}
+			 ?>
+		</ul>
 	</section>
 
 	<section class='ultimosSubidos'>

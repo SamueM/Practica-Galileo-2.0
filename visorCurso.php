@@ -1,3 +1,12 @@
+<?php
+require_once 'inc/funciones.php';
+sesion();
+require_once 'inc/validaciones.inc.php';
+if(!isset($_GET['curso'])){
+    header("Location:index.php");
+}
+include_once("clases/Curso.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +22,19 @@
 	<script type="text/javascript" src="jquery/jquery_menu_desplegable.js"></script>
 	<script type="text/javascript" src="jquery/jquery_acordeon.js"></script>
 	<script src="jquery/jquery_menuMoviles_desplegable.js" ></script>
+	<style type="text/css">
+			.estrellas {
+				text-align: center;
+			}
+			.fa-star, .fa-star-o {
+					color: yellow ;
+					text-decoration: none;
+			}
+			.fa-star:hover {
+					color: yellow ;
+					text-decoration: none;
+			}
+	</style>
 
 </head>
 <body>
@@ -49,6 +71,7 @@
 	<article id='curso'>
 		<div class='imagen'>
 			<img src="img/php.png" alt="">
+			<div class='estrellas'></div>
 		</div>
 		<div id='descripcion_curso'>
 			<h2>PHP</h2>
@@ -63,5 +86,71 @@
 			</ul>
 		</div>
 	</article>
+	<!-- Votacion -->
+	<script src="jquery/jquery-3.1.1.min.js"></script>
+	<script src="jquery/starrr.js"></script>
+	<script type="text/javascript">
+
+			 $(document).ready(function(){
+					 // Imprimir scripts diferentes cuando estes logueado //
+
+					 <?php
+							if( isset($_SESSION['datos']['id_usuario']) ){
+									// Haremos la prueba con el id 3
+									$editor = Curso::soy_editor_de_este_curso(3,$_GET['curos']);
+									echo "$('.estrellas').starrr({
+											rating: ".Curso::valoracion_tema($_GET['curos']).", //Estrellas se estaran iluminadas en un principio
+											max: 5, // Maximo de estrellas
+											readOnly: '".$editor."', // Solo Lectura
+											change:function(e,valor){
+													// Cuando cambie el valor de las estrellas Haz X
+													$.ajax({
+															data: {'usuario' : ".$_SESSION['datos']['id_usuario'].", 'tema': ".$_GET['curos'].", 'voto': valor},
+															type: 'POST',
+															url: 'inc/funciones_AJAX.php?codigoFuncion=1',
+													})
+													.done(function( data, textStatus, jqXHR ) {
+															if(data==0){
+																	alert('Comprueba si estas suscrito en el curso.');
+															}
+													})
+													.fail(function( jqXHR, textStatus, errorThrown ) {
+															if ( console && console.log ) {
+																	console.log( 'La solicitud a fallado: ' +  textStatus);
+															}
+													});
+											}
+									});" ;
+							} else {
+									echo "$('.estrellas').starrr({
+											rating: ".Curso::valoracion_tema($_GET['curso']).", //Estrellas se estaran iluminadas en un principio
+											max: 5, // Maximo de estrellas
+											readOnly: 'true', // Solo Lectura
+											change:function(e,valor){
+													// Cuando cambie el valor de las estrellas Haz X
+													$.ajax({
+															data: {'usuario' : 1, 'tema': ".$_GET['curso']." , 'voto': valor},
+															type: 'POST',
+															url: 'inc/funciones_AJAX.php?codigoFuncion=1',
+													})
+													.done(function( data, textStatus, jqXHR ) {
+															if(data==0){
+																	alert('Comprueba si estas suscrito en el curso.');
+															}
+													})
+													.fail(function( jqXHR, textStatus, errorThrown ) {
+															if ( console && console.log ) {
+																	console.log( 'La solicitud a fallado: ' +  textStatus);
+															}
+													});
+											}
+									});" ;
+							}
+
+
+					 ?>
+			});
+
+	</script>
 </body>
 </html>

@@ -278,10 +278,9 @@
                   }
          }
 
-          // Autor: Samuel M. 14/02/2017  -  17/02/2017 //
+          // Autor: Samuel M. 14/02/2017  -  17/02/2017 - 20/02/2017 //
           // Metodo bucarNombre //
-          /*
-              bucarNombre: es una funcion estatica que se usara en la pagina de busquedas,
+          /** bucarNombre: es una funcion estatica que se usara en la pagina de busquedas,
               y que devuelve un array con el numero de resultados de la consulta como primer parametro
               y los resultados de la misma como segundo como $clave => $valor .
           */
@@ -301,7 +300,9 @@
               }
           }
           // Metodo bucarNombre //
-          // Metodo get_temas //
+          /** get_temas: funcion estatica que devuelve un array con los temas
+							del curso que le hayamos pasado como parametro, Formateado en JSON.
+					*/
           public static function get_temas($id_curso){
               $c = Connection::dameInstancia();
               $conexion = $c->dameConexion();
@@ -317,8 +318,10 @@
               }
           }
           // Metodo get_temas //
-          // Ultimos cursos Subidos //
-          public static function utimos_temas_subidos(){
+          /** Ultimos cursos Subidos, utimos_cusos_subidos(): Fucnion estatica que se usara en el index
+							que devuelve un array con los tres ultimos temas subidos.
+					*/
+          public static function utimos_cusos_subidos(){
               $c = Connection::dameInstancia();
               $conexion = $c->dameConexion();
               $consulta = "Select * from cursos order by fecha_creacion desc limit 3 ;" ;
@@ -333,14 +336,14 @@
               }
           }
           // Ultimos cursos Subidos //
-          /** Cursos mejor Valorados
+          /** Cursos mejor Valorados, cursos_mejor_valorados():
 							devuelve un array con los registros de los cursos
 							con la puntuacion mas alta
 					 */
            public static function cursos_mejor_valorados(){
               $c = Connection::dameInstancia();
               $conexion = $c->dameConexion();
-              $consulta = "Select cursos.id_curso, cursos.id_usuario, cursos.titulo, cursos.descripcion, cursos.fecha_creacion, cursos.foto, avg(votos.voto) from cursos, votos, temas where votos.id_tema=temas.id_tema and temas.id_curso=cursos.id_curso and cursos.activo='si' group by temas.id_tema order by avg(votos.voto) limit 3" ;
+              $consulta = "Select usuarios.nombre as nombre_usuario, usuarios.apellidos as apellido_usuario ,cursos.id_curso, cursos.id_usuario, cursos.titulo, cursos.descripcion, cursos.fecha_creacion, cursos.foto, avg(votos.voto) from cursos, votos, temas, usuarios where votos.id_tema=temas.id_tema and temas.id_curso=cursos.id_curso and usuarios.id_usuario=cursos.id_usuario and cursos.activo='si' group by cursos.id_curso order by avg(votos.voto) limit 3" ;
               $resultado = $conexion->query($consulta);
               if($resultado->num_rows ==0 ){
                   return 0 ;
@@ -350,9 +353,12 @@
                   }
                   return $rows  ;
               }
-          } 
+          }
           // Cursos mejor valorados //
-          // Valoracion de un tema //
+          /** Valoracion de un tema,  valoracion_tema($id_tema):
+							devulve la media de las votaciones de los temas de un curso
+							(id_curso) que pasamos como prametro.
+					*/
           public static function valoracion_tema($id_tema){
               $c = Connection::dameInstancia();
               $conexion = $c->dameConexion();
@@ -362,7 +368,7 @@
               return $row['voto'] ;
           }
           // Valoracion de un tema //
-          // Activar - desactivar Tema //
+          /** Activar - desactivar Tema: activa y desactiva un tema */
           public static function modificar_disponibilidad_tema($id_tema,$valor_actual){
               $c = Connection::dameInstancia();
               $conexion = $c->dameConexion();
@@ -379,7 +385,9 @@
               }
           }
           // Activar - desactivar Tema //
-					// Devuelve un booleano dependiendo de si eres o no el elditor del curso//
+					/** Soy el elditor de este curso,
+					soy_editor_de_este_curso($id_usuario,$id_curso):
+					Devuelve un booleano dependiendo de si eres o no el elditor del curso */
 					public static function soy_editor_de_este_curso($id_usuario,$id_curso)
 					{
 						$c = Connection::dameInstancia();
@@ -393,5 +401,24 @@
 						}
 					}
 					// Devuelve un booleano dependiendo de si eres o no el elditor del curso//
+					/** imprimir_curso_mv($curso), imprime el curso en la zona de
+							mejor valorados.
+					 */
+					 public static function imprimir_curso_mv($curso)
+					 {
+						 if($curso['foto']==NULL){
+							 	$curso['foto'] = 'curso_generico.jpg' ;
+						 }
+						 echo "<li><div class='imagen'><img src='./img_Cursos/".$curso['foto']."' /></div>
+			             <div class='modulo'><h2>".$curso['titulo']."</h2>
+			             <div class='descripcion'><ul><li>".$curso['nombre_usuario']." ".$curso['apellido_usuario']."</li>
+			 						 <!--<li>Tutor DAW (Desarrollo de Aplicaciones Web)</li>
+			 						 <li>IES Galileo</li>--></ul>
+			 		         </div>
+			 		         <div class='descargar'>
+			 		         <p><a href='visorCurso.php?curso=".$curso['id_curso']."' class='boton'>DESCARGAR</a></p>
+			 		         </div></div></li>";
+					 }
+					 // Imprimir la tarjeta del curso en el inicio //
 	}
 ?>
