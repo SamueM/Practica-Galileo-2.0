@@ -8,8 +8,8 @@ define("USER_NOEXIS", -201);   // El usuario no está registrado
 define("CLAVE_NOEXIS", -202);  // La clave no está registrada
 define("USER_EXIS", -203);  // El DNI del usuario ya está registrado
 define("EMAIL_REPE", -204);  // El email esta repetido
-define("ERROR_FECHA_NACIMIENTO", -205);  // Error al insertar la fecha de nacimiento
-
+define("ERROR_FECHA_NACIMIENTO", -205);  // Error al insertar la fecha dnacimientoe nacimiento
+define("TFNO_INCORRECTO", -206);//El número de teléfono no es correcto
 define("USER_CORRECTO", -301); //usuario registrado correcto
 define("MODIF_USER_CORRECTO", -304);//usuario modificado correcto
 define("USER_INCORRECTO", -303); //usuario registrado incorrecto
@@ -23,7 +23,7 @@ $mensaje[CLAVE_INCORR] = "La CLAVE introducida no es válida.";
 $mensaje[CLAVE_NOREPE] = "Las claves no coinciden";
 $mensaje[FOTO_SUPLIM] = "El tamaño de la foto supera el límite permitido";
 $mensaje[ERROR_FECHA_NACIMIENTO]="Error al insertar la fecha de nacimiento";
-        
+$mensaje[]="Error al insertar la fecha de nacimiento";      
         
 $mensaje[USER_NOEXIS] = "El usuario no está registrado.";
 $mensaje[CLAVE_NOEXIS] = "La clave no es la correcta para el usuario solicitado.";
