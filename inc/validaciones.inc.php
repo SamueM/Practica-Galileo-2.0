@@ -68,6 +68,12 @@ function validarContrasena($passNueva,$passRep){
         return false;
     }
 }
+/**
+ * Definimos los mensajes de error
+ * @global type $mensaje
+ * @param type $num
+ * @return type
+ */
 function validacionExisteUsuario($num){
     global $mensaje;//importante la variable global para que reconozca $mensaje de 'defines.inc.php'
     if($num==-300){
