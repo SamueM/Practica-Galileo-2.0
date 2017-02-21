@@ -262,7 +262,7 @@ class Usuario{
             if($result=$this->c->store_result()){
                 if($result->num_rows==1){
                     $registro=$result->fetch_assoc();
-                    if($registro['foto']!='NULL'){ //Si existe ruta de foto en la BBDD               
+                    if($registro['foto']!=NULL){ //Si existe ruta de foto en la BBDD               
                     $ruta_foto="../fotos/".$registro['foto'];
                       // echo $ruta_foto; 
                     }else{//En caso de que no exista ruta de foto en la BBDD, que sea NULL
@@ -283,9 +283,36 @@ class Usuario{
             return "Error nº.".$this->c->errno;
         }
     }
- 
-   
+    
     /**
+     * Esta función comprueba que el mail que inserta el usuario no exite ya en la base de datos
+     * @param type $mail le pasamos un string con el mail que inserta el usuario por formulario
+     * @return boolean true si el mail ya existe en la base de datos. False, al contrario
+     */
+    public function esmailRepetido($mailNuevo){
+        $existe=false;
+        $sql="SELECT mail FROM $this->tabla";
+        $sentencia = $this->c->prepare($sql);
+        $sentencia->execute();
+        $sentencia->execute();
+        $sentencia->bind_result($mailBD);
+         while ($registros=$sentencia->fetch()){
+             if($mailBD==$mailNuevo){
+                 $existe=true;
+             }
+            }
+              $sentencia->close();
+        if($existe){
+            return true;
+        } else{
+            return false;
+        }
+         
+       
+    }
+
+
+  /**
      * Método que lista todas las solicitudes de suscritos que quieren ser editores
      * Nos aseguramos que el tipo de suaurio es 4, es decir, suscriptor.
      * Lo hacemos por si hubiera alguna solicitud de edición 'si' en un editor que se hubiera quedado colgada
