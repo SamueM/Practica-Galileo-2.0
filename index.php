@@ -17,6 +17,7 @@ Editado por Miguel Costa 14/02/2017 13:00
 	<script src="jquery/jquery-3.1.1.min.js" ></script>
 	<script src="jquery/jquery_menuMoviles_desplegable.js" ></script>
 	<script src="jquery/jquery_formularios.js" ></script>
+	<script src="jquery/parallax.js" ></script>
 </head>
 <body>
 
