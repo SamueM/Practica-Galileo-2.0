@@ -2,7 +2,6 @@
 require_once '../inc/funciones.php';
 require_once '../inc/validaciones.inc.php';
 sesion();
-
  $foto=$_SESSION['foto'];
  $nick=$_SESSION['datos']['nick'];
 ?>
