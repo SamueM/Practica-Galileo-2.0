@@ -79,7 +79,7 @@ require_once '../inc/defines.inc.php';
        }else{
            $mail=$_SESSION['datos']['mail'];
        }
-       //print "Hola".$_REQUEST['fecha_nac'];
+      
        if(!empty($_REQUEST['fecha_nac'])){
             $fecha=$_REQUEST['fecha_nac'];
           if(esFechaNac($fecha)){
