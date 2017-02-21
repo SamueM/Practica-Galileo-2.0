@@ -29,7 +29,8 @@ header {
   padding: 16% 0;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
+  /*background-position: center center;*/
+	background-attachment: fixed;
 }
 
 nav>ul {
@@ -322,6 +323,10 @@ a.enlace:hover {
 .error {
 	color: red;
 	text-align: center;
+}
+
+#inicio {
+	margin-bottom: 30px;
 }
 
 /* CURSOS POPULARES
