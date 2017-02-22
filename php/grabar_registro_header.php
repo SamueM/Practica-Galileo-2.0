@@ -43,12 +43,12 @@
         //echo $mensaje;
         $serMensaje= serialize($mensaje);
         $strMensaje= urlencode($serMensaje);
-              
+
     }
 
 }
 if (!headers_sent()) {
-header('Location:registrate.php?nuevoUsuario='.$strMensaje);  
+header('Location:../index.php?nuevoUsuario='.$strMensaje);  
 exit;
-} 
+}
 ?>

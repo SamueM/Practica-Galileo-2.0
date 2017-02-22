@@ -139,32 +139,13 @@ input[type="search"]:focus {
 
 /* FORMULARIOS
    ========================================================================= */
-/*CONVIERTE EN EDITOR*/
 
-#convierteteEditor {
-	display: none;
-	padding: 1%;
-}
-
-#convierteteEditor .boton {
-	font-size: 25px;
-}
-
-#convierteteEditor form {
-	text-align: center;
-}
-
-#convierteteEditor>i {
-	color: black;
-	cursor: pointer;
-	float: left;
-}
-
-/*FORMULARIO DE REGISTRO */
+/*FORMULARIO DE REGISTRO E INICIO DE SESIÓN */
 
 .formulario {
-	  width: 80%;
-	  padding: 5%;
+	display: none;
+	padding: 1%;
+	  width: 50%;
 	  margin: 20px auto;
 	  -webkit-border-radius: 8px/7px;
 	  -moz-border-radius: 8px/7px;
@@ -174,14 +155,21 @@ input[type="search"]:focus {
 	  -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31);
 	  box-shadow: 1px 2px 5px rgba(0,0,0,.31);
 	  border: solid 1px #cbc9c9;
-	  font-size: 40px;
+	  font-size: 15px;
 }
 
 .formulario h2 {
-	padding-top: -5px;
+	padding-top: 20px;
 	text-align: center;
 	margin-bottom: 10px;
 	font-size: 30px;
+}
+
+.formulario>i {
+	color: black;
+	cursor: pointer;
+	float: left;
+	clear: both;
 }
 
 #usuarioOk {
@@ -203,10 +191,10 @@ form{
 }
 
 label {
-	width: 40%;
+	width: 18%;
 	text-align: center;
 	margin-bottom: 25px;
-	font-size: 25px;
+	font-size: 20px;
 }
 
 label.editor, label.contrasena {
@@ -214,7 +202,7 @@ label.editor, label.contrasena {
 }
 
 .formulario input {
-	width: 40%;
+	width: 70%;
 	  -webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
 	  -moz-border-radius: 0px 4px 4px 0px/0px 0px 4px 4px;
 	  border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
@@ -290,7 +278,7 @@ input.botonFormulario {
 	cursor:pointer;
 	color:#ffffff;
 	font-family: 'Pathway Gothic One', Helvetica, sans-serif;
-	font-size: 25px;
+	font-size: 20px;
 	padding:7px 20px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #283966;
@@ -313,7 +301,7 @@ input.botonFormulario:active {
 a.enlace {
 	text-decoration: none;
 	color: #7892c2;
-	font-size: 40px;
+	font-size: 20px;
 }
 
 a.enlace:hover {
@@ -327,6 +315,16 @@ a.enlace:hover {
 
 #inicio {
 	margin-bottom: 30px;
+}
+
+/*FORMULARIO DE CONVIERTE EN EDITOR*/
+
+.boton {
+	font-size: 20px;
+}
+
+#convierteteEditor form {
+	text-align: center;
 }
 
 /* CURSOS POPULARES
@@ -516,7 +514,7 @@ footer h3 {
 		width: 32%;
 	}
 
-	.formulario {
+	/*.formulario {
 	  width: 60%;
 	  padding: 2% 5%;
 	  font-size: 20px;
@@ -546,11 +544,7 @@ footer h3 {
 
 	input.botonFormulario {
 			font-size: 20px;
-	}
-
-	a.enlace {
-			font-size: 35px;
-	}
+	}*/
 
 	footer {
 			font-size: 25px;
