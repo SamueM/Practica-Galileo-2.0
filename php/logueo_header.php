@@ -18,7 +18,7 @@ if(isset($_REQUEST['loguear'])){
             //echo $id_tipo_usuario;
             switch ($id_tipo_usuario){
                 case 1:
-                case 2:
+                case 2:   
                     $destino="index_administradores.php";
                 break;
                 case 3:
@@ -29,22 +29,22 @@ if(isset($_REQUEST['loguear'])){
                 break;
                 default:
                     $num=-201;
-                    $destino="../index.php?num=$num";
+                    $destino="iniciar_sesion.php?num=$num";
                 break;
             }
-
+            
         }else{
              $num=-201;
-             $destino="../index.php?num=$num";
+             $destino="iniciar_sesion.php?num=$num";
         }
-
-        }
+          
+        }         
 }else{
      $num=-201;
-     $destino="../index.php?num=$num";
+     $destino="iniciar_sesion.php?num=$num";
 }
 if (!headers_sent()) {
-  header('Location:'.$destino);
+  header('Location:'.$destino);  
 exit;
 }
 ?>
