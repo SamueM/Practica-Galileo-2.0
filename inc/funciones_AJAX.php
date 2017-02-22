@@ -3,7 +3,7 @@
     // Funciones AJAX //
 
     /*
-        Autor: Samuel M. 13/02/2017 
+        Autor: Samuel M. 13/02/2017
         Funcion: Almacenar las funciones AJAX y administrarlas segun las peticiones.
     */
 
@@ -13,7 +13,7 @@
         include_once("../clases/curso.php");
         $c = Connection::dameInstancia();
         $conexionFA = $c->dameConexion();
-        
+
     // Archivos que incluir //
     // Manejador de funciones //
     if(isset($_GET['codigoFuncion'])){
@@ -50,6 +50,13 @@
                 echo Curso::modificar_disponibilidad_tema($tema,$valor_actual) ;
             break;
             // --- Hacer funcion activar y desactivar tema --- //
+            // --- Llamar a la funcion activar y desactivar curso --- //
+            case '4':
+                $id_usuario = $_POST['id_usuario'];
+                $id_curso = $_POST['id_curso'];
+                echo Curso::activar_desactivar_curso($id_usuario,$id_curso);
+            break;
+            // --- Llamar a la funcion activar y desactivar curso --- //
             // --- --- --- --- --- --- //
             default:
                 return "{'error':'no se entro en ninguna funcion'}" ;

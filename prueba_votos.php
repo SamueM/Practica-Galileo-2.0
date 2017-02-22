@@ -65,6 +65,40 @@ if(!isset($_GET['curso'])){
 
     ?>
     <h1></h1>
+    <p style="width:40%; display:inline;">Aqui Probaremos desinscribir en un curso:
+        <ul id="desinscribir_curso">
+          <?php
+            $consulta = "select * from cursos, inscritos_curso where inscritos_curso.id_usuario=5 and cursos.id_curso=inscritos_curso.id_curso and favorito='si';" ;
+            $resultado = $conexion->query($consulta);
+            while($row = $resultado->fetch_assoc()){
+              // EXISTEN MUCHAS MANERAS DE COGER EL CODIGO DEL ALUMNO
+              // IMPRIMIENDOLO EN EL SCRIPT, EN LA PROPIA ETIQUEDA DEL IMPUT, COGIENDO
+              // EL NOMBRE DE LA PAGINA.
+              if($row['activo']=='si'){
+                  echo "<li>".$row['titulo']." --- <input type='checkbox' name='".$row['id_curso']."' value='5' class='desins'></li>";
+              }
+            }
+          ?>
+        </ul>
+    </p>
+    <p style="width:40%; display:inline;">Aqui Probaremos inscribir en un curso:
+        <ul id="inscribir_curso">
+          <?php
+          $consulta = "SELECT * FROM `cursos` ;" ;
+          $resultado = $conexion->query($consulta);
+          while($row = $resultado->fetch_assoc()){
+            // EXISTEN MUCHAS MANERAS DE COGER EL CODIGO DEL ALUMNO
+            // IMPRIMIENDOLO EN EL SCRIPT, EN LA PROPIA ETIQUEDA DEL IMPUT, COGIENDO
+            // EL NOMBRE DE LA PAGINA.
+            if($row['activo']=='si'){
+                echo "<li>".$row['titulo']." --- <input type='checkbox' name='".$row['id_curso']."' value='5' class='ins'></li>";
+            }
+          }
+
+          ?>
+        </ul>
+    </p>
+
 
     <!--<div class="estrellas"></div>-->
     <a href="index.php">Volver</a>
@@ -159,7 +193,51 @@ if(!isset($_GET['curso'])){
              })
 
              // Voy a probar el script de modificacion de disponibilidad de un tema //
+             // Voy a probar el script de activar y desactivar de un curso //
+             $(".desins").change(function(){
+               var registro = $(this).parent() ;
+               console.log({'id_usuario':$(this).val(),'id_curso':$(this).attr('name')});
+               $.ajax({
+                 data:{'id_usuario':$(this).val(),'id_curso':$(this).attr('name')},
+                 type:'POST',
+                 url:'inc/funciones_AJAX.php?codigoFuncion=4',
+                 success:function(data){
+                   console.log(data);
+                    if(data==1){
+                      alert("OPERACION REALIZADA CORREXTAMENTE");
+                      registro.html("");
+                      $("#inscribir_curso").append(registro);
+                    } else {
+                      alert("FALLO!");
+                    }
+                 }
+               });
+
+             });
+             $(".ins").change(function(){
+               var registro = $(this).parent() ;
+               console.log({'id_usuario':$(this).val(),'id_curso':$(this).attr('name')});
+               $.ajax({
+                 data:{'id_usuario':$(this).val(),'id_curso':$(this).attr('name')},
+                 type:'POST',
+                 url:'inc/funciones_AJAX.php?codigoFuncion=4',
+                 success:function(data){
+                   console.log(data);
+                    if(data==1){
+                      alert("OPERACION REALIZADA CORREXTAMENTE");
+                      $("#desinscribir_curso").append(registro) ;
+                    } else {
+                      alert("FALLO!");
+                    }
+                 }
+               });
+
+             });
+
+
+             // Voy a probar el script de activar y desactivar de un curso //
         });
+
 
     </script>
 </body>

@@ -420,5 +420,56 @@
 			 		         </div></div></li>";
 					 }
 					 // Imprimir la tarjeta del curso en el inicio //
+					 /** activar_desactivar_curso($id_usuario,$id_curso): dependiendo del parametro que
+					 		le pasemos inscribira a un usuario en un curso o desactivara su inscripcion.
+					 */
+					 public static function activar_desactivar_curso($id_usuario,$id_curso)
+					 {
+						 $c = Connection::dameInstancia();
+						 $conexion = $c->dameConexion();
+						 if(Curso::estoy_inscrito($id_usuario,$id_curso)){
+							 if(Curso::reinscribirme($id_usuario,$id_curso)){
+								 $consulta = "UPDATE inscritos_curso SET favorito='si' WHERE id_usuario=".$id_usuario." and id_curso=".$id_curso." ;" ;
+							 } else {
+								  $consulta = "UPDATE inscritos_curso SET favorito='no' WHERE id_usuario=".$id_usuario." and id_curso=".$id_curso." ;" ; /*CAMBIAR FAVORITO POR INSCRITO EN AMBAS FUNCIONES*/
+							 }							 
+						 } else {
+							 $consulta = "INSERT into inscritos_curso(`id_usuario`, `id_curso`, `favorito`) VALUES (".$id_usuario.",".$id_curso.",'si') ;" ;
+						 }
+						 if($conexion->query($consulta)){
+							 return 1 ;
+						 } else {
+							 return 0 ;
+						 }
+					 }
+					 /* Activar desactivar curso */
+					 /** estoy_inscrito(): funcion que validara si un usuario esta inscrito
+					 			en un curso, ambos parametros se lo pasaremos a la funcion.
+					 */
+					 private static function estoy_inscrito($id_usuario,$id_curso)
+					 {
+						 $c = Connection::dameInstancia();
+						 $conexion = $c->dameConexion();
+						 $consulta = "SELECT * FROM `inscritos_curso` where id_usuario=".$id_usuario." and id_curso=".$id_curso." and favorito='si';" ;
+						 $resultado = $conexion->query($consulta);
+						 if($resultado->num_rows > 0){
+							 return 1 ;
+						 } else {
+							 return 0 ;
+						 }
+					 }
+					 private static function reinscribirme($id_usuario,$id_curso){
+						 $c = Connection::dameInstancia();
+						 $conexion = $c->dameConexion();
+						 $consulta = "SELECT * FROM `inscritos_curso` where id_usuario=".$id_usuario." and id_curso=".$id_curso." and favorito='no';" ;
+						 $resultado = $conexion->query($consulta);
+						 if($resultado->num_rows > 0){
+							 return 1 ;
+						 } else {
+							 return 0 ;
+						 }
+					 }
+						/* ¿Estoy inscrito? */
+
 	}
 ?>
