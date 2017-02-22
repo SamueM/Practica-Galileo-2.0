@@ -21,39 +21,74 @@ and open the template in the editor.
            <?php 
           
            $nombre=$_SESSION['datos']['nombre'];
-           
-           if(empty($_SESSION['datos']['apellidos'])){
            $apellidos=$_SESSION['datos']['apellidos'];
-           }else{
-           $apellidos="";
-           }
-           if($_SESSION['datos']['telefono']=='0'){
+          
+           if($_SESSION['datos']['telefono']=='0' || $_SESSION['datos']['telefono']==NULL || $_SESSION['datos']['telefono']==""){
            $tfno="";
            }else{
            $tfno=$_SESSION['datos']['telefono'];
            }
-        
-        
-               echo '<table>
-                <tr><td class="dcha">Nick</td><td class="izda">'.$_SESSION['datos']['nick'].'</td></tr>
-                <tr><td class="dcha">Nombre</td><td class="izda"><input type="text" name="nombre" size="9" value="'.$nombre.'"/></td></tr>
-                <tr><td class="dcha">Apellidos</td><td class="izda"><input type="text" name="apellidos" size="9" value="'.$apellidos.'"/></td></tr>
-                <tr><td class="dcha">@mail</td><td class="izda"><input type="text" name="apellidos" size="9" value="'.$_SESSION['datos']['mail'].'"/></td></tr>   
-                <tr><td class="dcha">Fecha nacimiento(dd/mm/aa)</td><td class="izda"><input type="text" name="fecha_nac" size="9" value=""/></td></tr>
-                <tr><td class="dcha">Cambia tu foto:<img src="'.$_SESSION['foto'].'" width="50px"/></td><td class="izda"><input type="file" name="foto"/><input type="hidden" name="lim_tamano" value="120000"/></td></tr>
+       
+           $fecha_nac_BBDD=$_SESSION['datos']['fecha_nac'];//Nos da la fecha en formato de bbdd Ejemplo: 1980-06-10
+           /* Necitamos mostrarla en formato de usuario dd/mm/aaaa
+            * 
+            */
+           $fecha_nac=  getFechaNac($fecha_nac_BBDD);
+           ?>
+             <table>
+                <tr><td>Nick</td><td><?php echo $_SESSION['datos']['nick'];?></td></tr>
+                <tr><td>Nombre(mín 3 caracteres y máximo 20)</td><td><input type="text" name="nombre" size="9" value="<?php echo $nombre; ?>"/></td></tr>
+                <tr><td>Apellidos(mín 3 caracteres y máximo 20)</td><td><input type="text" name="apellidos" size="9" value="<?php echo $apellidos; ?>"/></td></tr>
+                <tr><td>@mail</td><td><input type="text" name="mail" size="9" value="<?php echo $_SESSION['datos']['mail']; ?>"/></td></tr>   
+                <tr><td>Fecha nacimiento(dd/mm/aaaa)</td><td><input type="text" name="fecha_nac" size="9" value="<?php echo $fecha_nac; ?>"/></td></tr>
+                <tr><td>Cambia tu foto:<img src="<?php echo $_SESSION['foto']; ?>" width="50px"/></td><td><input type="file" name="foto"/><input type="hidden" name="lim_tamano" value="120000"/></td></tr>
                     <tr><td><h2>Datos que puedes cambiar</h2></td></tr>
-                <tr><td class="dcha">Teléfono</td><td class="izda"><input type="text" name="tfno" size="9" value="'.$tfno.'"/></td></tr>
+                <tr><td>Teléfono</td><td><input type="text" name="tfno" size="9" value="<?php echo $tfno; ?>"/></td></tr>
                       <tr><td><h2>¿Quieres cambiar la contraseña?</h2></td></tr>
-                <tr><td class="dcha">Escriba nueva contraseña</td><td class="izda"><input type="password" name="passNueva" size="8"/><input type="hidden" name="pass" value="'.$_SESSION['datos']['pass'].'"/></td></tr>
-                <tr><td class="dcha">Repita nueva contraseña</td><td class="izda"><input type="password" name="passRep" size="8"/></td></tr>
+                <tr><td>Escriba nueva contraseña</td><td><input type="password" name="passNueva" size="8"/><input type="hidden" name="pass" value="<?php echo $_SESSION['datos']['pass']; ?>"/></td></tr>
+                <tr><td>Repita nueva contraseña</td><td><input type="password" name="passRep" size="8"/></td></tr>
                 <tr><td class="boton"><input type="submit" name="modificar" value="MODIFICAR DATOS"/></td><td class="boton"><input type="reset" value="Borrar"/></td></tr>	
-		</table>'
+		</table>
         
- ?>       
+      
     </form>
     
-    
+    <?php
+    if(isset($_REQUEST['error'])){
+        ?>
+          <h2 style="color:red">NO SE HAN PODIDO MODIFICAR LOS DATOS.</h2>
+          <p>Existen errores al rellenar los campos</p>
+          <?php
+        $error=  urldecode($_REQUEST['error']);
+        $errores=  unserialize($error);
+        //print_r($errores);
+        foreach ($errores as $key => $value) {
+            echo "<p>".($key+1).")".validacionExisteUsuario($value)."</p>";
+        }
+    }
+    ?>
     
 </div>
+         <div id="inicio" class='centrado'>
+             <?php
+              $id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+              switch ($id_tipo_usuario){
+                case 1:
+                case 2:   
+                    $destino="index_administradores.php";
+                break;
+                case 3:
+                    $destino="index_editores.php";
+                break;
+                case 4:
+                    $destino="index_suscriptores.php";
+                break;
+                default:   
+                    $destino="index.php";
+                break;
+            }
+             ?>
+             <h2><a class='enlace' href="<?php echo $destino;?>">Volver</a></h2>
+        </div>
     </body>
 </html>

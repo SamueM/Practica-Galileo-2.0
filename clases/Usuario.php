@@ -39,7 +39,7 @@ class Usuario{
     public function getUsuarios() {
         $datos=array();
         $i=0;
-        $sql="SELECT * FROM $this->tabla WHERE activo='si'";
+        $sql="SELECT * FROM $this->tabla WHERE activo='si' ORDER BY id_tipo_usuario ASC";
         if($this->c->real_query($sql)){
             if($result=  $this->c->store_result()){
                 if($result->num_rows>0){
@@ -72,6 +72,33 @@ class Usuario{
                  $result->free_result();
                  return $datos;
                
+            }
+        }else{
+            return "Error nº.".$this->c->errno;
+        }
+    }
+     /**
+     * Método que devuelve un array que contiene todos los usuarios que están 'no' activos
+     * @return los usuarios inactivos y sus datos
+     * 
+     */
+     public function getUsuariosInactivos() {
+        $datos=array();
+        $i=0;
+        $sql="SELECT * FROM $this->tabla WHERE activo='no' ORDER BY id_tipo_usuario ASC";
+        if($this->c->real_query($sql)){
+            if($result=  $this->c->store_result()){
+                if($result->num_rows>0){
+                   while($registro=$result->fetch_assoc()){
+                       foreach ($registro as $key => $value) {
+                            $datos[$i][$key]=$value;  
+                  }
+                  $i++;
+                   }
+                  
+                }
+                 $result->free_result();
+                 return $datos;
             }
         }else{
             return "Error nº.".$this->c->errno;
@@ -164,6 +191,80 @@ class Usuario{
             return "Error nº.".$this->c->errno;
         }
        
+    }
+    /** NO SE USA/////
+     * Función que nos dice si un usuario es activo 'si' ó 'no'
+     * @param type $nick pasamos el nick del usuario
+     * @return boolean true si ese usuario es 'activo'.False en caso contrario
+     */
+    public function esActivo($nick){
+        $sql="SELECT activo from $this->tabla WHERE UPPER(nick)=UPPER('$nick')";
+        $sentencia = $this->c->prepare($sql);
+        $sentencia->execute();
+        $sentencia->bind_result($activo);
+        while ($registros=$sentencia->fetch()){
+            if($activo=='si'){
+                $sentencia->close();
+                return true;
+            }else{
+                $sentencia->close();
+                return false;
+            }
+            }
+
+    }
+    /**
+     * Método que se utiliza para cambiar el estado de activo de un usuario a 'no activo'
+     * @param type $id_usuario pasamos el id del usuario
+     */
+    public function cambiarInactivo($id_usuario){
+        $sql="UPDATE $this->tabla SET `activo` = 'no' WHERE id_usuario=".$id_usuario;
+         $sentencia = $this->c->prepare($sql);
+         $sentencia->execute();
+         $sentencia->close();
+    }
+    /**
+     * Método que se utiliza para cambiar el estado de activo de un usuario a 'si activo'
+     * @param type $id_usuario pasamos el id del usuario
+     */
+    public function cambiarActivo($id_usuario){
+        $sql="UPDATE $this->tabla SET `activo` = 'si' WHERE id_usuario=".$id_usuario;
+         $sentencia = $this->c->prepare($sql);
+         $sentencia->execute();
+         $sentencia->close();
+    }
+    /**
+     * Método que nos devuelve el tipo de usuario a partir de su id 
+     * @param type $id
+     * @return type el tipo de usuario(1,2,3 ó 4)
+     */
+    public function tipoUsuario($id_usuario){
+         $sql="SELECT id_tipo_usuario from $this->tabla WHERE id_usuario=".$id_usuario;
+        $sentencia = $this->c->prepare($sql);
+        $sentencia->execute();
+        $sentencia->bind_result($id_tipo_usuario);
+        $registros=$sentencia->fetch();
+        $sentencia->close();
+        return $id_tipo_usuario;
+          
+        
+    }
+    /**
+     * Método que nos devuelve el nombre del tipo de usuario a partir de su id_tipo_usuario 
+     * Tenemos que buscar este dato en la tabla 'tipos_usuario'
+     * @param type $id_tipo_usuario
+     * @return type el tipo de usuario(super,admin,editor,suscriptor)
+     */
+     public function tipoNombreUsuario($id_tipo_usuario){
+         $sql="SELECT nombre from tipos_usuario WHERE id_tipo_usuario=".$id_tipo_usuario;
+        $sentencia = $this->c->prepare($sql);
+        $sentencia->execute();
+        $sentencia->bind_result($nombre_usuario);
+        $registros=$sentencia->fetch();
+        $sentencia->close();
+        return $nombre_usuario;
+          
+        
     }
     /*
      * Un usuario puede registrarse como alumno(Tipo 4) sin solicitar permisos de registro.
@@ -262,7 +363,7 @@ class Usuario{
             if($result=$this->c->store_result()){
                 if($result->num_rows==1){
                     $registro=$result->fetch_assoc();
-                    if($registro['foto']!='NULL'){ //Si existe ruta de foto en la BBDD               
+                    if($registro['foto']!=NULL){ //Si existe ruta de foto en la BBDD               
                     $ruta_foto="../fotos/".$registro['foto'];
                       // echo $ruta_foto; 
                     }else{//En caso de que no exista ruta de foto en la BBDD, que sea NULL
@@ -283,9 +384,36 @@ class Usuario{
             return "Error nº.".$this->c->errno;
         }
     }
- 
-   
+    
     /**
+     * Esta función comprueba que el mail que inserta el usuario no exite ya en la base de datos
+     * @param type $mail le pasamos un string con el mail que inserta el usuario por formulario
+     * @return boolean true si el mail ya existe en la base de datos. False, al contrario
+     */
+    public function esmailRepetido($mailNuevo){
+        $existe=false;
+        $sql="SELECT mail FROM $this->tabla";
+        $sentencia = $this->c->prepare($sql);
+        $sentencia->execute();
+        $sentencia->execute();
+        $sentencia->bind_result($mailBD);
+         while ($registros=$sentencia->fetch()){
+             if($mailBD==$mailNuevo){
+                 $existe=true;
+             }
+            }
+              $sentencia->close();
+        if($existe){
+            return true;
+        } else{
+            return false;
+        }
+         
+       
+    }
+
+
+  /**
      * Método que lista todas las solicitudes de suscritos que quieren ser editores
      * Nos aseguramos que el tipo de suaurio es 4, es decir, suscriptor.
      * Lo hacemos por si hubiera alguna solicitud de edición 'si' en un editor que se hubiera quedado colgada

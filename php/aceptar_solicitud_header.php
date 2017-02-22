@@ -11,7 +11,7 @@ if(isset($_SESSION['id_usuario']) AND (isset($_SESSION['datos']['id_tipo_usuario
    if($id_tipo_usuario==1 OR $id_tipo_usuario==2){
 if(isset($_REQUEST['enviarSolicitud'])){
     $id_usuarios=$_REQUEST['solicitud'];
-    print_r($id_usuarios); 
+    //print_r($id_usuarios); 
     $usuario=new Usuario();        
     foreach ( $id_usuarios as $value) {
          $usuario->aceptaSolititudEdicion($value);   
@@ -20,7 +20,7 @@ if(isset($_REQUEST['enviarSolicitud'])){
    }
 }
 if (!headers_sent()) {
-header('Location:index_administradores.php');  
+header('Location:index_administradores.php?pagina=1');  
 exit;
 }
 ?>
