@@ -134,7 +134,7 @@ require_once '../inc/defines.inc.php';
              $_SESSION['datos']['mail']=$mail;
              $_SESSION['datos']['telefono']=$telefono;
              $_SESSION['datos']['fecha_nac']=$fecha_nac;
-             $mensaje=  validacionExisteUsuario($num);//'../inc/validaciones.inc.php';
+             //$mensaje=  validacionExisteUsuario($num);//'../inc/validaciones.inc.php';
              //print_r($mensaje);
             $id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
            switch ($id_tipo_usuario){

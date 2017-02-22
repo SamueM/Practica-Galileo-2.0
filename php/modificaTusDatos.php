@@ -69,5 +69,26 @@ and open the template in the editor.
     ?>
     
 </div>
+         <div id="inicio" class='centrado'>
+             <?php
+              $id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+              switch ($id_tipo_usuario){
+                case 1:
+                case 2:   
+                    $destino="index_administradores.php";
+                break;
+                case 3:
+                    $destino="index_editores.php";
+                break;
+                case 4:
+                    $destino="index_suscriptores.php";
+                break;
+                default:   
+                    $destino="index.php";
+                break;
+            }
+             ?>
+             <h2><a class='enlace' href="<?php echo $destino;?>">Volver</a></h2>
+        </div>
     </body>
 </html>

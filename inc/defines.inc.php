@@ -14,10 +14,12 @@ define("NOMBRE_INCORRECTO", -207);//El nombre no es correcto (No puede empezar p
 define("APELLIDO_INCORRECTO", -208);//El apellido no es correcto (No puede empezar por números,sí puede contener espacios en blanco y no puede contener caracteres especiales)
 define("EMAIL_INCORRECTO", -209);//El email es incorrecto
 define("PASS_DIFERENTES", -210);//Debe introducir las dos contraseñas iguales
+define("NICK_INCORRECTO", -211);//El Nick no es válido
+define("ADMIN_NO_PERMISOS", -212);//El administrador no tiene permisos para modificar a otro administrador
 
 define("USER_CORRECTO", -301); //usuario registrado correcto
 define("MODIF_USER_CORRECTO", -304);//usuario modificado correcto
-define("USER_INCORRECTO", -303); //usuario registrado incorrecto
+define("USER_INCORRECTO", -303); //usuario registrado incorrecto.Faltan datos
 define("SESION_INICIADA", -302); //usuario registrado correcto
 define("PASS_INCORRECTO", -305);  // Contraseña incorrecta
 define("USER_EXISTE", -300); //usuario que ya estaba registrado
@@ -34,6 +36,8 @@ $mensaje[APELLIDO_INCORRECTO]="El apellido no es correcto (No puede ser un campo
 $mensaje[EMAIL_REPE] = "Hay otro usuario con el mismo email.";
 $mensaje[EMAIL_INCORRECTO] = "El email es incorrecto.";
 $mensaje[PASS_DIFERENTES] = "Debe introducir las dos contraseñas iguales.";
+$mensaje[NICK_INCORRECTO] = "El Nick no es válido.";
+$mensaje[ADMIN_NO_PERMISOS] = "El administrador no tiene permisos para activar/desactivar a otro administrador.";
 
 $mensaje[USER_NOEXIS] = "El usuario no está registrado.";
 $mensaje[CLAVE_NOEXIS] = "La clave no es la correcta para el usuario solicitado.";
@@ -42,7 +46,7 @@ $mensaje[USER_EXIS] = "El DNI del usuario ya está registrado.";
 
 $mensaje[USER_CORRECTO] = "El usuario se ha registrado correctamente.";
 $mensaje[MODIF_USER_CORRECTO] = "El usuario se ha modificado correctamente.";
-$mensaje[USER_INCORRECTO] = "El usuario no se ha podido registrar.";
+$mensaje[USER_INCORRECTO] = "El usuario no se ha podido registrar.Faltan datos";
 $mensaje[USER_EXISTE]= "El usuario ya estaba registrado previamente.";
 $mensaje[SESION_INICIADA] = "Tienes otra sesión iniciada.";
 $mensaje[PASS_INCORRECTO] = "Contraseña incorrecta.<br>&nbsp La contraseña debe tener entre 4 y 8 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.";

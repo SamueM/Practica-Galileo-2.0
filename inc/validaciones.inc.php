@@ -30,7 +30,7 @@ function esFechaNac($fecha){
 /**
  * Método que devuelve la fecha de nacimiento en formato español dd/mm/aaaa
  * @param type $fecha está en aaaa-mm-dd
- * @return string
+ * @return string la fecha de nacimiento en formato español
  */
 function getFechaNac($fechaBD){
    // echo "La fecha del objeto-> ".$fecha;
@@ -46,20 +46,22 @@ function getFechaNac($fechaBD){
 /**
  * La contraseña debe tener al entre 4 y 8 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
  * NO puede tener otros símbolos.
- * @param type $pass
+ * @param type $pass contraseña que introdce el usuario por formlario
+ * @return true si cumple con los requisitos
  */
 function esContraseña($pass){
     if(preg_match("/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{4,8}$/",$pass)){
         return true;
     }else{
         return false;
-    }
+   }
 }
 /**
- * 
- * @param type $passNueva
- * @param type $passRep
- * @return boolean
+ * Función que compara la dos contraseñas que introduce el usuario por el formulario cuando tiene la opción de 
+ * modificar la contraseña
+ * @param type $passNueva contraseña nueva
+ * @param type $passRep repetición de la contraseña nueva
+ * @return boolean true si ambas coinciden. False si la contraseña repetida no es igual que la contraseña nueva
  */
 function validarContrasena($passNueva,$passRep){
     if($passNueva==$passRep){
@@ -69,7 +71,7 @@ function validarContrasena($passNueva,$passRep){
     }
 }
 /**
- * Definimos los mensajes de error
+ * Definimos los mensajes de error para darles un texto comprensible por el usuario
  * @global type $mensaje
  * @param type $num
  * @return type
@@ -102,16 +104,31 @@ function validacionExisteUsuario($num){
         return $mensaje[PASS_DIFERENTES];
     }elseif ($num==-305) {
         return $mensaje[PASS_INCORRECTO];
-    }  
+    }elseif ($num==-211) {
+        return $mensaje[NICK_INCORRECTO];
+    }elseif ($num==-212) {
+        return $mensaje[ADMIN_NO_PERMISOS];
+    }    
         
 }
 /**
  * Un numero de telefono es valido si tiene 9 digitos
  * @param type $num
- * @return boolean
+ * @return boolean true si cumple la expresión regular
  */
 function esTelefono($num){
     if(preg_match("/^[0-9]{9}$/",$num)){
+        return true;
+    }else{
+        return false;
+    }
+}
+/** 
+ * Se valida el nick que tiene que tener de 4 a 8 caracteres, letras ó números
+ * @param type $nick
+ */
+function esNick($nick){
+    if(preg_match("/^[A-Z \-áéíóúÁÉÍÓÚñÑ0-9.]{4,8}$/i",$nick)){
         return true;
     }else{
         return false;
