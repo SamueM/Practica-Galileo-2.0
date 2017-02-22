@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-02-2017 a las 11:57:32
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 22-02-2017 a las 18:50:44
+-- Versión del servidor: 10.1.10-MariaDB
+-- Versión de PHP: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bd_cursosgalileo`
 --
+CREATE DATABASE IF NOT EXISTS `bd_cursosgalileo` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `bd_cursosgalileo`;
 
 -- --------------------------------------------------------
 
@@ -42,7 +44,10 @@ CREATE TABLE `cursos` (
 
 INSERT INTO `cursos` (`id_curso`, `id_usuario`, `titulo`, `descripcion`, `fecha_creacion`, `activo`, `foto`) VALUES
 (1, 3, 'prueba 1', 'lorem ipsum amet', '2017-12-01', 'si', NULL),
-(2, 3, 'prueba 2', 'lorem ipsum amet', '2017-12-01', 'si', NULL);
+(2, 3, 'prueba 2', 'lorem ipsum amet', '2017-12-01', 'si', NULL),
+(3, 6, 'PHP', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'php.png'),
+(4, 7, 'Javascript', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'java.png'),
+(5, 8, 'Diseño de Interfaces', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'interfaces.png');
 
 -- --------------------------------------------------------
 
@@ -53,16 +58,20 @@ INSERT INTO `cursos` (`id_curso`, `id_usuario`, `titulo`, `descripcion`, `fecha_
 CREATE TABLE `inscritos_curso` (
   `id_usuario` int(11) NOT NULL,
   `id_curso` int(11) NOT NULL,
-  `favorito` enum('si','no') NOT NULL
+  `favorito` enum('si','no') NOT NULL,
+  `cursando` enum('si','no') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `inscritos_curso`
 --
 
-INSERT INTO `inscritos_curso` (`id_usuario`, `id_curso`, `favorito`) VALUES
-(3, 1, ''),
-(4, 1, '');
+INSERT INTO `inscritos_curso` (`id_usuario`, `id_curso`, `favorito`, `cursando`) VALUES
+(3, 1, 'no', 'si'),
+(4, 1, 'no', 'si'),
+(5, 3, 'si', 'si'),
+(5, 4, 'si', 'si'),
+(5, 5, 'si', 'si');
 
 -- --------------------------------------------------------
 
@@ -86,7 +95,18 @@ CREATE TABLE `temas` (
 --
 
 INSERT INTO `temas` (`id_tema`, `id_curso`, `titulo`, `descripcion`, `fecha_creacion`, `activo`, `url`, `foto`) VALUES
-(1, 1, 'Tema 1', 'lorem ipsum amet', '2017-02-24', 'si', 'pdf.1', NULL);
+(1, 1, 'Tema 1', 'lorem ipsum amet', '2017-02-24', 'si', 'pdf.1', NULL),
+(2, 1, 'Desarrollo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'tema2.pdf', NULL),
+(3, 1, 'Conclusion', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'tema3.pdf', NULL),
+(4, 2, 'Introduccion', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'php1.pdf', NULL),
+(5, 2, 'Desarrollo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'php2.pdf', NULL),
+(6, 2, 'Conclusion', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'php3.pdf', NULL),
+(7, 3, 'Introduccion', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'js1.pdf', NULL),
+(8, 3, 'Desarrollo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'js2.pdf', NULL),
+(9, 3, 'Conclusion', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'js3.pdf', NULL),
+(10, 4, 'Introduccion', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'interfaces1.pdf', NULL),
+(11, 4, 'Desarrollo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'interfaces2.pdf', NULL),
+(12, 4, 'Conclusion', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ull', '2017-02-20', 'si', 'interfaces3.pdf', NULL);
 
 -- --------------------------------------------------------
 
@@ -140,7 +160,10 @@ INSERT INTO `usuarios` (`id_usuario`, `id_tipo_usuario`, `nick`, `nombre`, `apel
 (2, 2, 'admin', 'Administrador', '', 'admin@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'no', NULL),
 (3, 3, 'profe1', 'Profe1', '', 'profe1@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'no', NULL),
 (4, 4, 'alumno1', 'Alumno1', '', 'alumno1@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'no', NULL),
-(5, 4, 'alumno2', 'Alumno2', '', 'alumno2@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'si', NULL);
+(5, 4, 'alumno2', 'Alumno2', '', 'alumno2@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'si', NULL),
+(6, 3, 'Nicolas', 'Nicolas', 'Fdez Arellano', 'nicolas@gmail.com', 983659832, '81dc9bdb52d04dc20036dbd8313ed055', '0000-00-00', 'si', 'si', NULL),
+(7, 3, 'David', 'David', 'Marín Álvarez', 'david@gmail.com', 626359585, '81dc9bdb52d04dc20036dbd8313ed055', '0000-00-00', 'si', 'si', NULL),
+(8, 3, 'Angel', 'Angel', 'T. Domínguez', 'angel@gmail.com', 987589647, '81dc9bdb52d04dc20036dbd8313ed055', '0000-00-00', 'si', 'si', NULL);
 
 -- --------------------------------------------------------
 
@@ -161,7 +184,15 @@ CREATE TABLE `votos` (
 
 INSERT INTO `votos` (`id_usuario`, `id_tema`, `voto`, `fecha`) VALUES
 (3, 1, 5, '2017-02-17'),
-(4, 1, 3, '2017-02-17');
+(4, 1, 3, '2017-02-17'),
+(5, 5, 5, '2017-02-20'),
+(5, 6, 5, '2017-02-20'),
+(5, 7, 5, '2017-02-20'),
+(5, 8, 5, '2017-02-20'),
+(5, 9, 5, '2017-02-20'),
+(5, 10, 4, '2017-02-20'),
+(5, 11, 1, '2017-02-20'),
+(5, 12, 2, '2017-02-20');
 
 --
 -- Índices para tablas volcadas
@@ -217,17 +248,17 @@ ALTER TABLE `votos`
 -- AUTO_INCREMENT de la tabla `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `temas`
 --
 ALTER TABLE `temas`
-  MODIFY `id_tema` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_tema` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Restricciones para tablas volcadas
 --

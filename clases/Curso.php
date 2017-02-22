@@ -429,12 +429,12 @@
 						 $conexion = $c->dameConexion();
 						 if(Curso::estoy_inscrito($id_usuario,$id_curso)){
 							 if(Curso::reinscribirme($id_usuario,$id_curso)){
-								 $consulta = "UPDATE inscritos_curso SET favorito='si' WHERE id_usuario=".$id_usuario." and id_curso=".$id_curso." ;" ;
+								 $consulta = "UPDATE inscritos_curso SET cursando='si' WHERE id_usuario=".$id_usuario." and id_curso=".$id_curso." ;" ;
 							 } else {
-								  $consulta = "UPDATE inscritos_curso SET favorito='no' WHERE id_usuario=".$id_usuario." and id_curso=".$id_curso." ;" ; /*CAMBIAR FAVORITO POR INSCRITO EN AMBAS FUNCIONES*/
-							 }							 
+								  $consulta = "UPDATE inscritos_curso SET cursando='no' WHERE id_usuario=".$id_usuario." and id_curso=".$id_curso." ;" ;
+							 }
 						 } else {
-							 $consulta = "INSERT into inscritos_curso(`id_usuario`, `id_curso`, `favorito`) VALUES (".$id_usuario.",".$id_curso.",'si') ;" ;
+							 $consulta = "INSERT into inscritos_curso(`id_usuario`, `id_curso`, `favorito`,`cursando`) VALUES (".$id_usuario.",".$id_curso.",'si','si') ;" ;
 						 }
 						 if($conexion->query($consulta)){
 							 return 1 ;
@@ -450,7 +450,7 @@
 					 {
 						 $c = Connection::dameInstancia();
 						 $conexion = $c->dameConexion();
-						 $consulta = "SELECT * FROM `inscritos_curso` where id_usuario=".$id_usuario." and id_curso=".$id_curso." and favorito='si';" ;
+						 $consulta = "SELECT * FROM `inscritos_curso` where id_usuario=".$id_usuario." and id_curso=".$id_curso." ;" ;
 						 $resultado = $conexion->query($consulta);
 						 if($resultado->num_rows > 0){
 							 return 1 ;
@@ -461,7 +461,7 @@
 					 private static function reinscribirme($id_usuario,$id_curso){
 						 $c = Connection::dameInstancia();
 						 $conexion = $c->dameConexion();
-						 $consulta = "SELECT * FROM `inscritos_curso` where id_usuario=".$id_usuario." and id_curso=".$id_curso." and favorito='no';" ;
+						 $consulta = "SELECT * FROM `inscritos_curso` where id_usuario=".$id_usuario." and id_curso=".$id_curso." and cursando='no';" ;
 						 $resultado = $conexion->query($consulta);
 						 if($resultado->num_rows > 0){
 							 return 1 ;

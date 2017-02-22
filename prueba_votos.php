@@ -68,7 +68,7 @@ if(!isset($_GET['curso'])){
     <p style="width:40%; display:inline;">Aqui Probaremos desinscribir en un curso:
         <ul id="desinscribir_curso">
           <?php
-            $consulta = "select * from cursos, inscritos_curso where inscritos_curso.id_usuario=5 and cursos.id_curso=inscritos_curso.id_curso and favorito='si';" ;
+            $consulta = "select * from cursos, inscritos_curso where inscritos_curso.id_usuario=5 and cursos.id_curso=inscritos_curso.id_curso and cursando='si';" ;
             $resultado = $conexion->query($consulta);
             while($row = $resultado->fetch_assoc()){
               // EXISTEN MUCHAS MANERAS DE COGER EL CODIGO DEL ALUMNO
@@ -205,7 +205,6 @@ if(!isset($_GET['curso'])){
                    console.log(data);
                     if(data==1){
                       alert("OPERACION REALIZADA CORREXTAMENTE");
-                      registro.html("");
                       $("#inscribir_curso").append(registro);
                     } else {
                       alert("FALLO!");

@@ -24,6 +24,7 @@ and open the template in the editor.
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Página Administrador</title>
         <link type="text/css" rel="stylesheet" href="../css/font-awesome.css" />
+        <link rel="stylesheet" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" href="../css/main.css" />
         <link rel="stylesheet" href="../css/main_perfil.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,16 +32,18 @@ and open the template in the editor.
         <script src="../jquery/jquery-3.1.1.min.js" ></script>
         <script type="text/javascript" src="../jquery/jquery_menu_desplegable.js"></script>
         <style>
-            table{
-                border-collapse: collapse;
-            }
-            table, th, td {
-                border: 1px solid black;
+            .tablas-administracion{
+               margin-top: 2rem;
+               margin-bottom: 2rem;
+             }
+             h2 {
+               margin-top: 2rem;
+               margin-bottom: 2rem;
              }
         </style>
     </head>
     <body>
-        
+
          <header>
     		<nav>
     			<ul id='lista_principal'>
@@ -65,29 +68,29 @@ and open the template in the editor.
                  <li><a href="index_administradores.php?pagina=3">Desactivar usuarios</a></li>
                  <li><a href="modificaTusDatos.php">Editar tus datos</a></li>
                  <li><a href="">Cursos</a></li>
-                
+
           </ul>
         </div>
-     
+
     	</header>
         <div id="contenido">
             <?php
             if(isset($_GET['pagina'])){
             $recibe_pagina=$_GET['pagina'];
-        
-            switch ($recibe_pagina){ 
+
+            switch ($recibe_pagina){
                 case 1:
-                  include ("solicita_edicion.php"); 
+                  include ("solicita_edicion.php");
                break;
                case 2:
-                 include ("activar_usuarios.php"); 
-               break; 
+                 include ("activar_usuarios.php");
+               break;
                case 3:
-                 include ("desactivar_usuarios.php"); 
-               break; 
+                 include ("desactivar_usuarios.php");
+               break;
                 case 4:
-                 include ("modificaTusDatos.php"); 
-               break; 
+                 include ("modificaTusDatos.php");
+               break;
                default:
                include ("solicita_edicion.php");//aqui incluyes la pagina que por defecto aparecera si no se leccionan alguna de las otras
                }
@@ -96,8 +99,8 @@ and open the template in the editor.
                     echo "<p style='color:red'>".validacionExisteUsuario($_REQUEST['num'])."</p>";
                }
             ?>
-        </div> 
-         
+        </div>
+
          <footer>
     	<div id='conocenos'>
     	<h3>Conócenos</h3>
