@@ -30,7 +30,7 @@ and open the template in the editor.
     		<nav>
     			<ul id='lista_principal'>
     				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
-    				<li id='perfil'><img src="" alt="">Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
+                                <li id='perfil'><img src="<?php echo $foto;?>" width="50px" alt="">Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
     					<ul class='perfil' id='perfil_usuario'>
     						<li>Cursos</li>
     						<li>Gestión de usuarios</li>
