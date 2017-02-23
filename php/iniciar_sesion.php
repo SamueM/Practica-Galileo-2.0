@@ -47,7 +47,7 @@ require_once '../inc/validaciones.inc.php';
         <div class="top-content">
 
             <div class="inner-bg">
-                <div class="container1">
+                <div class="container">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
                             <h1>Inicia Sesión</h1>

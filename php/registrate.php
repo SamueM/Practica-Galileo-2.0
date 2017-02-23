@@ -85,38 +85,38 @@ require_once '../clases/Usuario.php';
                         		</div>
                             </div>
                             <div class="form-bottom">
-			                    <form role="form" action="grabar_registro_header.php" method="post" class="login-form">
+			                    <form enctype="multipart/form-data" role="form" action="grabar_registro_header.php" method="post" class="login-form" autocomplete="off">
 			                    	<div class="form-group">
 			                    		<label class="" for="form-username">Nick</label>
-			                        	<input type="text" name="nick" placeholder="Nick..." class="form-username form-control" id="form-username">
+			                        	<input type="text" name="nick" placeholder="Nick..." class="form-username form-control" id="form-username" autofocus="on" required="required"/>
+			                      </div>
+                            <div class="form-group">
+			                        	<label class="" for="form-password">Contraseña</label>
+			                        	<input type="password" name="pass" autocomplete='on' placeholder="Contraseña..." class="form-password form-control" id="form-password" required="required"/>
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Nombre</label>
-			                        	<input type="text" name="nombre" placeholder="Nombre..." class="form-username form-control" id="form-username">
+			                        	<input type="text" name="nombre" placeholder="Nombre..." class="form-username form-control" id="form-username" required="required"/>
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Apellidos</label>
-			                        	<input type="text" name="apellidos" placeholder="Apellidos..." class="form-username form-control" id="form-username">
+			                        	<input type="text" name="apellidos" placeholder="Apellidos..." class="form-username form-control" id="form-username" required="required"/>
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Email</label>
-			                        	<input type="email" name="mail" placeholder="Email..." class="form-username form-control" id="form-username">
+			                        	<input type="email" name="mail" placeholder="Email..." class="form-username form-control" id="form-username" required="required"/>
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Teléfono</label>
-			                        	<input type="text" name="tfno" placeholder="Teléfono..." class="form-username form-control" id="form-username">
-			                      </div>
-			                      <div class="form-group">
-			                        	<label class="" for="form-password">Contraseña</label>
-			                        	<input type="password" name="pass" placeholder="Contraseña..." class="form-password form-control" id="form-password">
+			                        	<input type="text" name="tfno" placeholder="Teléfono..." class="form-username form-control" id="form-username"/>
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Fecha de nacimiento</label>
-			                        	<input type="date" name="fecha_nac" placeholder="Fecha de nacimiento..." class="form-username form-control" id="form-username">
+			                        	<input type="date" name="fecha_nac" placeholder="Fecha de nacimiento..." class="form-username form-control" id="form-username"/>
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Foto de perfil</label>
-			                        	<input type="file" name="foto" placeholder="Añade una foto..." class="form-username form-control" id="form-username">
+			                        	<input type="file" name="foto"/><input type="hidden" name="lim_tamano" value="120000"/>
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">¿Quieres ser editor?</label>
