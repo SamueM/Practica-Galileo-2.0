@@ -1,7 +1,12 @@
 #slider {
 	padding: 20% 0;
+	background: url('../img/programador.jpg');
+	width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /*background-position: center center;*/
+	background-attachment: fixed;
 }
-
 
 #perfil_usuario {
 	position: absolute;
@@ -21,29 +26,43 @@
 	font-size: 20px;
 }
 
-#perfil, #inicio a {
+#perfil1, #inicio a {
 	color: white;
-	font-size: 25px;
+	font-size: 20px;
 	cursor: pointer;
 }
-li#inicio,li#perfil {
-	padding: 20px 15px;
+
+#lista_principal {
+	display: flex;
+	justify-content: space-between;
 }
 
-li#perfil:hover,li#perfil:hover i,li#inicio a:hover,li#inicio a:hover i {
+li#inicio,li#perfil1 {
+	margin: 0;
+	padding: 15px 25px;
+	flex: 0 1 auto;
+}
+
+li#perfil1:hover,li#perfil1:hover i,li#inicio a:hover,li#inicio a:hover i {
 	color: grey;
+}
+
+#perfil1 img {
+	width: 40px;
+	vertical-align: middle;
+	padding-right: 10px;
 }
 
 .perfil li {
 	padding: 5px;
 	cursor: pointer;
-	font-size: 25px;
+	font-size: 20px;
 }
 
 .perfil li a {
 	color: white;
 	text-decoration: none;
-	font-size: 25px;
+	font-size: 20px;
 }
 
 #navegacion_secundaria {
@@ -76,46 +95,11 @@ li#perfil:hover,li#perfil:hover i,li#inicio a:hover,li#inicio a:hover i {
 	font-size: 25px;
 }
 
-#usuario {
-	display: flex;
-	flex-flow: wrap;
-	justify-content: space-around;
-	font-size: 25px;
-	margin-top: 20px;
-	align-items: center;
-}
-
-#imagen, #info_perfil, #menu_lateral {
-	padding: 5%;
-}
-
-#imagen {
-	flex: 1 1 auto;
-	min-width: 200px;
-	max-width: 300px;
-}
-#info_perfil {}
-#menu_lateral {}
-
-#imagen img {
-	width: 99%;
-}
-
-#info_perfil ul {
-	margin-top: 10px;
-}
-
-#info_perfil li {
-	padding: 5px;
-}
-
-#alumno h2 {
-	font-size: 35px;
-	border-bottom: 1px solid #476E9E;
-}
-
-#menu_lateral h3 {
+#usuario h3 {
 	color: #7892c2;
+	font-size: 35px;
+	padding: 20px;
+	text-align: center;
 }
 
 a.enlace { margin: 1em 0;}

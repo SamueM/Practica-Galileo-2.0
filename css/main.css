@@ -11,7 +11,7 @@ ul {list-style: none;}
    ========================================================================= */
 html {
 	font-family: 'Pathway Gothic One', Helvetica, sans-serif;
-	min-width: 320px;
+	min-width: 330px;
 }
 
 body{
@@ -323,10 +323,6 @@ a.enlace:hover {
 .error {
 	color: red;
 	text-align: center;
-}
-
-#inicio {
-	margin-bottom: 30px;
 }
 
 /* CURSOS POPULARES

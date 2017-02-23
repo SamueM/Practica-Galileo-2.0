@@ -30,7 +30,7 @@ and open the template in the editor.
     		<nav>
     			<ul id='lista_principal'>
     				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
-                                <li id='perfil'><img src="<?php echo $foto;?>" width="50px" alt="">Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
+            <li id='perfil1'><a href="modificaTusDatos.php"><img src="<?php echo $foto;?>" alt=""></a> Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
     					<ul class='perfil' id='perfil_usuario'>
     						<li>Cursos</li>
     						<li>Gestión de usuarios</li>
@@ -60,36 +60,14 @@ and open the template in the editor.
     	</header>
 
       <div id='usuario'>
-    		<div id='imagen'>
-    			<a href="modificaTusDatos.php"><?php echo '<img src="'.$foto.'" />'?></a>
-    		</div>
-    		<div id='info_perfil'>
-          <?php
-          echo '<h2>'.$_SESSION['datos']['nombre'].'</h2>';
-          foreach ($_SESSION['datos'] as $key => $value) {
-              /*
-               * Vamos a imprimir la fecha de nacimiento en formato válido
-               */
-              if($key=='fecha_nac'){//del archivo '../inc/validaciones.inc.php'
-                  $fecha=getFechaNac($value);
-                  echo $key.": ".$fecha."<br>";
-              }else{
-                  echo $key.": ".$value."<br>";
-              }
-          }
+        <?php
 
-          ?>
-    		</div>
-    		<div id='menu_lateral'>
-          <?php
-
-          if($_SESSION['datos']['solicita_edicion']=='no'){
-            echo '<a class="enlace" href="convierteteEnEditor_header.php" class="button">¡QUIERO SER EDITOR!</a>';
-          } else {
-            echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
-          }
-          ?>
-    		</div>
+        if($_SESSION['datos']['solicita_edicion']=='no'){
+          echo '<a class="enlace" href="convierteteEnEditor_header.php" class="button">¡QUIERO SER EDITOR!</a>';
+        } else {
+          echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
+        }
+        ?>
     	</div>
 
       <footer>

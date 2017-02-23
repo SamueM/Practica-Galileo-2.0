@@ -8,13 +8,13 @@ require_once '../inc/validaciones.inc.php';
 require_once '../clases/Usuario.php';
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<html lang="en">
 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Formulario de Registro</title>
 
         <!-- CSS -->
@@ -123,9 +123,8 @@ require_once '../clases/Usuario.php';
 			                        	<input type="radio" name="editor" value="no" checked="checked"/>No
                                 <input type="radio" name="editor" value="si"/>Si
                             </div>
-			                        <button type="submit" name='enviar' class="btn">¡Regístrate!</button>
+			                        <button type="submit" class="btn">¡Regístrate!</button>
                               <button type="reset" class='btn'>Borrar</button>
-                              <button type="button" onclick=" location.href='../index.php' " class="btn">Inicio</button>
 			                    </form>
 		                    </div>
                         </div>
