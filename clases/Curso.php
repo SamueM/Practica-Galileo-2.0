@@ -25,6 +25,18 @@
    		   		}
    		   }
 
+				 public static function existeIdCurso($id){
+					  $c = Connection::dameInstancia();
+					  $conexion = $c->dameConexion();
+   		   		$sql="SELECT * FROM cursos WHERE id_curso='".$id."'";
+						$resul = $conexion->query($sql);
+	   				if($resul->num_rows==0){
+	   					return false;
+	   				}else{
+             return true;
+            }
+   		   }
+
    		   public function addCurso($id_usuario,$title,$descri,$date,$active,$img){  //mkdir("/ruta/a/mi/directorio", 0700);  Crear un directorio
                  echo $title;
                  echo "<h3>Prueba</h3>";
@@ -277,6 +289,28 @@
                        echo $this->c->errno." -> ".$this->c->error;
                   }
          }
+				 public function get_descripcion($id){
+               $sql="SELECT descripcion FROM ".$this->tabla." WHERE id_curso='".$id."'";
+                  if($this->c->real_query($sql)){
+                        if($resul=$this->c->store_result()){
+                           $mostrar=$resul->fetch_assoc();
+                           return $mostrar["descripcion"];
+                        }
+                  }else{
+                       echo $this->c->errno." -> ".$this->c->error;
+                  }
+         }
+				 public function get_imagen($id){
+               $sql="SELECT foto FROM ".$this->tabla." WHERE id_curso='".$id."'";
+                  if($this->c->real_query($sql)){
+                        if($resul=$this->c->store_result()){
+                           $mostrar=$resul->fetch_assoc();
+                           return $mostrar["foto"];
+                        }
+                  }else{
+                       echo $this->c->errno." -> ".$this->c->error;
+                  }
+         }
 
           // Autor: Samuel M. 14/02/2017  -  17/02/2017 - 20/02/2017 //
           // Metodo bucarNombre //
@@ -300,6 +334,24 @@
               }
           }
           // Metodo bucarNombre //
+					/** visualizar_temas: funcion que devuelve un array con los temas
+							del curso que le hayamos pasado como parametro.
+					*/
+          public function visualizar_temas($id_curso){
+              $c = Connection::dameInstancia();
+              $conexion = $c->dameConexion();
+              $consulta = "Select temas.id_tema,temas.titulo, temas.descripcion,temas.url,cursos.titulo as ruta from temas, cursos where temas.id_curso=cursos.id_curso and cursos.id_curso=".$id_curso." and temas.activo='si' ;" ;
+              $resultado = $conexion->query($consulta);
+              if($resultado->num_rows ==0 ){
+                  return 0 ;
+              } else {
+                  while($row = $resultado->fetch_assoc()){
+                      $rows[] = $row ;
+                  }
+                  return $rows ;
+              }
+          }
+          // Metodo visualizar_temas //
           /** get_temas: funcion estatica que devuelve un array con los temas
 							del curso que le hayamos pasado como parametro, Formateado en JSON.
 					*/
@@ -362,12 +414,24 @@
           public static function valoracion_tema($id_tema){
               $c = Connection::dameInstancia();
               $conexion = $c->dameConexion();
-              $consulta = "SELECT avg(voto) as voto  from votos, inscritos_curso where votos.id_usuario=inscritos_curso.id_usuario and id_tema=".$id_tema." group by id_tema ;" ;
+              $consulta = "SELECT avg(voto) as voto  from votos where id_tema=".$id_tema." group by id_tema ;" ;
               $resultado = $conexion->query($consulta);
               $row = $resultado->fetch_assoc();
-              return $row['voto'] ;
+              return round($row['voto']) ; // round() ?
           }
           // Valoracion de un tema //
+					/** Valoracion curso: devuelve la media de todos los temas de un Curso
+							el cual se lo pasaremos como parametro.
+					*/
+					public static function valoracion_curso($id_curso){
+              $c = Connection::dameInstancia();
+              $conexion = $c->dameConexion();
+              $consulta = "SELECT avg(voto) as voto from votos,temas,cursos where cursos.id_curso=temas.id_curso and temas.id_tema=votos.id_tema and cursos.id_curso=".$id_curso." group by cursos.id_curso" ;
+              $resultado = $conexion->query($consulta);
+              $row = $resultado->fetch_assoc();
+              return round($row['voto']) ; // round() ?
+          }
+					// Valoracion curso //
           /** Activar - desactivar Tema: activa y desactiva un tema */
           public static function modificar_disponibilidad_tema($id_tema,$valor_actual){
               $c = Connection::dameInstancia();
@@ -421,9 +485,9 @@
 					 }
 					 // Imprimir la tarjeta del curso en el inicio //
 					 /** activar_desactivar_curso($id_usuario,$id_curso): dependiendo del parametro que
-					 		le pasemos inscribira a un usuario en un curso o desactivara su inscripcion.
+					 		le pasemos inscribira a un usuario en un curso o desactivara su INSCRIPCION.
 					 */
-					 public static function activar_desactivar_curso($id_usuario,$id_curso)
+					 public static function activar_desactivar_inscripcion($id_usuario,$id_curso)
 					 {
 						 $c = Connection::dameInstancia();
 						 $conexion = $c->dameConexion();
@@ -470,6 +534,45 @@
 						 }
 					 }
 						/* ¿Estoy inscrito? */
+						/** ultimos_temas_subidos(): selecciona los cursos cuyos temas hayan
+								sido subidos en ultimo lugar.
+						*/
+						public static function ultimos_temas_subidos()
+ 					 {
+ 						 $c = Connection::dameInstancia();
+ 						 $conexion = $c->dameConexion();
+ 						 $consulta = "SELECT cursos.titulo as titulo_curso, temas.titulo, cursos.id_curso, cursos.foto, concat(usuarios.nombre,' ',usuarios.apellidos) as nombre_tutor FROM `cursos`, `temas`, `usuarios` where cursos.id_curso=temas.id_curso and usuarios.id_usuario=cursos.id_usuario order by temas.fecha_creacion DESC";
+						 $resultado = $conexion->query($consulta);
+						 $titulo_antiguo = "" ;
+						 $numero_max = 3 ;
+						 while ($row = $resultado->fetch_assoc()) {
+								if($titulo_antiguo==""){
+									$titulo_antiguo = $row['titulo_curso'] ;
+									$rows[] = $row ;
+									$numero_max-- ;
+								} else if($titulo_antiguo!=$row['titulo_curso']) {
+									$rows[] = $row ;
+									$numero_max-- ;
+								}
+								if($numero_max==0){
+									break;
+								}
+						 }
+						 Curso::imprimir_ultimos_temas_subidos($rows);
+ 					 }
+					 private static function imprimir_ultimos_temas_subidos($rows)
+					{
+						foreach ($rows as $key => $value) {
+							echo "<li><div class='imagen'><img src='./img/".$value['foto']."' /></div>
+				            <div class='modulo'><h2>".$value['titulo_curso']."</h2>
+				            <div class='descripcion'><ul>
+							      <li>Autor: ".$value['nombre_tutor']."</li><!--<li>IES Galileo</li>-->
+										<li>Tema: ".$value['titulo']."</li>
+										</ul></div><p class='descargar'><a href='visorCurso.php?curso=".$value['id_curso']."' class='boton rojo'>DESCARGAR</a>
+					          </div></li>";
+						}
+					}
+						/* Ultimos temas subidos */
 
 	}
 ?>

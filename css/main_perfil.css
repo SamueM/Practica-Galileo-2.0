@@ -156,6 +156,18 @@ a.enlace:active {
 	padding-left: 5px;
 }
 
+.nota_numerica {
+	margin-top: 0.5rem;
+	font-weight: bold ;
+	text-align: center;
+	font-size: 1.2rem;
+	width: 96%; /* PEGUNTAR PORQUE LA IMAGEN DEL CURSO ESTA AL 99% */
+}
+.sangrado {
+	margin-left: 2rem;
+}
+
+
 /* CURSOS
    ========================================================================= */
 

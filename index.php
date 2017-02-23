@@ -113,7 +113,7 @@ Editado por Miguel Costa 14/02/2017 13:00
 	<section class='ultimosSubidos'>
 		<h2>Últimos temas subidos</h2>
 		<ul class="temas_flex">
-			<li>
+			<!--<li>
                 <div class='imagen'><img src="./img/php.png" /></div>
                 <div class='modulo'>
                 	<h2>PHP</h2>
@@ -155,7 +155,11 @@ Editado por Miguel Costa 14/02/2017 13:00
 		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
 	            </div>
 			</li>
-        </ul>
+		-->
+			<?php
+				Curso::ultimos_temas_subidos();
+			?>
+			</ul>
 	</section>
 
 	<footer>

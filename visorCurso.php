@@ -2,10 +2,13 @@
 require_once 'inc/funciones.php';
 sesion();
 require_once 'inc/validaciones.inc.php';
+include_once("clases/Curso.php");
 if(!isset($_GET['curso'])){
     header("Location:index.php");
+} else if(!Curso::existeIdCurso($_GET['curso'])){
+    header("Location:index.php");
 }
-include_once("clases/Curso.php");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,8 +44,8 @@ include_once("clases/Curso.php");
 	<header id="header" class="">
 		<nav id='navegacion'>
 			<ul id='lista_principal'>
-				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
-				<li id='editor'><a href="" title=""><i class="fa fa-pencil" aria-hidden="true"></i>Conviértete en editor</a></li>
+				<li id='inicio'><a href="index.php" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+				<!--<li id='editor'><a href="" title=""><i class="fa fa-pencil" aria-hidden="true"></i>Conviértete en editor</a></li>-->
 				<li id='perfil'><a href=""><img src="" alt=""><i class="fa fa-user" aria-hidden="true"></i>Miguel Costa<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 					<ul class='perfil' id='perfil_usuario'>
 						<li>Mis cursos</li>
@@ -70,19 +73,41 @@ include_once("clases/Curso.php");
 	</header>
 	<article id='curso'>
 		<div class='imagen'>
-			<img src="img/php.png" alt="">
+      <?php
+        $curso = new Curso();
+      ?>
+			<img <?php echo "src='img_cursos/".$curso->get_imagen($_GET['curso'])."'" ; ?> alt="">
 			<div class='estrellas'></div>
+      <?php
+        echo "<p class='nota_numerica'> Nota media: ".Curso::valoracion_curso($_GET['curso'])."/5 </p>";
+
+      ?>
 		</div>
 		<div id='descripcion_curso'>
-			<h2>PHP</h2>
-			 	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ullamcorper. Suspendisse massa arcu, eleifend id gravida scelerisque, placerat non diam. Nunc posuere lectus neque, ac semper magna molestie in. Integer tristique, felis eu interdum consequat, nulla odio congue enim, eget posuere orci neque ut ligula. Aenean at auctor elit. Vivamus tristique elit in nisl lacinia, eu tempor libero placerat. Vestibulum pulvinar augue sit amet quam dapibus, lacinia ultricies justo blandit. Vivamus a ultricies massa. Mauris vulputate volutpat bibendum.</p>
+			<h2><?php echo $curso->nombreCurso($_GET['curso']) ;?></h2>
+			 	<p><?php echo $curso->get_descripcion($_GET['curso']) ;?></p>
 			<ul id='temas'>
-				<li><h2 class='titulo_tema'>TEMA 1. INTRODUCCIÓN</h2>
-				<p class='descripcion_tema'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ullamcorper. Suspendisse massa arcu, eleifend id gravida scelerisque, placerat non diam. Nunc posuere lectus neque, ac semper magna molestie in. Integer tristique, felis eu interdum consequat, nulla odio congue enim, eget posuere orci neque ut ligula. Aenean at auctor elit. Vivamus tristique elit in nisl lacinia, eu tempor libero placerat. Vestibulum pulvinar augue sit amet quam dapibus, lacinia ultricies justo blandit. Vivamus a ultricies massa. Mauris vulputate volutpat bibendum.<a href=""><i class="fa fa-download" aria-hidden="true"></i></a></p></li>
+        <?php
+            $temas = $curso->visualizar_temas($_GET['curso']);
+            foreach ($temas as $key => $value) {
+              echo "<li>
+              <h2 class='titulo_tema'>TEMA ".($key+1).". ".$value['titulo']."</h2>
+              <div class='sangrado descripcion_tema'>
+      				<p class=''> ".$value['descripcion']."
+              <a href='cursos/".$value['ruta']."/".$value['url']."' >
+                <i class='fa fa-download' aria-hidden='true'></i>
+              </a>
+              <div class='estrellas_".$value['id_tema']."'></div>
+              </p>
+              </div>
+              </li>";
+            }
+        ?>
+        <!--
 				<li><h2 class='titulo_tema'>TEMA 2. DESARROLLO</h2>
 				<p class='descripcion_tema'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ullamcorper. Suspendisse massa arcu, eleifend id gravida scelerisque, placerat non diam. Nunc posuere lectus neque, ac semper magna molestie in. Integer tristique, felis eu interdum consequat, nulla odio congue enim, eget posuere orci neque ut ligula. Aenean at auctor elit. Vivamus tristique elit in nisl lacinia, eu tempor libero placerat. Vestibulum pulvinar augue sit amet quam dapibus, lacinia ultricies justo blandit. Vivamus a ultricies massa. Mauris vulputate volutpat bibendum.<a href=""><i class="fa fa-download" aria-hidden="true"></i></a></p></li>
 				<li><h2 class='titulo_tema'>TEMA 3. CONCLUSIÓN</h2>
-				<p class='descripcion_tema'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ullamcorper. Suspendisse massa arcu, eleifend id gravida scelerisque, placerat non diam. Nunc posuere lectus neque, ac semper magna molestie in. Integer tristique, felis eu interdum consequat, nulla odio congue enim, eget posuere orci neque ut ligula. Aenean at auctor elit. Vivamus tristique elit in nisl lacinia, eu tempor libero placerat. Vestibulum pulvinar augue sit amet quam dapibus, lacinia ultricies justo blandit. Vivamus a ultricies massa. Mauris vulputate volutpat bibendum.<a href=""><i class="fa fa-download" aria-hidden="true"></i></a></p></li>
+				<p class='descripcion_tema'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ullamcorper. Suspendisse massa arcu, eleifend id gravida scelerisque, placerat non diam. Nunc posuere lectus neque, ac semper magna molestie in. Integer tristique, felis eu interdum consequat, nulla odio congue enim, eget posuere orci neque ut ligula. Aenean at auctor elit. Vivamus tristique elit in nisl lacinia, eu tempor libero placerat. Vestibulum pulvinar augue sit amet quam dapibus, lacinia ultricies justo blandit. Vivamus a ultricies massa. Mauris vulputate volutpat bibendum.<a href=""><i class="fa fa-download" aria-hidden="true"></i></a></p></li>-->
 			</ul>
 		</div>
 	</article>
@@ -92,20 +117,30 @@ include_once("clases/Curso.php");
 	<script type="text/javascript">
 
 			 $(document).ready(function(){
-					 // Imprimir scripts diferentes cuando estes logueado //
-
+					 // Imprimir el script de la media del curso //
+           $('.estrellas').starrr({
+               rating: <?php echo Curso::valoracion_curso($_GET['curso']) ;?>,
+               max: 5,
+               readOnly: 'true',
+               change:function(e,valor){
+                 // No va a cambiar //
+               }
+           });
+           //  Imprimir el script de la media del curso //
 					 <?php
 							if( isset($_SESSION['datos']['id_usuario']) ){
 									// Haremos la prueba con el id 3
-									$editor = Curso::soy_editor_de_este_curso(3,$_GET['curos']);
+									$editor = Curso::soy_editor_de_este_curso(3,$_GET['curso']);
+                  // Las estrellas que se visualizaran cuando se inicie sesion
+                  // son las que uno ha votado
 									echo "$('.estrellas').starrr({
-											rating: ".Curso::valoracion_tema($_GET['curos']).", //Estrellas se estaran iluminadas en un principio
+											rating: ".Curso::valoracion_tema($_GET['curso']).", //Estrellas se estaran iluminadas en un principio
 											max: 5, // Maximo de estrellas
 											readOnly: '".$editor."', // Solo Lectura
 											change:function(e,valor){
 													// Cuando cambie el valor de las estrellas Haz X
 													$.ajax({
-															data: {'usuario' : ".$_SESSION['datos']['id_usuario'].", 'tema': ".$_GET['curos'].", 'voto': valor},
+															data: {'usuario' : ".$_SESSION['datos']['id_usuario'].", 'tema': ".$_GET['curso'].", 'voto': valor},
 															type: 'POST',
 															url: 'inc/funciones_AJAX.php?codigoFuncion=1',
 													})
@@ -122,8 +157,9 @@ include_once("clases/Curso.php");
 											}
 									});" ;
 							} else {
-									echo "$('.estrellas').starrr({
-											rating: ".Curso::valoracion_tema($_GET['curso']).", //Estrellas se estaran iluminadas en un principio
+                foreach ($temas as $key => $value) {
+                  echo "$('.estrellas_".$value['id_tema']."').starrr({
+											rating: ".Curso::valoracion_tema($value['id_tema']).", //Estrellas se estaran iluminadas en un principio
 											max: 5, // Maximo de estrellas
 											readOnly: 'true', // Solo Lectura
 											change:function(e,valor){
@@ -145,6 +181,7 @@ include_once("clases/Curso.php");
 													});
 											}
 									});" ;
+                }
 							}
 
 

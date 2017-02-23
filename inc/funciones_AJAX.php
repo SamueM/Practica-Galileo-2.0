@@ -54,7 +54,7 @@
             case '4':
                 $id_usuario = $_POST['id_usuario'];
                 $id_curso = $_POST['id_curso'];
-                echo Curso::activar_desactivar_curso($id_usuario,$id_curso);
+                echo Curso::activar_desactivar_inscripcion($id_usuario,$id_curso);
             break;
             // --- Llamar a la funcion activar y desactivar curso --- //
             // --- --- --- --- --- --- //
