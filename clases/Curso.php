@@ -58,62 +58,67 @@
                 }
 
    		   }
-            public function guardarImgCurso($nick,$archivo_foto){
-                   $foto_name = $archivo_foto['name'];
-                   $foto_type=$archivo_foto['type'];
-                  $foto_tmp_name=$archivo_foto['tmp_name'];
-                  $foto_size=$archivo_foto['size'];
-                  if($foto_type=="image/jpeg" || $foto_type=="image/pjpeg"){
-                     $extension="jpg";
-                }elseif ($foto_type=="image/png") {
-                     $extension="png";
-                }else{
-                     $extension=NULL;
-                }
-               $ruta="NULL";
-              $rutaBD="NULL";
-             $lugar='../img_Cursos/';
-            //Validamos la fotografía
-           if($foto_name!=NULL AND $extension!=NULL AND $foto_size!=0){
-               if($foto_size<=$_REQUEST['lim_tamano']){
-                   $nombre_foto=$nick.".".$extension;
-                   $ruta=$lugar.$nombre_foto;
-                    //Guardamos la foto en la carpeta del proyecto "fotos" con su nick Ejemplo: Ana.jpg
-                   move_uploaded_file($foto_tmp_name, $ruta);
-                   //Declaramos la ruta de la imagen en la base de datos
-                  $rutaBD=$nombre_foto;
-             }
-           }else{//en caso de que el usuario no inserte imagen
-             $rutaOrigen="../fotos/sinFotoBlue.png";
-             $rutaFinal=$lugar.$nick.".png";
-               copy($rutaOrigen, $rutaFinal);
-             $rutaBD=$nick.".png";
-          }
-             return $rutaBD;
-         }
+				 public function guardarImgCurso($nick,$archivo_foto){
+								$foto_name = $archivo_foto['name'];
+								$foto_type=$archivo_foto['type'];
+							 $foto_tmp_name=$archivo_foto['tmp_name'];
+							 $foto_size=$archivo_foto['size'];
+							 if($foto_type=="image/jpeg" || $foto_type=="image/pjpeg"){
+									$extension="jpg";
+						 }elseif ($foto_type=="image/png") {
+									$extension="png";
+						 }else{
+									$extension=NULL;
+						 }
+						$ruta="NULL";
+					 $rutaBD="NULL";
+					$lugar='../img_Cursos/';
+				 //Validamos la fotografía
+				if($foto_name!=NULL AND $extension!=NULL AND $foto_size!=0){
+						if($foto_size<=$_REQUEST['lim_tamano']){
+								$nombre_foto=$nick.".".$extension;
+								$ruta=$lugar.$nombre_foto;
+								 //Guardamos la foto en la carpeta del proyecto "fotos" con su nick Ejemplo: Ana.jpg
+								move_uploaded_file($foto_tmp_name, $ruta);
+								//Declaramos la ruta de la imagen en la base de datos
+							 $rutaBD=$nombre_foto;
+					}
+				}else{//en caso de que el usuario no inserte imagen
+					$rutaOrigen="../img_Cursos/curso_generico.jpg";
+					$rutaFinal=$lugar.$nick.".png";
+						copy($rutaOrigen, $rutaFinal);
+					$rutaBD=$nick.".png";
+			 }
+					return $rutaBD;
+			}
 
-   	        public function verCursos(){
+				 public function verCursos(){
+				 $sql="SELECT A.id_curso,A.titulo,A.foto,A.descripcion,B.nombre,B.apellidos FROM ".$this->tabla." A, usuarios B WHERE A.id_usuario=B.id_usuario";
+				 if($this->c->real_query($sql)){
+					 /*echo "prueba";*/
+					 if($resul=$this->c->store_result()){
+						 if($resul->num_rows>0){
+							 while($mostrar=$resul->fetch_assoc()){
+								 echo "<div>
+													 <img src='".$mostrar["foto"]."' alt='".$mostrar["titulo"]."'>
+													<h1>".$mostrar["titulo"]."</h1>
+													 <h2>Tutor:".$mostrar["nombre"]." ".$mostrar["apellidos"]."</h2>
+													 <p>".$mostrar["descripcion"]."</p>
+													 <button value=".$mostrar["id_curso"]." class='registrar'>¡APUNTATE!</button>
+													 <h5 id='resul".$mostrar["id_curso"]."'></h5>
+											 </div>";
+							 }
+							 $resul->free_result();
+						 }else{
+							 $resul->free_result();
+					 echo "Esta tabla esta vacia, contacta con el Administrador de la página";
+						 }
+					 }
+				 }else{
+					 echo $this->c->errno." -> ".$this->c->error;
+				 }
+			}
 
-   		   		$sql="SELECT * FROM".$this->tabla;
-   		   		if($this->c->real_query($sql)){
-   		   			if($resul=$this->c->store_result()){
-   		   				if($resul->num_rows()>0){
-   		   					$datos=array();
-   		   					$mostrar=$resul->fetch_assoc();
-   		   					foreach ($mostrar as $campo => $valor) {
-   		   						$datos[$campo]=$valor;
-   		   					}
-   		   					$resul->free_result();
-   		   					return $datos;
-   		   				}else{
-   		   					$resul->free_result();
- 							echo "Esta tabla esta vacia, contacta con el Administrador de la página";
-   		   				}
-   		   			}
-   		   		}else{
-   		   			$this->c->errno." -> ".$this->c->error;
-   		   		}
-   		   }
    		   public function verCursosCreados($id_usuario){
                   //PRINT $id_usuario ;
 
@@ -142,57 +147,38 @@
    		   		}
    		   }
 
-   		   public function verCursosInscritos($id_usuario){			//Falta Registrar Curso
+				 public function verCursosInscritos($id_usuario){			//Falta Registrar Curso
 
-                  PRINT "EXITO CURSOS";
-   		   		$sql="SELECT A.* FROM ".$this->tabla." A, inscritos_curso B WHERE B.id_usuario='".$id_usuario."' AND B.id_curso=A.id_curso";
-   		   		if($this->c->real_query($sql)){
-   		   			if($resul=$this->c->store_result()){
-                        print $resul->num_rows;
-   		   				if($resul->num_rows>0){
-   		   					//$datos=array();
-   		   					//$mostrar=$resul->fetch_assoc();
-   		   					/*foreach ($mostrar as $campo => $valor) {
-   		   						$datos[$campo]=$valor;
-   		   					}*/
-                           while($mostrar=$resul->fetch_assoc()){
-                              print $mostrar["titulo"];
-                           }
-   		   					$resul->free_result();
-   		   					//return $datos;
-   		   				}else{
-   		   					$resul->free_result();
-   		   					echo "Todavia no te has registrado en ningún curso.   ANIMATE";
-   		   				}
-   		   			}
-   		   		}else{
-   		   			echo $this->c->errno." -> ".$this->c->error;
-   		   		}
-   		   }
+									//PRINT "EXITO CURSOS";
+						 $sql="SELECT A.id_curso,A.titulo,A.foto,A.descripcion,C.nombre,C.apellidos FROM ".$this->tabla." A, inscritos_curso B, usuarios C WHERE B.id_usuario='".$id_usuario."' AND B.id_curso=A.id_curso AND A.id_usuario=C.id_usuario";
+						 if($this->c->real_query($sql)){
+							 if($resul=$this->c->store_result()){
+												//print $resul->num_rows;
+								 if($resul->num_rows>0){
+													 echo"<h1>Cursos en los que te has inscrito</h1>";
+													 while($mostrar=$resul->fetch_assoc()){
+															//print $mostrar["titulo"];
+															echo "<div>
+															<img src='".$mostrar["foto"]."' alt='".$mostrar["titulo"]."'>
+														 <h1>".$mostrar["titulo"]."</h1>
+															<h2>Tutor:".$mostrar["nombre"]." ".$mostrar["apellidos"]."</h2>
+															<p>".$mostrar["descripcion"]."</p>
+															<button value=".$mostrar["id_curso"]." class='verCurso'>Ver Curso</button>
+															</div>";
+													 }
+									 $resul->free_result();
+									 //return $datos;
+								 }else{
+									 $resul->free_result();
+									 return "Todavia no te has registrado en ningún curso.   ANIMATE";
+								 }
+							 }
+						 }else{
+							 echo $this->c->errno." -> ".$this->c->error;
+						 }
+					}
 
-         public function esTutor($id_curso){
 
-         }
-         public function registrarCurso($id_usuario,$id_curso){
-            $sql="SELECT * FROM inscritos_curso WHERE id_usuario='".$id_usuario."' AND id_curso='".$id_curso."'";
-            if($this->c->real_query($sql)){
-                   if($resul=$this->c->store_result()){
-                     if($resul->num_rows==0){
-                        $sql="INSERT INTO inscritos_curso (id_usuario,id_curso) VALUES('$id_usuario','$id_curso')";
-                        if($this->c->real_query($sql)){
-                            echo "<h3>Te has registrado con exito<h3>";
-                        }else{
-                              echo $this->c->errno." -> ".$this->c->error;
-                        }
-                     }else{
-                        $resul->free_result();
-                        echo "<h3>Ya te has registrado en este curso<h3>";
-                     }
-                   }
-            }else{
-                  echo $this->c->errno." -> ".$this->c->error;
-            }
-         }
          public function addArtic($id_curso,$title,$descrip,$active,$url,$img){
                 if($this->existArtic($title)){
                   $foto=$this->guardarImgArticulo($id_curso,$title,$img);

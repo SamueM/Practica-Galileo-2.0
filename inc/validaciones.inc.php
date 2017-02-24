@@ -141,17 +141,17 @@ function esNick($nick){
  * @return boolean true si se cumplen las reglas. False en caso contrario
  */
 function esNombreValido($nombre) {
-    if (strlen($nombre) < 3 && strlen($nombre) > 20) {
-        return false;
-    } else {
-        //Que no empiece por números,puede contener espacios en blanco y que no contenga caracteres especiales
-        if (preg_match("/^[A-Z \-áéíóúÁÉÍÓÚñÑ\\s]+[^\*=;:+.]*/i", $nombre)) {
+       /**
+         * Que no empiece por números,puede contener espacios en blanco y que no contenga caracteres especiales,
+        * un mímimo de 3 caracteres y un máximo de 20
+         */
+        if (preg_match("/^[A-Z \-áéíóúÁÉÍÓÚñÑ\\s]{3,20}/i", $nombre)) {
             return true;
         } else {
            
             return false;
         }
-    }
+    
 }
 /**
  * Funcion a la que se le pasa un nombre simple ó compuesto y transforma la primera letra a Mayúsculas

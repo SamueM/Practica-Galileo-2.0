@@ -13,6 +13,12 @@ class Usuario{
         $this->c=$bd->dameConexion();
         $this->tabla="usuarios";
     }
+    /**
+     * Función que devuelve los datos de un usuario pasándole su id
+     * @param type $id_usuario
+     * @return $datos es un array con todos los datos de usuario (id,tipo,nombre,apellidos,...)
+     * son todos los campos que se guardan para ese usuario en la base de datos
+     */
     public function getUsuario($id_usuario){
         $datos=array();
          $sql="SELECT * FROM $this->tabla WHERE id_usuario=".$id_usuario;
@@ -21,16 +27,37 @@ class Usuario{
                  if($result->num_rows==1){
                      $registro=$result->fetch_assoc();
                   foreach ($registro as $key => $value) {
-                     $datos[$key]=$value;  
+                     $datos[$key]=$value;
                   }
                   $result->free_result();
                      return $datos;
                  }
-                 
+
              }
          }else{
             return $this->c->errno." -> ".$thsi->c->error;
          }
+    }
+    /**
+     * Cuando un usuario se registra, la propia base de datos le asigna un id que es del tipo
+     * AutoIncrement. Si la funcionalidad de la página está en que una vez registrado el usuario, éste
+     * pueda acceder de forma automática como usuario registrado ó logueado, entonces necesitará
+     * abrir una sesión para este usuario desde el momento en que se ha inscrito correctamente.
+     * Sus datos los conocemos, pero no su id de usuario que de forma automática le ha asignado un número
+     * el campo id_usuario de la base de datos.
+     * Con este método vamos a conocer cuál es su id pasándole en nick
+     * @param  $nick de usuario para que nos devuelva su nick
+     *  @return el id del usuario
+     */
+     public function getIdusuario($nick){
+        $sql="SELECT id_usuario from $this->tabla WHERE UPPER(nick)=UPPER('$nick')";
+        $sentencia = $this->c->prepare($sql);
+        $sentencia->execute();
+        $sentencia->bind_result($idUsuario);
+        $registro=$sentencia->fetch();
+        $sentencia->close();
+        return $idUsuario;
+
     }
     /**
      * Método que devuelve un array que contiene todos los usuarios que están activos
@@ -45,7 +72,7 @@ class Usuario{
                 if($result->num_rows>0){
                    while($registro=$result->fetch_assoc()){
                        foreach ($registro as $key => $value) {
-                            $datos[$i][$key]=$value;  
+                            $datos[$i][$key]=$value;
                   }
                   $i++;
                             /*$id_tipo_usuario=$registro['id_tipo_usuario'];
@@ -56,7 +83,7 @@ class Usuario{
                             $datos['nombre']=$nombre;
                             $apellidos=$registro['apellidos'];
                             $datos['apellidos']=$apellidos;
-                            $mail=$registro['mail'];    
+                            $mail=$registro['mail'];
                             $datos['mail']=$mail;
                             $pass=$registro['pass'];
                             $datos['pass']=$pass;
@@ -67,35 +94,44 @@ class Usuario{
                             $foto=$registro['foto'];
                             $datos['foto']=$foto;*/
                    }
-                  
+
                 }
                  $result->free_result();
                  return $datos;
-               
+
             }
         }else{
             return "Error nº.".$this->c->errno;
         }
     }
      /**
-     * Método que devuelve un array que contiene todos los usuarios que están 'no' activos
-     * @return los usuarios inactivos y sus datos
-     * 
+     *
      */
-     public function getUsuariosInactivos() {
+     public function getUsuariosFiltro($activo,$todos) {
         $datos=array();
         $i=0;
-        $sql="SELECT * FROM $this->tabla WHERE activo='no' ORDER BY id_tipo_usuario ASC";
+        $sql="SELECT * FROM $this->tabla WHERE";
+        if($activo){
+            $sql.=" activo='si' ";
+        }else{
+            $sql.=" activo='no' ";
+        }
+        if($todos){//soy súper
+           $sql.=" and id_tipo_usuario in (2,3,4) ";
+        }else{//soy admin
+            $sql.=" and id_tipo_usuario in (3,4) ";
+        }
+        $sql.=" ORDER BY id_tipo_usuario ASC";
         if($this->c->real_query($sql)){
             if($result=  $this->c->store_result()){
                 if($result->num_rows>0){
                    while($registro=$result->fetch_assoc()){
                        foreach ($registro as $key => $value) {
-                            $datos[$i][$key]=$value;  
+                            $datos[$i][$key]=$value;
                   }
                   $i++;
                    }
-                  
+
                 }
                  $result->free_result();
                  return $datos;
@@ -157,7 +193,7 @@ class Usuario{
                 if($result->num_rows==1){
                     $registro = $result->fetch_assoc();
                    // print_r($registro);
-                    return $registro['id_usuario'];   
+                    return $registro['id_usuario'];
                 }
              $result->free_result();
             }else{
@@ -190,7 +226,7 @@ class Usuario{
         }else{
             return "Error nº.".$this->c->errno;
         }
-       
+
     }
     /** NO SE USA/////
      * Función que nos dice si un usuario es activo 'si' ó 'no'
@@ -234,7 +270,7 @@ class Usuario{
          $sentencia->close();
     }
     /**
-     * Método que nos devuelve el tipo de usuario a partir de su id 
+     * Método que nos devuelve el tipo de usuario a partir de su id
      * @param type $id
      * @return type el tipo de usuario(1,2,3 ó 4)
      */
@@ -246,11 +282,11 @@ class Usuario{
         $registros=$sentencia->fetch();
         $sentencia->close();
         return $id_tipo_usuario;
-          
-        
+
+
     }
     /**
-     * Método que nos devuelve el nombre del tipo de usuario a partir de su id_tipo_usuario 
+     * Método que nos devuelve el nombre del tipo de usuario a partir de su id_tipo_usuario
      * Tenemos que buscar este dato en la tabla 'tipos_usuario'
      * @param type $id_tipo_usuario
      * @return type el tipo de usuario(super,admin,editor,suscriptor)
@@ -263,19 +299,18 @@ class Usuario{
         $registros=$sentencia->fetch();
         $sentencia->close();
         return $nombre_usuario;
-          
-        
+
+
     }
     /*
      * Un usuario puede registrarse como alumno(Tipo 4) sin solicitar permisos de registro.
      * Pero un usuario que quiera registrarse como editor (Tipo3) necesitará permisos del administrador ó súper admin.
-     * Un usuario quesea editor y quiera ser administrador, necesitará el permiso del súper admin
      */
     /* Método que introduce un usuario en la Base de datos:
      * A un usuario se le inserta por defecto del tipo 4 (alumno-suscriptor) en estado 'activo'.
      * Por defecto, al ser el campo Nick de tipo UNIQUE, phpMyadmin nunca insertará dos usuarios con el mismo Nick
-     * Aún así, validamos que ese nick ya esté previamente insertado en la base de datos
-     * @return :Devuelve mensajes si el usuario ha sido insertado correctamente y false en caso contrario
+     * Aún así, comprobamnos que ese nick no exista ya en la base de datos para que no se repita
+     * @return $exito=-310->el usuario ha sido insertado correctamente y $exito!=-310-> no se inserta el nuevo usuario
      */
     public function insertarUsuario($nick,$nombre,$apellidos,$mail,$telefono,$pass,$fecha_nac,$solicita_edicion,$archivo_foto) {
         $foto=$this->guardarFoto($nick,$archivo_foto);
@@ -287,25 +322,21 @@ class Usuario{
                 . " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         $sentencia=$this->c->prepare($sql);
         $sentencia->bind_param("issssisssss",$tipo_usuario,$nick,$nombre,$apellidos,$mail,$telefono,$passMD5,$fecha_nac,$activo,$solicita_edicion,$foto);
-        if(!$this->existeUsuario($nick)){
             if($sentencia->execute()){
             $exito=-301;
             }else{
             $exito=-303;
             //print  "<h2>¡¡ Error !! " . $this->c->errno."</h2>";
             }
-        }else{
-            $exito=-300;
-        }
          return $exito;
-        
+
     }
     public function modificarFoto($nick,$archivo_foto,$id_usuario){
          $foto=$this->guardarFoto($nick,$archivo_foto);
          $sql_query = "UPDATE $this->tabla SET  "
                 ."  foto = ?"
                 ." WHERE id_usuario= ?";
-	
+
  	$stmt =  $this->c->stmt_init();
         $stmt->prepare($sql_query);
         if ($stmt === false) {
@@ -320,7 +351,7 @@ class Usuario{
         $sql_query = "UPDATE $this->tabla SET nombre= ? , apellidos= ? , mail= ? ,telefono = ? ,"
                 ."  pass = ? , fecha_nac =? "
                 ." WHERE id_usuario= ?";
-	
+
  	$stmt =  $this->c->stmt_init();
         $stmt->prepare($sql_query);
         if ($stmt === false) {
@@ -342,7 +373,7 @@ class Usuario{
                     $registro = $result->fetch_assoc();
                    // print_r($registro);
                     return $registro['pass'];
-                    
+
                 }
              $result->free_result();
             }else{
@@ -363,28 +394,28 @@ class Usuario{
             if($result=$this->c->store_result()){
                 if($result->num_rows==1){
                     $registro=$result->fetch_assoc();
-                    if($registro['foto']!=NULL){ //Si existe ruta de foto en la BBDD               
+                    if($registro['foto']!='NULL'){ //Si existe ruta de foto en la BBDD
                     $ruta_foto="../fotos/".$registro['foto'];
-                      // echo $ruta_foto; 
+                      // echo $ruta_foto;
                     }else{//En caso de que no exista ruta de foto en la BBDD, que sea NULL
-                       $ruta_foto="../fotos/sinFotoBlue.png";  
+                       $ruta_foto="../fotos/sinFotoBlue.png";
                     }
                      $result->free_result();
-                
+
                 }else{//En caso de que no exista ruta de foto en la BBDD,qque sea NULL
                      $ruta_foto="../fotos/sinFotoBlue.png"; 
                         $result->free_result();
-                 
+
                 }
                 //echo "la ruta de la foto es ".$ruta_foto;
                 return $ruta_foto;
-            }   
-            
+            }
+
         }else{
             return "Error nº.".$this->c->errno;
         }
     }
-    
+
     /**
      * Esta función comprueba que el mail que inserta el usuario no exite ya en la base de datos
      * @param type $mail le pasamos un string con el mail que inserta el usuario por formulario
@@ -408,8 +439,8 @@ class Usuario{
         } else{
             return false;
         }
-         
-       
+
+
     }
 
 
@@ -432,11 +463,11 @@ class Usuario{
                           $datos[$i][$key]=$value;
                        }
                        $i++;
-                    
+
                    }
                    //print_r($datos);
                    $result->free_result();
-                        return $datos; 
+                        return $datos;
                 }else{
                     return $datos;
                 }
@@ -445,12 +476,12 @@ class Usuario{
             return "Error nº.".$this->c->errno;
         }
     }
-    
+
     public function aceptaSolititudEdicion($id_usuario){
          $sql_query = "UPDATE $this->tabla SET id_tipo_usuario = ? ,"
                 ."  solicita_edicion = ? "
                 ." WHERE id_usuario= ?";
-	
+
  	$stmt =  $this->c->stmt_init();
         $stmt->prepare($sql_query);
         if ($stmt === false) {
@@ -458,7 +489,7 @@ class Usuario{
           }
           $id_tipo_ususario=3;
           $solicita_edicion='no';
-          
+
 	$stmt->bind_param('isi',$id_tipo_ususario,$solicita_edicion,$id_usuario);
 	$stmt->execute();
     }
@@ -466,14 +497,14 @@ class Usuario{
          $sql_query = "UPDATE $this->tabla SET "
                 ."  solicita_edicion = ? "
                 ." WHERE id_usuario= ?";
-	
+
  	$stmt =  $this->c->stmt_init();
         $stmt->prepare($sql_query);
         if ($stmt === false) {
             return false;
           }
           $solicita_edicion='si';
-          
+
 	$stmt->bind_param('si',$solicita_edicion,$id_usuario);
 	$stmt->execute();
     }

@@ -34,6 +34,6 @@ if(isset($_SESSION['id_usuario']) AND (isset($_SESSION['datos']['id_tipo_usuario
    
 }
 if (!headers_sent()) {
-header('Location:index_administradores.php?pagina=2&num='.$num);  
+header('Location:index_administradores.php?pagina=3&num='.$num);  
 exit;
 }

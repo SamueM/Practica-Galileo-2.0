@@ -12,7 +12,11 @@ $nick=$_SESSION['datos']['nick'];
 
 $id_usuario=$_SESSION['id_usuario'];
             $usuario=new Usuario();
-            $listado=$usuario->getUsuarios();//El bjeto nos devuelve la lista de usuarios activos
+           if($_SESSION['datos']['id_tipo_usuario']==1){
+            $listado=$usuario->getUsuariosFiltro(true,true);
+            }else{
+             $listado=$usuario->getUsuariosFiltro(true,false);   
+            }
             //print_r($listado);
             if(count($listado)>0){
              ?>

@@ -48,7 +48,7 @@ and open the template in the editor.
     		<nav>
     			<ul id='lista_principal'>
     				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
-                                <li id='perfil'><img src="<?php echo $foto;?>" width="50px" alt="">Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
+                                <li id='perfil1'><img src="<?php echo $foto;?>" width="50px" alt="">Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
     					<ul class='perfil' id='perfil_usuario'>
     						<li><a href="index_administradores.php?pagina=1">Solicitudes de Edición</a></li>
                                                 <li><a href="index_administradores.php?pagina=2">Activar usuarios</a></li>
@@ -59,8 +59,7 @@ and open the template in the editor.
     					</ul></li>
     				</ul>
     		</nav>
-    		<div id='slider'>
-    		</div>
+    		
         <div class="navegacion">
           <ul id='navegacion_secundaria'>
                  <li><a href="index_administradores.php?pagina=1">Solicitudes de Edición</a></li>

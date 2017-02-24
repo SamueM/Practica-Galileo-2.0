@@ -61,12 +61,7 @@ require_once '../clases/Usuario.php';
                                            $error=  urldecode($_REQUEST['error']);
                                            $errores=  unserialize($error);
                                            foreach ($errores as $key => $value) {
-                                               if($value==-301){
-                                                 echo '<p style="color:green">'.validacionExisteUsuario($value)."</p>";
-                                                 $usuario=new Usuario();
-                                               }else{
                                                echo '<p style="color:red">'.($key+1).")".validacionExisteUsuario($value)."</p>";
-                                               }
                                            }
                                        }
                                        ?>
@@ -84,50 +79,54 @@ require_once '../clases/Usuario.php';
                         			<i class="fa fa-key"></i>
                         		</div>
                             </div>
-                            <div class="form-bottom">
-			                    <form enctype="multipart/form-data" role="form" action="grabar_registro_header.php" method="post" class="login-form" autocomplete="off">
+                           <div class="form-bottom">
+			                    <form enctype="multipart/form-data" role="form" action="grabar_registro_header.php" method="post" class="login-form">
 			                    	<div class="form-group">
 			                    		<label class="" for="form-username">Nick</label>
-			                        	<input type="text" name="nick" placeholder="Nick..." class="form-username form-control" id="form-username" autofocus="on" required="required"/>
-			                      </div>
-                            <div class="form-group">
-			                        	<label class="" for="form-password">Contraseña</label>
-			                        	<input type="password" name="pass" autocomplete='on' placeholder="Contraseña..." class="form-password form-control" id="form-password" required="required"/>
+			                        	<input type="text" name="nick" placeholder="de 4 a 8 caracteres - sólo letras y números" class="form-username form-control" id="form-username">
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Nombre</label>
-			                        	<input type="text" name="nombre" placeholder="Nombre..." class="form-username form-control" id="form-username" required="required"/>
+			                        	<input type="text" name="nombre" placeholder="de 3 a 20 caracteres" class="form-username form-control" id="form-username">
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Apellidos</label>
-			                        	<input type="text" name="apellidos" placeholder="Apellidos..." class="form-username form-control" id="form-username" required="required"/>
+			                        	<input type="text" name="apellidos" placeholder="de 3 a 20 caracteres" class="form-username form-control" id="form-username">
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Email</label>
-			                        	<input type="email" name="mail" placeholder="Email..." class="form-username form-control" id="form-username" required="required"/>
+			                        	<input type="email" name="mail" placeholder="Email..." class="form-username form-control" id="form-username">
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Teléfono</label>
-			                        	<input type="text" name="tfno" placeholder="Teléfono..." class="form-username form-control" id="form-username"/>
+			                        	<input type="text" name="tfno" placeholder="máximo 9 dígitos" class="form-username form-control" id="form-username">
+			                      </div>
+			    <div class="form-group">
+			                        	<label class="" for="form-password">Contraseña</label>
+			                        	<input type="password" name="pass" placeholder="de 4 a 8 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula" class="form-password form-control" id="form-password">
 			                      </div>
                             <div class="form-group">
-			                    		<label class="" for="form-username">Fecha de nacimiento</label>
-			                        	<input type="date" name="fecha_nac" placeholder="Fecha de nacimiento..." class="form-username form-control" id="form-username"/>
+			                    		<label class="" for="form-username">Fecha de nacimiento(dd/mm/aaaa)</label>
+			                        	<input type="text" name="fecha_nac" placeholder="dd/mm/aaaa" class="form-username form-control" id="form-username">
 			                      </div>
                             <div class="form-group">
 			                    		<label class="" for="form-username">Foto de perfil</label>
-			                        	<input type="file" name="foto"/><input type="hidden" name="lim_tamano" value="120000"/>
+			                        	<input type="file" name="foto" class="form-username form-control" id="form-username"><input type="hidden" name="lim_tamano" value="120000"/>
+
 			                      </div>
+
                             <div class="form-group">
 			                    		<label class="" for="form-username">¿Quieres ser editor?</label>
-			                        	<input type="radio" name="editor" value="no" checked="checked"/>No
+			                        	<input type="radio" name="editor" value="no" checked/>No
                                 <input type="radio" name="editor" value="si"/>Si
                             </div>
-			                        <button type="submit" name='enviar' class="btn">¡Regístrate!</button>
+			      <button type="submit" name='enviar' class="btn">¡Regístrate!</button>
                               <button type="reset" class='btn'>Borrar</button>
                               <button type="button" onclick=" location.href='../index.php' " class="btn">Inicio</button>
 			                    </form>
 		                    </div>
+
+
                         </div>
                     </div>
 

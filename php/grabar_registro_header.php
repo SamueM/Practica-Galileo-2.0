@@ -7,12 +7,22 @@
     $usuario = new Usuario();
     $strMensaje="";
     if(isset($_REQUEST['enviar'])){
-         $errores=array();
+        $errores=array();
         $num=-301; //"El usuario se ha registrado correctamente."-> '../inc/defines.inc.php'
         if(isset($_REQUEST['nick']) AND isset($_REQUEST['nombre']) AND isset($_REQUEST['apellidos']) AND isset($_REQUEST['pass']) AND isset($_REQUEST['mail'])){       
-                    //Campo obligatorio
+                    /**
+                     * Nick es Campo obligatorio
+                     * Si cumple los criterios de validación (esNick())
+                     * (tiene que tener de 4 a 8 caracteres, letras ó números)
+                     * Debemos de comprobar si el usuario no está regsitrado previamente
+                     */
                    if(esNick($_REQUEST['nick'])){
-                       $nick=$_REQUEST['nick'];//-> '../inc/validaciones.inc.php'
+                       if(!$usuario->existeUsuario($_REQUEST['nick'])){
+                         $nick=$_REQUEST['nick'];//-> '../inc/validaciones.inc.php'
+                       }else{
+                        $num=-300;
+                       $errores[]=$num;
+                       }
                    }else{
                        $num=-211;
                        $errores[]=$num;
@@ -81,7 +91,6 @@
                 }*/
                 //El objeto Usuario presenta una función que valida y guarda la ruta de la foto
                  $archivo_foto=$_FILES['foto'];
-
                  /**
                   * El nuevo usuario que se regsitra puede solicitar desde el propio registro 
                   * su consición de lector ó pedir ser editor. Esta solicitud le llegará al administrador
@@ -106,21 +115,31 @@
                 $num=$usuario->insertarUsuario($nick, $nombre, $apellidos, $mail, $telefono, $pass, $fecha_nac,$solicita_edicion, $archivo_foto);
                 $errores[]=$num;
                 }
-                //print_r($mensaje[$num]);
             }else{ //Error, campos obligatorios no rellenados
             $num=-303;
             $errores[]=$num;
             }
-            //print_r($errores);
+            if($num!=-301){
             $strError=  serialize($errores);
             $error=  urlencode($strError);
             $destino="registrate.php?error=$error";  
-
+            }else{
+             /**
+             * El usuario se ha registrado correctamente. Le enviamos directamente a la página de suscriptores como usuario logueado
+             */
+                 $usuario=new Usuario();
+                 require_once '../inc/funciones.php';
+                 sesion();
+                 $id_usuario=$usuario->getIdusuario($nick);
+                 $_SESSION['datos']=$usuario->getUsuario($id_usuario);
+                 $_SESSION['foto']=$usuario->getFotoUsuario($id_usuario);
+                 $destino="index_suscriptores.php";  
+            }
    
 
 }
 if (!headers_sent()) {
-header('Location:'.$destino);  
+   header('Location:'.$destino);  
 exit;
 } 
 ?>

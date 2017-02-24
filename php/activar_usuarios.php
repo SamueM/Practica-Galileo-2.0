@@ -12,13 +12,17 @@ $nick=$_SESSION['datos']['nick'];
 
 $id_usuario=$_SESSION['id_usuario'];
             $usuario=new Usuario();
-            $listado=$usuario->getUsuariosInactivos();
+            if($_SESSION['datos']['id_tipo_usuario']==1){
+            $listado=$usuario->getUsuariosFiltro(false,true);
+            }else{
+             $listado=$usuario->getUsuariosFiltro(false,false);
+            }
             //print_r($listado);
             if(count($listado)>0){
-             ?>   
+             ?>
             <form id="form_solicitud" name="form_solicitud" action="activar_usuarios_header.php" method="POST">
                 <h2>LISTADO DE USUARIOS INACTIVOS</h2>
-                <table>
+                <table class="table table-hover tablas-administracion">
                     <tr><th>Foto</th><th>Tipo Usuario</th><th>Id_Usuario</th><th>Nick</th><th>Nombre</th><th>Apellido(s)</th><th>Email</th><th>Teléfono</th><th>Activo Usuario</th></tr>
             <?php
             foreach ($listado as $key => $value) {
@@ -30,9 +34,9 @@ $id_usuario=$_SESSION['id_usuario'];
                 echo "<tr>";
                 echo '<td><img src="'.$foto.'" width="50px"></td><td>'.$tipo_nombre_usuario."</td><td>".$id_usuario."</td><td>".$value['nick']."</td><td>".$value['nombre']."</td><td>".$value['apellidos']."</td><td>".$value['mail']."</td><td>".$value['telefono']."</td>";
                 foreach ($value as $key2 => $value2) {
-                    
+
                     if($key2=='solicita_edicion'){
-                       //echo $key2." -> ".$value2."<br>"; 
+                       //echo $key2." -> ".$value2."<br>";
                        echo '<td><input type="checkbox" name="solicitud[]" value="'.$id_usuario.'"></td>';
                     }
 
@@ -40,14 +44,14 @@ $id_usuario=$_SESSION['id_usuario'];
                 echo "</tr>";
 
               }
-              
+
               ?>
                 </table>
-               <p><input type="submit" name="enviarSolicitud" value="ACTIVAR USUARIO(S)"/></p>	
+               <p><input type="submit" name="enviarSolicitud" value="ACTIVAR USUARIO(S)"/></p>
               </form>
             <?php
             }else{
-                echo "<p> No existen solicitudes de edicición </p>";
+                echo "<h2> No existen solicitudes de activación de usuarios </h2>";
             }
  }
 ?>
