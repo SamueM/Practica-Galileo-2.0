@@ -7,7 +7,7 @@ textarea,
 textarea.form-control {
 	height: 50px;
     margin: 0;
-    padding: 0 20px;
+    padding: 0 10px;
     vertical-align: middle;
     background: #f8f8f8;
     border: 3px solid #ddd;

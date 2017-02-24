@@ -40,7 +40,6 @@ Editado por Miguel Costa 14/02/2017 13:00
 		<div class='formulario' id='convierteteEditor'>
 		  	<i class="fa fa-window-close-o" aria-hidden="true"></i>
 		  	<h2>Regístrate o Inicia sesión para ser editor</h2>
-
 			<form action="/">
 				<a href="./php/registrate.php" title="" class='boton'>Regístrate</a>
 				<a href="./php/iniciar_sesion.php" title="" class='boton'>Inicia sesión</a>

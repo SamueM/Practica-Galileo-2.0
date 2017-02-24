@@ -1,12 +1,9 @@
 <?php
 require_once '../inc/funciones.php';
 require_once '../inc/validaciones.inc.php';
-include_once("../clases/Curso.php");
-$curso=new Curso();
 sesion();
  $foto=$_SESSION['foto'];
  $nick=$_SESSION['datos']['nick'];
- $id_usuario=$_SESSION['id_usuario'];
 ?>
 <!DOCTYPE html>
 <!--
@@ -26,17 +23,6 @@ and open the template in the editor.
   <link href='http://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css' />
   <script src="../jquery/jquery-3.1.1.min.js" ></script>
   <script type="text/javascript" src="../jquery/jquery_menu_desplegable.js"></script>
-  <script>
-      $(document).ready(function(){
-         $(".registrar").click(function(){
-           //alert($(this).val());
-            console.log(<?php echo $id_usuario; ?>);
-            var id=<?php echo $id_usuario; ?>;
-             var p="resul"+$(this).val();//Nos sirve para coger el parrafo correspondiente, dependiendo de en que curso nos queremos registrar
-           $("#"+p).load("../AJAX/registrarCurso.php?id="+id+"&curso="+$(this).val());
-         });
-      });
-  </script>
 </head>
     <body>
 
@@ -56,7 +42,7 @@ and open the template in the editor.
                 echo '<li><a href="convierteteEnEditor_header.php">Conviértete en editor</a></li>';
                 }
                 ?>
-    						<li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
+    					<li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
     					</ul></li>
     				</ul>
     		</nav>
@@ -77,16 +63,10 @@ and open the template in the editor.
         <?php
 
         if($_SESSION['datos']['solicita_edicion']=='no'){
-          echo '<a class="enlace" href="convierteteEnEditor_header.php" class="button">¡QUIERO SER EDITOR!</a>';
+          echo '<a class="boton" href="convierteteEnEditor_header.php">¡QUIERO SER EDITOR!</a>';
         } else {
           echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
         }
-         // $curso->verCursos();
-          $p=$curso->verCursosInscritos($id_usuario);
-          if($p=="Todavia no te has registrado en ningún curso.   ANIMATE"){
-            echo"<h1>".$p."</h1>";
-            $curso->verCursos();
-          }
         ?>
     	</div>
 

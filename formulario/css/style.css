@@ -7,10 +7,19 @@ body {
     line-height: 30px;
     text-align: center;
     background: url("../img/backgrounds/1.jpg") fixed;
+    padding: 20px 0;
 }
 
 input[type='text'],input[type='date'],input[type='email'],input[type='password'] {
   width: 100%;
+  margin-bottom: 10px;
+}
+
+input[type='file'] {
+  border: none;
+  background: none;
+  width: auto;
+  margin-bottom: 10px;
 }
 
 strong { font-weight: 500; }
@@ -39,13 +48,34 @@ h3 {
 img { max-width: 100%; }
 
 label {
-  font-size: 15px;
+  font-size: 20px;
   width: 100%;
   text-align: left;
 }
 
 .container {
-  width: 80%;
+  width: 35%;
+  min-width: 350px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.container1 {
+  width: 50%;
+  min-width: 380px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+#errores {
+	color: red;
+	font-size: 20px;
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+#errores h3 {
+  color: red;
 }
 
 ::-moz-selection { background: #4aaf51; color: #fff; text-shadow: none; }
@@ -97,7 +127,8 @@ label {
 /***** Top content *****/
 
 .inner-bg {
-    padding: 100px 0 170px 0;
+    padding: 0 0 50px 0;
+    margin-top: 0;
 }
 
 .top-content .text {
@@ -149,10 +180,14 @@ label {
 }
 
 .form-bottom {
-	padding: 25px 25px 30px 25px;
+	padding: 25px 45px 30px 25px;
 	background: #eee;
 	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
 	text-align: left;
+}
+
+.botones {
+  text-align: center;
 }
 
 .form-bottom form textarea {
@@ -160,25 +195,14 @@ label {
 }
 
 .form-bottom form button.btn {
-	width: 100%;
-  margin-bottom: 10px;
+	width: 60%;
+  margin-top: 15px;
 }
 
 .form-bottom form .input-error {
 	border-color: #4aaf51;
 }
 
-.social-login {
-	margin-top: 35px;
-}
-
-.social-login h3 {
-	color: #fff;
-}
-
-.social-login-buttons {
-	margin-top: 25px;
-}
 
 
 /***** Media queries *****/

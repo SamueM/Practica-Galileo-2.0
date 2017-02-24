@@ -18,7 +18,7 @@
 	background: -ms-linear-gradient(top, rgba(26,26,26,1) 0%, rgba(128,128,128,1) 100%);
 	background: linear-gradient(to bottom, rgba(26,26,26,1) 0%, rgba(128,128,128,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#808080', GradientType=0 );
-	top: 72px;
+	top: 80px;
 	right: 0;
 	padding: 5px 15px 5px 15px;
 	color: white;
@@ -39,7 +39,8 @@
 
 li#inicio,li#perfil1 {
 	margin: 0;
-	padding: 15px 25px;
+	padding-left: 18px;
+	padding-right: 18px;
 	flex: 0 1 auto;
 }
 
@@ -48,7 +49,7 @@ li#perfil1:hover,li#perfil1:hover i,li#inicio a:hover,li#inicio a:hover i {
 }
 
 #perfil1 img {
-	width: 40px;
+	height: 50px;
 	vertical-align: middle;
 	padding-right: 10px;
 }
@@ -74,7 +75,6 @@ li#perfil1:hover,li#perfil1:hover i,li#inicio a:hover,li#inicio a:hover i {
 #navegacion_secundaria li {
 	flex: 1;
 	background-color: grey;
-	padding: 10px;
 	text-align: center;
 	border-bottom: 1px solid white;
 	cursor: pointer;
@@ -91,8 +91,10 @@ li#perfil1:hover,li#perfil1:hover i,li#inicio a:hover,li#inicio a:hover i {
 
 #navegacion_secundaria li a {
 	color: white;
+	padding: 10px;
 	text-decoration: none;
 	font-size: 25px;
+	display: block;
 }
 
 #usuario h3 {
