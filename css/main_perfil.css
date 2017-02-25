@@ -1,10 +1,12 @@
 #slider {
-	padding: 20% 0;
+	display: none;
+	padding: 13% 0;
 	background: url('../img/programador.jpg');
+	display: none;
 	width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  /*background-position: center center;*/
+	background-size: cover;
+	background-repeat: no-repeat;
+	/*background-position: center center;*/
 	background-attachment: fixed;
 }
 
@@ -223,7 +225,9 @@ ul#temas li h2:hover {
 
 @media only screen and (min-width: 450px) {
 	#slider {
-		padding: 10% 0;
+		display: block;
+		background-size: contain;
+		background-position: 0 20px;
 	}
 
 	#navegacion_secundaria li {
@@ -238,5 +242,12 @@ ul#temas li h2:hover {
 
 	#navegacion_secundaria {
 		flex-flow: row;
+	}
+}
+
+@media only screen and (min-width: 1300px) {
+	#slider {
+		background-size: cover;
+		background-position: 0 -60px;
 	}
 }

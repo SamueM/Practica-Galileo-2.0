@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-02-2017 a las 18:50:44
--- Versión del servidor: 10.1.10-MariaDB
--- Versión de PHP: 5.6.19
+-- Tiempo de generación: 25-02-2017 a las 13:43:30
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bd_cursosgalileo`
 --
-CREATE DATABASE IF NOT EXISTS `bd_cursosgalileo` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `bd_cursosgalileo`;
 
 -- --------------------------------------------------------
 
@@ -71,7 +69,8 @@ INSERT INTO `inscritos_curso` (`id_usuario`, `id_curso`, `favorito`, `cursando`)
 (4, 1, 'no', 'si'),
 (5, 3, 'si', 'si'),
 (5, 4, 'si', 'si'),
-(5, 5, 'si', 'si');
+(5, 5, 'si', 'si'),
+(9, 3, 'no', 'si');
 
 -- --------------------------------------------------------
 
@@ -141,7 +140,7 @@ CREATE TABLE `usuarios` (
   `id_tipo_usuario` int(2) NOT NULL,
   `nick` varchar(10) NOT NULL,
   `nombre` varchar(20) NOT NULL,
-  `apellidos` varchar(50) DEFAULT NULL,
+  `apellidos` varchar(50) NOT NULL,
   `mail` varchar(100) NOT NULL,
   `telefono` int(9) DEFAULT NULL,
   `pass` varchar(100) NOT NULL,
@@ -157,13 +156,26 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `id_tipo_usuario`, `nick`, `nombre`, `apellidos`, `mail`, `telefono`, `pass`, `fecha_nac`, `activo`, `solicita_edicion`, `foto`) VALUES
 (1, 1, 'super', 'Super_Admin', '', 'super@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'no', NULL),
-(2, 2, 'admin', 'Administrador', '', 'admin@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'no', NULL),
+(2, 2, 'admin', 'Javi   ', 'Pepe   ', 'admin2@gmail.com', 986323232, '1312d523d32fd374639a858e2b89237b', '1963-02-10', 'si', 'no', 'javs.jpg'),
 (3, 3, 'profe1', 'Profe1', '', 'profe1@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'no', NULL),
 (4, 4, 'alumno1', 'Alumno1', '', 'alumno1@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'no', NULL),
 (5, 4, 'alumno2', 'Alumno2', '', 'alumno2@galileo.es', 0, '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'si', 'si', NULL),
 (6, 3, 'Nicolas', 'Nicolas', 'Fdez Arellano', 'nicolas@gmail.com', 983659832, '81dc9bdb52d04dc20036dbd8313ed055', '0000-00-00', 'si', 'si', NULL),
-(7, 3, 'David', 'David', 'Marín Álvarez', 'david@gmail.com', 626359585, '81dc9bdb52d04dc20036dbd8313ed055', '0000-00-00', 'si', 'si', NULL),
-(8, 3, 'Angel', 'Angel', 'T. Domínguez', 'angel@gmail.com', 987589647, '81dc9bdb52d04dc20036dbd8313ed055', '0000-00-00', 'si', 'si', NULL);
+(7, 3, 'David', 'David', 'Marín Álvarez', 'david@gmail.com', 626359585, '81dc9bdb52d04dc20036dbd8313ed055', '0000-00-00', 'no', 'si', NULL),
+(8, 3, 'Angel', 'Angel', 'T. Domínguez', 'angel@gmail.com', 987589647, '81dc9bdb52d04dc20036dbd8313ed055', '0000-00-00', 'si', 'si', NULL),
+(9, 4, 'miguel', 'Costa       ', 'Costa Jimenez       ', 'costa@hotmail.xcom', 666666666, 'cb9a2659c6970f6201025c9e80658878', '0000-00-00', 'si', 'si', 'miguel.jpg'),
+(10, 4, 'Isabel', 'Isabel ', 'Garcia ', 'isa@adsf.cas', 666666666, 'a22b43ba83d7120ba8fe44c9fe110c0e', '1980-04-06', 'si', 'no', 'Isabel.png'),
+(11, 4, 'javs', 'Javi ', 'Pepe ', 'admin2@gmail.com', 986323232, '1312d523d32fd374639a858e2b89237b', '1963-02-10', 'si', 'no', 'javs.png'),
+(12, 4, 'javs2', 'Javi2 ', 'López Ruíz ', 'javs2@gmail.com', 147852369, '1312d523d32fd374639a858e2b89237b', '2010-05-10', 'si', 'si', 'javs2.png'),
+(13, 4, 'samu', 'Samuel    ', 'A Aisfj    ', 'samuel@hotmail.com', 983656565, '1312d523d32fd374639a858e2b89237b', '1994-02-02', 'si', 'no', 'NULL'),
+(14, 4, 'samu2', 'Samuel  ', 'A Aisfj  ', 'samuel@hotmail.com', 983656565, '1312d523d32fd374639a858e2b89237b', '1994-02-02', 'si', 'no', 'samu2.jpg'),
+(15, 4, 'Costa', 'Asfasdf ', 'Asdfasdf ', 'asdfasdf@asdfsd.es', NULL, 'f127aa937bc9852021983b8c6ba0f726', '0000-00-00', 'si', 'no', 'Costa.png'),
+(16, 4, 'monica', 'Monica    ', 'Sanchez    ', 'asdfasdfasd@sdfds.es', NULL, '1312d523d32fd374639a858e2b89237b', '0000-00-00', 'si', 'si', 'monica.jpg'),
+(17, 4, 'moni1', 'Monica ', 'Sanchez ', 'asfasdfasfd@adsaf.es', NULL, '1312d523d32fd374639a858e2b89237b', '0000-00-00', 'si', 'no', 'moni1.png'),
+(18, 4, 'costa4', 'Asdfasdf ', 'Asdfasdf ', 'asdfasdf@sdfgsd.es', NULL, '1312d523d32fd374639a858e2b89237b', '0000-00-00', 'si', 'no', 'costa4.png'),
+(19, 4, 'monica1', 'Monica ', 'Sanchez ', 'monica@hotmeil.cs', 666666666, '7cfd3f78d1d495173f32d74963641dd6', '0000-00-00', 'si', 'no', 'monica1.png'),
+(20, 4, 'MoCo', 'Moco ', 'Moco ', 'sdgsdfg@dsfadsf.es', NULL, '1312d523d32fd374639a858e2b89237b', '0000-00-00', 'si', 'si', 'MoCo.png'),
+(21, 4, 'moco1', 'Moco1 ', 'Moco ', 'adsfasdf@adsfasdf.es', NULL, '1312d523d32fd374639a858e2b89237b', '0000-00-00', 'si', 'no', 'moco1.png');
 
 -- --------------------------------------------------------
 
@@ -258,7 +270,7 @@ ALTER TABLE `temas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- Restricciones para tablas volcadas
 --

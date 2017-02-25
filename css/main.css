@@ -26,7 +26,7 @@ header {
 #slider {
 	background: url('../img/programacion1.jpg');
 	width: 100%;
-  padding: 16% 0;
+  padding: 15% 0;
   background-size: cover;
   background-repeat: no-repeat;
   /*background-position: center center;*/
@@ -150,7 +150,7 @@ input[type="search"]:focus {
 }
 
 #convierteteEditor .boton {
-	font-size: 25px;
+	font-size: 20px;
 }
 
 #convierteteEditor form {
@@ -297,7 +297,7 @@ ul.temas_flex>li {
     margin: 0;
     padding: 10px 20px;
     vertical-align: middle;
-    background: #4aaf51;
+    background: #7892c2;
     border: 0;
     font-family: 'Pathway Gothic One', sans-serif;
     font-size: 16px;
@@ -313,9 +313,9 @@ ul.temas_flex>li {
 
 .boton:active { outline: 0; opacity: 0.6; color: #fff; -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
 
-.boton:focus { outline: 0; opacity: 0.6; background: #4aaf51; color: #fff; }
+.boton:focus { outline: 0; opacity: 0.6; background: #7892c2; color: #fff; }
 
-.boton:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #4aaf51; color: #fff; }
+.boton:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #7892c2; color: #fff; }
 
 /* ULTIMOS SUBIDOS
    ========================================================================= */
