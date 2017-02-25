@@ -1,8 +1,14 @@
 <!--
-Editado por Miguel Costa 14/02/2017 13:00
+- Práctica DAW IES Galileo 2017
+-
+- Archivo index
+-
+- @project  2ºDAW, Módulos de DIW, EC y ES
+- @author   Isabel, Cristina, Samuel, Alejandro y Miguel
+-
 -->
-<?php
 
+<?php
 	include_once("clases/Curso.php");
 	require_once 'inc/funciones.php';
 	sesion();
@@ -27,7 +33,6 @@ Editado por Miguel Costa 14/02/2017 13:00
 	<script src="jquery/parallax.js" ></script>
 </head>
 <body>
-
 	<header>
 		<nav>
 			<ul id='lista_principal'>
@@ -61,7 +66,6 @@ Editado por Miguel Costa 14/02/2017 13:00
 							echo "<a href='./php/iniciar_sesion.php'><i class='fa fa-user' aria-hidden='true'></i>Iniciar Sesión</a>" ;
 						}
 					?>
-
 				</li>
 				<li id='menu_moviles'><i class="fa fa-bars" aria-hidden="true"></i></a>
 				<ul id='lista_movil'>
@@ -69,7 +73,6 @@ Editado por Miguel Costa 14/02/2017 13:00
 					<li id='registrarte2'><a href="./php/registrate.php" title="">Regístrarte</a></li>
 					<li id='ini_sesion2'><a href="./php/iniciar_sesion.php" title="">Iniciar Sesión</a></li>
 				</ul></li>
-
 			</ul>
 		</nav>
 		<div class='formulario' id='convierteteEditor'>
@@ -80,7 +83,6 @@ Editado por Miguel Costa 14/02/2017 13:00
 				<button type="button" onclick=" location.href='./php/iniciar_sesion.php' " class="boton">Inicia sesión</button>
 			</div>
 		</div>
-
 		<div id='slider'>
 			<div id='buscador'>
 				<form action="buscador.php" method="POST">
@@ -89,7 +91,6 @@ Editado por Miguel Costa 14/02/2017 13:00
 			</div>
 		</div>
 	</header>
-
 	<section class='cursosPopulares'>
 		<h2>Cursos más populares</h2>
 		<ul class="temas_flex">
@@ -101,17 +102,14 @@ Editado por Miguel Costa 14/02/2017 13:00
 			 ?>
 		</ul>
 	</section>
-
 	<section class='ultimosSubidos'>
 		<h2>Últimos temas subidos</h2>
 		<ul class="temas_flex">
-
 			<?php
 				Curso::ultimos_temas_subidos();
 			?>
 			</ul>
 	</section>
-
 	<footer>
 	<div id='conocenos'>
 	<h3>Conócenos</h3>
@@ -132,6 +130,5 @@ Editado por Miguel Costa 14/02/2017 13:00
 	        <a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 		</div>
     </footer>
-
 </body>
 </html>

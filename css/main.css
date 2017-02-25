@@ -1,38 +1,63 @@
-/*
-Editado por Miguel Costa 14/02/2017 13:00
+/**
+* Práctica DAW IES Galileo 2017
+*
+* Archivo CSS principal para diseñar el sitio
+*
+* @project  2ºDAW, Módulos de DIW, EC y ES
+* @author   Isabel, Cristina, Samuel, Alejandro y Miguel
+*
+*/
 
+/**
+* TOC
+*      Limpieza de algunos estilos.
+*      Base.
+*      Header.
+*          . Cabecera con menú de navegación.
+*          . Buscador
+*          · Conviértete en Editor.
+*      Cursos populares
+*					 . Fichas de los cursos más populares.
+*      Últimos temas subidos
+*          . Fichas de los últimos temas subidos.
+*      Footer
+* 				 . Conócenos
+*					 . Redes sociales
 */
 
 /* Limpiamos algunos estilos */
+
 h1,h2,h3,p,ul,body {margin:0;padding:0;}
 ul {list-style: none;}
 
 /* BASE
    ========================================================================= */
+
 html {
 	font-family: 'Pathway Gothic One', Helvetica, sans-serif;
 	min-width: 330px;
 }
 
-body{
-}
-
 /* HEADER
    ========================================================================= */
+
+/* CABECERA CON IMAGEN DE FONDO, BUSCADOR Y MENÚ DE NAVEGACIÓN */
+
 header {
 	display: block;
 }
 
+/* Imagen de fondo */
 #slider {
 	background: url('../img/programacion1.jpg');
 	width: 100%;
   padding: 15% 0;
   background-size: cover;
   background-repeat: no-repeat;
-  /*background-position: center center;*/
 	background-attachment: fixed;
 }
 
+/* Hacemos flexible la lista del nav. */
 nav>ul {
 	display: flex;
 	justify-content: space-around;
@@ -47,15 +72,17 @@ nav>ul>li {
 	padding: 20px 40px 20px 40px;
 }
 
+/* Ocultamos el menú para dispositivos móviles*/
 nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion,nav>ul>li#perfil {
 		display: none;
 }
 
+/* Mostramos el menú para dispositivos móviles*/
 nav>ul>li#menu_moviles {
 		display: inline;
 }
 
-
+/* Lista del menú para dispositivos móviles, la ocultamos y luego la mostraremos con Jquery*/
 nav>ul>li>ul#lista_movil {
 	background-color: grey;
 	right: 0;
@@ -95,6 +122,7 @@ nav>ul>li>a:hover,nav>ul>li>a:hover>.fa {
 	color: grey;
 }
 
+/* Inicio ocupará todo el espacio sobrante */
 #inicio {
 	flex: 1 1 auto;
 }
@@ -109,12 +137,12 @@ nav>ul>li>a:hover,nav>ul>li>a:hover>.fa {
 	width: 50%;
 	border-radius: 10px;
 	color: white;
-    background: rgba(0,0,0,.35);
-    padding: 2% 5%;
-    margin: auto;
-    text-align: center;
-    z-index: 1;
-    font-size: 20px;
+  background: rgba(0,0,0,.35);
+  padding: 2% 5%;
+  margin: auto;
+  text-align: center;
+  z-index: 1;
+  font-size: 20px;
 }
 
 #buscador p {
@@ -141,8 +169,7 @@ input[type="search"]:focus {
 	background-color: #FFF;
 }
 
-/* CONVIÉRTE EN EDITOR
-   ========================================================================= */
+/* CONVIÉRTE EN EDITOR */
 
 #convierteteEditor {
 	display: none;
@@ -160,17 +187,17 @@ input[type="search"]:focus {
 }
 
 .formulario {
-	  width: 60%;
-	  padding: 5%;
-	  margin: 20px auto;
-	  -webkit-border-radius: 8px/7px;
-	  -moz-border-radius: 8px/7px;
-	  border-radius: 8px/7px;
-	  background-color: #ebebeb;
-	  -webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31);
-	  -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31);
-	  box-shadow: 1px 2px 5px rgba(0,0,0,.31);
-	  border: solid 1px #cbc9c9;
+	width: 60%;
+	padding: 5%;
+  margin: 20px auto;
+  -webkit-border-radius: 8px/7px;
+	-moz-border-radius: 8px/7px;
+	border-radius: 8px/7px;
+	background-color: #ebebeb;
+	-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.31);
+	-moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31);
+	box-shadow: 1px 2px 5px rgba(0,0,0,.31);
+	border: solid 1px #cbc9c9;
 }
 
 .botones {
@@ -199,16 +226,12 @@ input[type="search"]:focus {
 ul.temas_flex {
 	/*Limpiamos estilos de la lista*/
 	padding: 0;
+	list-style: none;
 	background-color: #1A1A1A;
 	margin: 10px 0 10px 0;
-	list-style: none;
-
 	display: flex; /*Lo hacemos flexible*/
-
 	flex-flow: row wrap; /*ShortHand para que se coloquen en fila y que salten*/
-
-	justify-content: space-around; /*Para que se colquen uno en cada extremo y los demás se
-	repartan el espacio sobrante*/
+	justify-content: space-around; /*Para que se repartan el espacio sobrante por igual*/
 	align-items: stretch; /*Estira los elementos para que todos tengan el mismo
 	alto que será el del más alto*/
 }
@@ -218,10 +241,10 @@ ul.temas_flex>li {
 	color: white;
 	display: flex; /*Lo hacemos flexible*/
 	margin: 20px;
-	min-width: 300px;
+	min-width: 300px; /*Para que no decrezca más de 300px*/
 	max-width: 440px; /*Para que no crezca más de 440px*/
 	flex: 1 1 250px; /*Para que crezca y decrezca a partir de 250px de partida*/
-	align-items: stretch; /*Para que se centren en el plano vertical*/
+	align-items: stretch;
 	flex-flow: row nowrap; /*ShortHand para que se coloquen en fila y que no salten*/
 }
 
@@ -265,7 +288,7 @@ ul.temas_flex>li {
     background: #7892c2;
     border: 0;
     font-family: 'Pathway Gothic One', sans-serif;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 300;
     line-height: 50px;
     color: #fff;
@@ -284,7 +307,7 @@ ul.temas_flex>li {
 
 .boton:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #7892c2; color: #fff; }
 
-/* ULTIMOS SUBIDOS
+/* ULTIMOS TEMAS SUBIDOS
    ========================================================================= */
 
 .ultimosSubidos {
@@ -346,7 +369,7 @@ footer h3 {
 ========================================================================= */
 
 @media only screen and (min-width: 808px) {
-	nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion,nav>ul>li#perfil{
+	nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion,nav>ul>li#perfil {
 		display: inline;
 	}
 
