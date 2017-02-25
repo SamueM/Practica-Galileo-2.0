@@ -76,7 +76,7 @@ and open the template in the editor.
         <?php
 
         if($_SESSION['datos']['solicita_edicion']=='no'){
-          echo '<a class="boton" href="convierteteEnEditor_header.php">¡QUIERO SER EDITOR!</a>';
+          echo '<center><a class="boton" href="convierteteEnEditor_header.php">¡QUIERO SER EDITOR!</a></center>';
         } else {
           echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
         }
