@@ -38,7 +38,6 @@ Editado por Miguel Costa 14/02/2017 13:00
 					<?php
 						if(isset($_SESSION['id_usuario'])){
 							$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
-	            //echo $id_tipo_usuario;
 	            switch ($id_tipo_usuario){
 	                case 1:
 	                case 2:
@@ -56,7 +55,7 @@ Editado por Miguel Costa 14/02/2017 13:00
 	                break;
 	            }
 							echo "<a href='./php/".$destino."'>";
-							echo "<img src=".$_SESSION['foto']." width='50px'>".$_SESSION['datos']['nick']."</a>" ;
+							echo "<img src=".substr($_SESSION['foto'],3,strlen($_SESSION['foto']))." width='50px'>".$_SESSION['datos']['nick']."</a>" ;
 						} else {
 							echo "<a href='./php/iniciar_sesion.php'><i class='fa fa-user' aria-hidden='true'></i>Iniciar Sesión</a>" ;
 						}

@@ -73,6 +73,9 @@ and open the template in the editor.
 
     	</header>
         <div id="contenido">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-10 col-md-push-1 col-sm-12">
             <?php
             if(isset($_GET['pagina'])){
             $recibe_pagina=$_GET['pagina'];
@@ -98,6 +101,9 @@ and open the template in the editor.
                     echo "<p style='color:red'>".validacionExisteUsuario($_REQUEST['num'])."</p>";
                }
             ?>
+              </div>
+            </div>
+          </div>
         </div>
 
          <footer>

@@ -43,7 +43,7 @@ and open the template in the editor.
       <header>
     		<nav>
     			<ul id='lista_principal'>
-    				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+    				<li id='inicio'><a href="../index.php" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
             <li id='perfil1'><a href="modificaTusDatos.php"><img src="<?php echo $foto;?>" alt=""></a> Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
     					<ul class='perfil' id='perfil_usuario'>
     						<li>Cursos</li>

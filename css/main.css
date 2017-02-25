@@ -260,7 +260,7 @@ ul.temas_flex>li {
 .boton {
 	height: 50px;
     margin: 0;
-    padding: 15px;
+    padding: 0 15px;
     vertical-align: middle;
     background: #7892c2;
     border: 0;
@@ -277,6 +277,7 @@ ul.temas_flex>li {
     -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
 
+a.boton { padding: 15px ;}
 
 .boton:hover { opacity: 0.6; color: #fff; }
 

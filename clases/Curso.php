@@ -405,6 +405,24 @@
               $row = $resultado->fetch_assoc();
               return round($row['voto']) ; // round() ?
           }
+					/** valoracion_tema_alumno(id_tema,id_usuario);
+							devuelve, si hay la valoracion de un alumno a un tema.
+					*/
+					public static function valoracion_tema_alumno($id_tema,$id_usuario){
+							$c = Connection::dameInstancia();
+							$conexion = $c->dameConexion();
+							$consulta = "SELECT voto  from votos where id_tema=".$id_tema." and id_usuario=".$id_usuario	." ;" ;
+							$resultado = $conexion->query($consulta);
+
+							if($resultado->num_rows > 0){
+								$row = $resultado->fetch_assoc();
+								return $row['voto'] ;
+							} else {
+								return 0 ;
+							}
+
+					}
+					// Valoracion tema alumno //
           // Valoracion de un tema //
 					/** Valoracion curso: devuelve la media de todos los temas de un Curso
 							el cual se lo pasaremos como parametro.
@@ -496,7 +514,7 @@
 					 /** estoy_inscrito(): funcion que validara si un usuario esta inscrito
 					 			en un curso, ambos parametros se lo pasaremos a la funcion.
 					 */
-					 private static function estoy_inscrito($id_usuario,$id_curso)
+					 public static function estoy_inscrito($id_usuario,$id_curso)
 					 {
 						 $c = Connection::dameInstancia();
 						 $conexion = $c->dameConexion();

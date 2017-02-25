@@ -52,7 +52,7 @@ if(!isset($_GET['curso'])){
             if(isset($_SESSION['id_usuario'])){
               echo
               "<a>
-                <img src='".$_SESSION['foto']."' alt=''>
+                <img src=".substr($_SESSION['foto'],3,strlen($_SESSION['foto']))." width='50px' alt=''>
                 ".$_SESSION['datos']['nick']." <i class='fa fa-angle-down' aria-hidden='true'></i>
               </a>";
             } else {
@@ -71,7 +71,7 @@ if(!isset($_GET['curso'])){
   						<li class='editar'>Editar usuario</li>
   					</ul>
           </li>
-  				<li id='ini_sesion'><a href="" title=""><i class="fa fa-lock" aria-hidden="true"></i>Cerrar Sesión</a></li>
+  				<li id='ini_sesion'><a href="php/cerrarSesion.php" title=""><i class="fa fa-lock" aria-hidden="true"></i>Cerrar Sesión</a></li>
     			<li id='menu_moviles'><i class="fa fa-bars" aria-hidden="true"></i></a>
       				<ul id='lista_movil'>
       					<li id='perfil2'><a href=""><img src="" alt="">Miguel Costa</a>
@@ -109,13 +109,20 @@ if(!isset($_GET['curso'])){
 			<ul id='temas'>
         <?php
             $temas = $curso->visualizar_temas($_GET['curso']);
+            if(isset($_SESSION['datos']['id_usuario'])){
+              $inscri = Curso::estoy_inscrito($_SESSION['datos']['id_usuario'],$_GET['curso']);
+            }
             foreach ($temas as $key => $value) {
               echo "<li>
               <h2 class='titulo_tema'>TEMA ".($key+1).". ".$value['titulo']."</h2>
               <div class='sangrado descripcion_tema'>
-      				<p class=''> ".$value['descripcion']."
-              <a href='cursos/".$value['ruta']."/".$value['url']."' >
-                <i class='fa fa-download' aria-hidden='true'></i>
+      				<p class=''> ".$value['descripcion'] ;
+              if(isset($inscri)){
+                echo "<a href='cursos/".$value['ruta']."/".$value['url']."' >" ;
+              } else {
+                echo "<a>" ;
+              }
+              echo "<i class='fa fa-download' aria-hidden='true'></i>
               </a>
               <div class='estrellas_".$value['id_tema']."'></div>
               </p>
@@ -123,11 +130,6 @@ if(!isset($_GET['curso'])){
               </li>";
             }
         ?>
-        <!--
-				<li><h2 class='titulo_tema'>TEMA 2. DESARROLLO</h2>
-				<p class='descripcion_tema'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ullamcorper. Suspendisse massa arcu, eleifend id gravida scelerisque, placerat non diam. Nunc posuere lectus neque, ac semper magna molestie in. Integer tristique, felis eu interdum consequat, nulla odio congue enim, eget posuere orci neque ut ligula. Aenean at auctor elit. Vivamus tristique elit in nisl lacinia, eu tempor libero placerat. Vestibulum pulvinar augue sit amet quam dapibus, lacinia ultricies justo blandit. Vivamus a ultricies massa. Mauris vulputate volutpat bibendum.<a href=""><i class="fa fa-download" aria-hidden="true"></i></a></p></li>
-				<li><h2 class='titulo_tema'>TEMA 3. CONCLUSIÓN</h2>
-				<p class='descripcion_tema'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, mauris non commodo dignissim, nunc ligula ultrices mauris, sed lacinia est tortor non urna. Duis porta efficitur tellus non ullamcorper. Suspendisse massa arcu, eleifend id gravida scelerisque, placerat non diam. Nunc posuere lectus neque, ac semper magna molestie in. Integer tristique, felis eu interdum consequat, nulla odio congue enim, eget posuere orci neque ut ligula. Aenean at auctor elit. Vivamus tristique elit in nisl lacinia, eu tempor libero placerat. Vestibulum pulvinar augue sit amet quam dapibus, lacinia ultricies justo blandit. Vivamus a ultricies massa. Mauris vulputate volutpat bibendum.<a href=""><i class="fa fa-download" aria-hidden="true"></i></a></p></li>-->
 			</ul>
 		</div>
 	</article>
@@ -146,40 +148,41 @@ if(!isset($_GET['curso'])){
                  // No va a cambiar //
                }
            });
+
            //  Imprimir el script de la media del curso //
 					 <?php
-							if( isset($_SESSION['datos']['id_usuario']) ){
-									// Haremos la prueba con el id 3
-									$editor = Curso::soy_editor_de_este_curso(3,$_GET['curso']);
-                  // Las estrellas que se visualizaran cuando se inicie sesion
-                  // son las que uno ha votado
-									echo "$('.estrellas').starrr({
-											rating: ".Curso::valoracion_tema($_GET['curso']).", //Estrellas se estaran iluminadas en un principio
-											max: 5, // Maximo de estrellas
-											readOnly: '".$editor."', // Solo Lectura
-											change:function(e,valor){
-													// Cuando cambie el valor de las estrellas Haz X
-													$.ajax({
-															data: {'usuario' : ".$_SESSION['datos']['id_usuario'].", 'tema': ".$_GET['curso'].", 'voto': valor},
-															type: 'POST',
-															url: 'inc/funciones_AJAX.php?codigoFuncion=1',
-													})
-													.done(function( data, textStatus, jqXHR ) {
-															if(data==0){
-																	alert('Comprueba si estas suscrito en el curso.');
-															}
-													})
-													.fail(function( jqXHR, textStatus, errorThrown ) {
-															if ( console && console.log ) {
-																	console.log( 'La solicitud a fallado: ' +  textStatus);
-															}
-													});
-											}
-									});" ;
+							if( isset($_SESSION['id_usuario']) ){
+									$editor = Curso::soy_editor_de_este_curso($_SESSION['datos']['id_usuario'],$_GET['curso']);
+
+                  foreach ($temas as $key => $value) {
+                    if($editor=='false' && $inscri){
+                      echo "$('.estrellas_".$value['id_tema']."').starrr({
+    											rating: ".Curso::valoracion_tema_alumno($value['id_tema'],$_SESSION['id_usuario']).",
+    											max: 5, // Maximo de estrellas
+    											change:function(e,valor){
+    													$.ajax({
+    															data: {'usuario' : ".$_SESSION['id_usuario'].", 'tema': ".$value['id_tema'].", 'voto': valor},
+    															type: 'POST',
+    															url: 'inc/funciones_AJAX.php?codigoFuncion=1',
+    													})
+    													.done(function( data, textStatus, jqXHR ) {
+    															if(data==0){
+    																	alert('Comprueba si estas suscrito en el curso.');
+    															}
+    													})
+    													.fail(function( jqXHR, textStatus, errorThrown ) {
+    															if ( console && console.log ) {
+    																	console.log( 'La solicitud a fallado: ' +  textStatus);
+    															}
+    													});
+    											}
+    									});" ;
+                    }
+                }
 							} else {
                 foreach ($temas as $key => $value) {
                   echo "$('.estrellas_".$value['id_tema']."').starrr({
-											rating: ".Curso::valoracion_tema($value['id_tema']).", //Estrellas se estaran iluminadas en un principio
+											rating: ".Curso::valoracion_tema($value['id_tema']).",
 											max: 5, // Maximo de estrellas
 											readOnly: 'true', // Solo Lectura
 											change:function(e,valor){

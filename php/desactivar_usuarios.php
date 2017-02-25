@@ -15,13 +15,14 @@ $id_usuario=$_SESSION['id_usuario'];
            if($_SESSION['datos']['id_tipo_usuario']==1){
             $listado=$usuario->getUsuariosFiltro(true,true);
             }else{
-             $listado=$usuario->getUsuariosFiltro(true,false);   
+             $listado=$usuario->getUsuariosFiltro(true,false);
             }
             //print_r($listado);
             if(count($listado)>0){
              ?>
             <form id="form_solicitud" name="form_solicitud" action="desactivar_usuarios_header.php" method="POST">
                 <h2>LISTADO DE USUARIOS ACTIVOS</h2>
+                <div class="table-responsive">
                 <table class="table table-hover tablas-administracion">
                     <tr><th>Foto</th><th>Tipo Usuario</th><th>Id_Usuario</th><th>Nick</th><th>Nombre</th><th>Apellido(s)</th><th>Email</th><th>Teléfono</th><th>Inactivo Usuario</th></tr>
             <?php
@@ -51,7 +52,7 @@ $id_usuario=$_SESSION['id_usuario'];
               }
 
               ?>
-                </table>
+                </table></div>
                <p><input type="submit" name="enviarSolicitud" value="DESACTIVAR USUARIO(S)" class="boton rojo"/></p>
               </form>
             <?php

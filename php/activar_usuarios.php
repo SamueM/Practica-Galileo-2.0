@@ -22,6 +22,7 @@ $id_usuario=$_SESSION['id_usuario'];
              ?>
             <form id="form_solicitud" name="form_solicitud" action="activar_usuarios_header.php" method="POST">
                 <h2>LISTADO DE USUARIOS INACTIVOS</h2>
+                <div class="table-responsive">
                 <table class="table table-hover tablas-administracion">
                     <tr><th>Foto</th><th>Tipo Usuario</th><th>Id_Usuario</th><th>Nick</th><th>Nombre</th><th>Apellido(s)</th><th>Email</th><th>Teléfono</th><th>Activo Usuario</th></tr>
             <?php
@@ -46,7 +47,7 @@ $id_usuario=$_SESSION['id_usuario'];
               }
 
               ?>
-                </table>
+            </table></div>
                <p><input type="submit" name="enviarSolicitud" value="ACTIVAR USUARIO(S)"/></p>
               </form>
             <?php

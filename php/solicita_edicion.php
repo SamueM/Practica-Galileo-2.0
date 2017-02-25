@@ -22,6 +22,7 @@ $id_usuario=$_SESSION['id_usuario'];
              ?>
             <form id="form_solicitud" name="form_solicitud" action="aceptar_solicitud_header.php" method="POST">
                 <h2>LISTADO DE SOLICITUDES DE EDICIÓN DE NUESTROS LECTORES</h2>
+                <div class="table-responsive">
                 <table class="table table-hover tablas-administracion">
                     <tr><th>Foto</th><th>Id_Usuario</th><th>Nick</th><th>Nombre</th><th>Apellido(s)</th><th>Email</th><th>Teléfono</th><th>Autorizo Crear Editor</th></tr>
             <?php
@@ -44,7 +45,7 @@ $id_usuario=$_SESSION['id_usuario'];
               }
 
               ?>
-                </table>
+                </table></div>
                <p><input type="submit" name="enviarSolicitud" value="Crear Editor(es)" class="boton rojo"/></p>
               </form>
             <?php
