@@ -466,7 +466,7 @@
 			 						 <li>IES Galileo</li>--></ul>
 			 		         </div>
 			 		         <div class='descargar'>
-			 		         <p><a href='visorCurso.php?curso=".$curso['id_curso']."' class='boton'>Ir al curso</a></p>
+			 		         <p><button type='button' location.href=='visorCurso.php?curso=".$curso['id_curso']."' class='boton'>Ir al curso</button></p>
 			 		         </div></div></li>";
 					 }
 					 // Imprimir la tarjeta del curso en el inicio //
@@ -554,7 +554,7 @@
 				            <div class='descripcion'><ul>
 							      <li>Autor: ".$value['nombre_tutor']."</li><!--<li>IES Galileo</li>-->
 										<li>Tema: ".$value['titulo']."</li>
-										</ul></div><p class='descargar'><a href='visorCurso.php?curso=".$value['id_curso']."' class='boton rojo'>Ir al Tema</a>
+										</ul></div><p class='descargar'><button type='button' location.href='visorCurso.php?curso=".$value['id_curso']."' class='boton rojo'>Ir al Tema</button>
 					          </div></li>";
 						}
 					}

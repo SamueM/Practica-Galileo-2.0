@@ -141,16 +141,12 @@ input[type="search"]:focus {
 	background-color: #FFF;
 }
 
-/* CONVIERTE EN EDITOR
+/* CONVIÉRTE EN EDITOR
    ========================================================================= */
 
 #convierteteEditor {
 	display: none;
 	padding: 1%;
-}
-
-#convierteteEditor .boton {
-	font-size: 20px;
 }
 
 #convierteteEditor form {
@@ -164,7 +160,7 @@ input[type="search"]:focus {
 }
 
 .formulario {
-	  width: 80%;
+	  width: 60%;
 	  padding: 5%;
 	  margin: 20px auto;
 	  -webkit-border-radius: 8px/7px;
@@ -175,7 +171,10 @@ input[type="search"]:focus {
 	  -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.31);
 	  box-shadow: 1px 2px 5px rgba(0,0,0,.31);
 	  border: solid 1px #cbc9c9;
-	  font-size: 40px;
+}
+
+.botones {
+  text-align: center;
 }
 
 .formulario h2 {
@@ -183,40 +182,6 @@ input[type="search"]:focus {
 	text-align: center;
 	margin-bottom: 10px;
 	font-size: 30px;
-}
-
-
-form{
-  	margin: 0 5%;
-}
-
-label {
-	width: 40%;
-	text-align: center;
-	margin-bottom: 25px;
-	font-size: 25px;
-}
-
-.icon {
-	  display: inline-block;
-	  background-color: #476E9E;
-	  padding: 0.5% 2%;
-	  margin-top: 10px;
-	  margin-left: 0.5%;
-	  margin-right: 0.5%;
-	  -webkit-border-radius: 4px;
-	  -moz-border-radius: 4px;
-	  border-radius: 4px;
-	  color: white;
-	  -webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-	  -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-	  box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-	  border: solid 0px #cbc9c9;
-}
-
-.error {
-	color: red;
-	text-align: center;
 }
 
 /* CURSOS POPULARES
@@ -293,10 +258,9 @@ ul.temas_flex>li {
 }
 
 .boton {
-	text-decoration: none;
-		height: 50px;
+	height: 50px;
     margin: 0;
-    padding: 10px 20px;
+    padding: 0 20px;
     vertical-align: middle;
     background: #7892c2;
     border: 0;
