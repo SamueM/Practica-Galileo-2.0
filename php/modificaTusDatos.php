@@ -31,7 +31,7 @@ and open the template in the editor.
     </head>
     <body>
       <body>
-        <div class="container1">
+        <div class="container">
           <div class="form-box">
             <div class="form-top">
               <div class="form-top-left">
@@ -107,7 +107,7 @@ and open the template in the editor.
                 <input type="password" name="passRep" size="8"/>
             </div>
             <div class="botones">
-            <button type="submit" name="modificar" class='btn'>¡Modificar datos!</button>
+            <button type="submit" name="modificar" class='btn'>Modificar datos</button>
             <button type="reset" class='btn'>Borrar</button>
             <?php
              $id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];

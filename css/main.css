@@ -253,6 +253,7 @@ ul.temas_flex>li {
 	color: white;
 	display: flex; /*Lo hacemos flexible*/
 	margin: 20px;
+	min-width: 300px;
 	max-width: 440px; /*Para que no crezca más de 440px*/
 	flex: 1 1 250px; /*Para que crezca y decrezca a partir de 250px de partida*/
 	align-items: stretch; /*Para que se centren en el plano vertical*/
@@ -300,7 +301,7 @@ ul.temas_flex>li {
     background: #7892c2;
     border: 0;
     font-family: 'Pathway Gothic One', sans-serif;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 300;
     line-height: 50px;
     color: #fff;

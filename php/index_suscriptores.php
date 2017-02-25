@@ -6,7 +6,7 @@ $curso=new Curso();
 sesion();
  $foto=$_SESSION['foto'];
  $nick=$_SESSION['datos']['nick'];
- $id_usuario=$_SESSION['id_usuario'];
+ $id_usuario=$_SESSION['datos']['id_usuario'];
 ?>
 <!DOCTYPE html>
 <!--

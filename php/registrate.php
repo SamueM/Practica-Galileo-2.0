@@ -32,7 +32,7 @@ require_once '../clases/Usuario.php';
     </head>
 
     <body>
-            <div class="container1">
+            <div class="container">
 
                         <div class="form-box">
                         	<div class="form-top">
