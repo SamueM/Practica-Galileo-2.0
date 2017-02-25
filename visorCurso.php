@@ -46,26 +46,46 @@ if(!isset($_GET['curso'])){
 			<ul id='lista_principal'>
 				<li id='inicio'><a href="index.php" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
 				<!--<li id='editor'><a href="" title=""><i class="fa fa-pencil" aria-hidden="true"></i>Conviértete en editor</a></li>-->
-				<li id='perfil'><a href=""><img src="" alt=""><i class="fa fa-user" aria-hidden="true"></i>Miguel Costa<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-					<ul class='perfil' id='perfil_usuario'>
-						<li>Mis cursos</li>
-						<li>Gestión de usuarios</li>
-						<li>Gestión de cursos</li>
-						<li class='editar'>Editar usuario</li>
-					</ul></li>
-				<li id='ini_sesion'><a href="" title=""><i class="fa fa-lock" aria-hidden="true"></i>Cerrar Sesión</a></li>
-				<li id='menu_moviles'><i class="fa fa-bars" aria-hidden="true"></i></a>
-				<ul id='lista_movil'>
-					<li id='perfil2'><a href=""><img src="" alt="">Miguel Costa</a>
-						<ul class='perfil2' id='perfil_usuario2'>
-							<li><a href="#">Mis cursos</a></li>
-							<li><a href="#">Gestión de usuarios</a></li>
-							<li><a href="#">Gestión de cursos</a></li>
-							<li class='editar'><a href="#">Editar usuario</a></li>
-						</ul></li>
-						<li id='editor2'><a href="" title="">Conviértete en editor</a></li>
-						<li id='ini_sesion'><a href="" title="">Cerrar Sesión</a></li>
-				</ul></li>
+
+          <li id='perfil'>
+            <?php
+            if(isset($_SESSION['id_usuario'])){
+              echo
+              "<a>
+                <img src='".$_SESSION['foto']."' alt=''>
+                ".$_SESSION['datos']['nick']." <i class='fa fa-angle-down' aria-hidden='true'></i>
+              </a>";
+            } else {
+              echo
+              "<a href='./php/iniciar_sesion.php'>
+                <i class='fa fa-user' aria-hidden='true'>
+                </i> Inicia sesion
+              </a>";
+            }
+
+             ?>
+  					<ul class='perfil' id='perfil_usuario'>
+  						<li>Mis cursos</li>
+  						<li>Gestión de usuarios</li>
+  						<li>Gestión de cursos</li>
+  						<li class='editar'>Editar usuario</li>
+  					</ul>
+          </li>
+  				<li id='ini_sesion'><a href="" title=""><i class="fa fa-lock" aria-hidden="true"></i>Cerrar Sesión</a></li>
+    			<li id='menu_moviles'><i class="fa fa-bars" aria-hidden="true"></i></a>
+      				<ul id='lista_movil'>
+      					<li id='perfil2'><a href=""><img src="" alt="">Miguel Costa</a>
+      						<ul class='perfil2' id='perfil_usuario2'>
+      							<li><a href="#">Mis cursos</a></li>
+      							<li><a href="#">Gestión de usuarios</a></li>
+      							<li><a href="#">Gestión de cursos</a></li>
+      							<li class='editar'><a href="#">Editar usuario</a></li>
+      						</ul></li>
+      						<li id='editor2'><a href="" title="">Conviértete en editor</a></li>
+      						<li id='ini_sesion'><a href="" title="">Cerrar Sesión</a></li>
+      				</ul>
+          </li>
+
 			</ul>
 		</nav>
 		<div id='slider_perfil'>

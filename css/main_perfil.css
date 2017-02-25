@@ -170,7 +170,10 @@ a.enlace:active {
 .sangrado {
 	margin-left: 2rem;
 }
-
+.grupo_nav_aux {
+	display: flex;
+	flex-flow: row wrap ;
+}
 
 /* CURSOS
    ========================================================================= */

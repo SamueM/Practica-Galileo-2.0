@@ -2,7 +2,14 @@
 Editado por Miguel Costa 14/02/2017 13:00
 -->
 <?php
+
 	include_once("clases/Curso.php");
+	require_once 'inc/funciones.php';
+	sesion();
+	if(isset($_SESSION['id_usuario']) AND (isset($_SESSION['datos']['id_tipo_usuario'])==1 OR isset($_SESSION['datos']['id_tipo_usuario'])==2)){
+		$foto=$_SESSION['foto'];
+		$nick=$_SESSION['datos']['nick'];
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,7 +34,35 @@ Editado por Miguel Costa 14/02/2017 13:00
 				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
 				<li id='editor'><a href="" title=""><i class="fa fa-pencil" aria-hidden="true"></i>Conviértete en editor</a></li>
 				<li id='registrarte'><a href="./php/registrate.php" title=""><i class="fa fa-unlock-alt" aria-hidden="true"></i>Regístrarte</a></li>
-				<li id='ini_sesion'><a href="./php/iniciar_sesion.php" title=""><i class="fa fa-user" aria-hidden="true"></i>Iniciar Sesión</a></li>
+				<li id='ini_sesion'>
+					<?php
+						if(isset($_SESSION['id_usuario'])){
+							$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+	            //echo $id_tipo_usuario;
+	            switch ($id_tipo_usuario){
+	                case 1:
+	                case 2:
+	                    $destino="index_administradores.php";
+	                break;
+	                case 3:
+	                    $destino="index_editores.php";
+	                break;
+	                case 4:
+	                    $destino="index_suscriptores.php";
+	                break;
+	                default:
+	                    $num=-201;
+	                    $destino="iniciar_sesion.php?num=$num";
+	                break;
+	            }
+							echo "<a href='./php/".$destino."'>";
+							echo "<img src=".$_SESSION['foto']." width='50px'>".$_SESSION['datos']['nick']."</a>" ;
+						} else {
+							echo "<a href='./php/iniciar_sesion.php'><i class='fa fa-user' aria-hidden='true'></i>Iniciar Sesión</a>" ;
+						}
+					?>
+
+				</li>
 				<li id='menu_moviles'><i class="fa fa-bars" aria-hidden="true"></i></a>
 				<ul id='lista_movil'>
 					<li id='editor2'><a href="" title="">Conviértete en editor</a></li>
@@ -58,48 +93,6 @@ Editado por Miguel Costa 14/02/2017 13:00
 	<section class='cursosPopulares'>
 		<h2>Cursos más populares</h2>
 		<ul class="temas_flex">
-			<!--<li>
-                <div class='imagen'><img src="./img/php.png" /></div>
-                <div class='modulo'>
-                	<h2>PHP</h2>
-                	<div class='descripcion'>
-                		<ul>
-			                <li>Nicolás Fdez Arellano</li>
-							<li>Tutor DAW (Desarrollo de Aplicaciones Web)</li>
-							<li>IES Galileo</li>
-						</ul>
-		            </div>
-		            <div class='descargar'>
-		            	<p><a href="#" class="boton">DESCARGAR</a></p>
-		            </div>
-	            </div>
-			</li>
-			<li>
-                <div class='imagen'><img src="./img/javascript.png" /></div>
-                <div class='modulo'>
-                	<h2>JAVASCRIPT</h2>
-                	<div class='descripcion'>
-		                <ul>
-			                <li>David Marín Álvarez</li>
-							<li>IES Galileo</li>
-						</ul>
-		            </div>
-		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
-	            </div>
-			</li>
-			<li>
-                <div class='imagen'><img src="./img/interfaces.png" /></div>
-                <div class='modulo'>
-                	<h2>INTERFACES</h2>
-                	<div class='descripcion'>
-		                <ul>
-			                <li>Ángel T. Domínguez</li>
-							<li>IES Galileo</li>
-						</ul>
-		            </div>
-		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
-	            </div>
-			</li>-->
 			<?php
 					$cursos = Curso::cursos_mejor_valorados();
 					foreach ($cursos as $key => $value) {
@@ -112,49 +105,7 @@ Editado por Miguel Costa 14/02/2017 13:00
 	<section class='ultimosSubidos'>
 		<h2>Últimos temas subidos</h2>
 		<ul class="temas_flex">
-			<!--<li>
-                <div class='imagen'><img src="./img/php.png" /></div>
-                <div class='modulo'>
-                	<h2>PHP</h2>
-                	<div class='descripcion'>
-                		<ul>
-			                <li>Nicolás Fdez Arellano</li>
-							<li>Tutor DAW (Desarrollo de Aplicaciones Web)</li>
-							<li>IES Galileo</li>
-						</ul>
-		            </div>
-		            <div class='descargar'>
-		            	<p><a href="#" class="boton rojo">DESCARGAR</a></p>
-		            </div>
-	            </div>
-			</li>
-			<li>
-                <div class='imagen'><img src="./img/javascript.png" /></div>
-                <div class='modulo'>
-                	<h2>JAVASCRIPT</h2>
-                	<div class='descripcion'>
-		                <ul>
-			                <li>David Marín Álvarez</li>
-							<li>IES Galileo</li>
-						</ul>
-		            </div>
-		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
-	            </div>
-			</li>
-			<li>
-                <div class='imagen'><img src="./img/interfaces.png" /></div>
-                <div class='modulo'>
-                	<h2>INTERFACES</h2>
-                	<div class='descripcion'>
-		                <ul>
-			                <li>Ángel T. Domínguez</li>
-							<li>IES Galileo</li>
-						</ul>
-		            </div>
-		            <p class='descargar'><a href="#" class="boton rojo">DESCARGAR</a>
-	            </div>
-			</li>
-		-->
+
 			<?php
 				Curso::ultimos_temas_subidos();
 			?>

@@ -47,19 +47,19 @@ and open the template in the editor.
          <header>
     		<nav>
     			<ul id='lista_principal'>
-    				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+    				<li id='inicio'><a href="../index.php" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
                                 <li id='perfil1'><img src="<?php echo $foto;?>" width="50px" alt="">Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
     					<ul class='perfil' id='perfil_usuario'>
     						<li><a href="index_administradores.php?pagina=1">Solicitudes de Edición</a></li>
-                                                <li><a href="index_administradores.php?pagina=2">Activar usuarios</a></li>
-                                                <li><a href="index_administradores.php?pagina=3">Desactivar usuarios</a></li>
-                                                <li><a href="modificaTusDatos.php">Editar tus datos</a></li>
-                                                <li><a href="">Cursos</a></li>
-                                                <li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
+                        <li><a href="index_administradores.php?pagina=2">Activar usuarios</a></li>
+                        <li><a href="index_administradores.php?pagina=3">Desactivar usuarios</a></li>
+                        <li><a href="modificaTusDatos.php">Editar tus datos</a></li>
+                        <li><a href="">Cursos</a></li>
+                        <li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
     					</ul></li>
     				</ul>
     		</nav>
-    		
+
         <div class="navegacion">
           <ul id='navegacion_secundaria'>
                  <li><a href="index_administradores.php?pagina=1">Solicitudes de Edición</a></li>
