@@ -139,8 +139,6 @@ and open the template in the editor.
     	        <a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a>
     		      </div>
         </footer>
-<<<<<<< HEAD
-
         <script type="text/javascript">
           $("document").ready(function(){
             var numero_de_cursos = $(".temas_flex_2").children().length ;
@@ -179,8 +177,5 @@ and open the template in the editor.
             }
           });
         </script>
-
-=======
->>>>>>> origin/master
     </body>
 </html>
