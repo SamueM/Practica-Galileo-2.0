@@ -224,6 +224,18 @@ ul#temas li h2:hover {
 	min-width: 200px;
 }
 
+/*TABLAS
+========================================================================= */
+
+.tablas-administracion{
+	 margin-top: 2rem;
+	 margin-bottom: 2rem;
+ }
+ h2 {
+	 margin-top: 2rem;
+	 margin-bottom: 2rem;
+ }
+
 /*MEDIA QUERIES
 ========================================================================= */
 
