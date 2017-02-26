@@ -58,7 +58,7 @@
 				<li id='registrarte'>
 					<?php
 						if(isset($_SESSION['id_usuario'])){
-							echo "<i class='fa fa-unlock-alt' aria-hidden='true'></i><a href='./php/cerrarSesion.php'>Cerrar Sesion</a>";
+							echo "<a href='./php/cerrarSesion.php'><i class='fa fa-unlock-alt' aria-hidden='true'></i>Cerrar Sesion</a>";
 							/*
 							echo "<a href='./php/cerrarSesion.php'><i class='fa fa-lock' aria-hidden='true'></i>Cerrar Sesion</a>";
 							*/
