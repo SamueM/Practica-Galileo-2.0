@@ -147,7 +147,7 @@
 				 public function verCursosInscritos($id_usuario){			
 
 									//PRINT "EXITO CURSOS";
-						  $sql="SELECT A.id_curso,A.titulo,A.foto,A.descripcion,C.nombre,C.apellidos FROM ".$this->tabla." A, inscritos_curso B, usuarios C WHERE B.id_usuario='".$id_usuario."' AND B.id_curso=A.id_curso AND A.id_usuario=C.id_usuario AND A.activo='si'";
+						  $sql="SELECT A.id_curso,A.titulo,A.foto,A.descripcion,C.nombre,C.apellidos FROM ".$this->tabla." A, inscritos_curso B, usuarios C WHERE B.id_usuario='".$id_usuario."' AND B.id_curso=A.id_curso AND A.id_usuario=C.id_usuario AND A.activo='si' AND B.cursando='si'";
 						 if($this->c->real_query($sql)){
 							 if($resul=$this->c->store_result()){
 												//print $resul->num_rows;
