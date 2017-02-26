@@ -88,16 +88,13 @@ and open the template in the editor.
                if($_SESSION['datos']['solicita_edicion']=='si'){
                  echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
                }
-               $p=$curso->verCursosInscritos($id_usuario);
-               if($p=="Todavia no te has registrado en ningún curso.   ANIMATE"){
-                 $registros_cursos = $curso->ver_cursos_light();
-                 echo "<ul class='temas_flex_2'>";
-                 while($row = $registros_cursos->fetch_assoc()){
-                   Curso::imprimir_curso_usuario($row,$id_usuario);
-                 }
-                 echo "</ul>";
 
+               $registros_cursos = $curso->ver_cursos_light();
+               echo "<ul class='temas_flex_2'>";
+               while($row = $registros_cursos->fetch_assoc()){
+                 Curso::imprimir_curso_usuario($row,$id_usuario);
                }
+               echo "</ul>";
                // Pagina Gestion Cursos //
             break;
             default:
@@ -143,6 +140,45 @@ and open the template in the editor.
     	        <a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a>
     		</div>
         </footer>
+
+        <script type="text/javascript">
+          $("document").ready(function(){
+            var numero_de_cursos = $(".temas_flex_2").children().length ;
+            for (var i = 0; i <= numero_de_cursos; i++) {
+              $("#curso_"+i).click(function() {
+                var boton = $(this) ;
+                $.ajax({
+                    data: { 'id_usuario' :<?php echo $_SESSION['id_usuario'] ?>, 'id_curso':boton.val() },
+                    type: 'POST',
+                    url: '../inc/funciones_AJAX.php?codigoFuncion=4',
+                    success:function() {
+                      if(boton.hasClass('boton-inscribir')){
+                        alert("Te apuntaste correctamente al curso, ahora puedes leer la documentación.");
+                        boton.removeClass('boton-inscribir');
+                        boton.addClass('boton-desinscribir');
+                        boton.html("Desinscribirse");
+                      } else {
+                        alert("Te desapuntaste correctamente al curso.");
+                        boton.removeClass('boton-desinscribir');
+                        boton.addClass('boton-inscribir');
+                        boton.html("Inscribirme");
+                      }
+                    }
+                })
+                .done(function( data, textStatus, jqXHR ) {
+                    if(data==0){
+                        alert('Comprueba si estas suscrito en el curso.');
+                    }
+                })
+                .fail(function( jqXHR, textStatus, errorThrown ) {
+                    if ( console && console.log ) {
+                        console.log( 'La solicitud a fallado: ' +  textStatus);
+                    }
+                });
+              });
+            }
+          });
+        </script>
 
     </body>
 </html>

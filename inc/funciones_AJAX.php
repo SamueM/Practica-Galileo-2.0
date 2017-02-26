@@ -9,7 +9,6 @@
 
     // Clases que incluir o //
 
-        include_once("../clases/connection.php");
         include_once("../clases/curso.php");
         $c = Connection::dameInstancia();
         $conexionFA = $c->dameConexion();

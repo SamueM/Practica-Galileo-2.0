@@ -508,20 +508,28 @@
 					 				<div class='modulo'><h2>".$curso['titulo']."</h2>
 					 				<div class='descripcion'><ul><li>".$curso['tutor']."</li>
 					 				<li>".substr($curso['descripcion'],0,30)."...</li>";
-									echo "<ul>";
+									echo "<ol>";
 									$resultado = Curso::get_temas_result($curso['id_curso']);
 									if($resultado!=0){
 										foreach ($resultado as $key => $value) {
 												echo "<li><b>".$value['titulo']."</b></li>" ;
+												if($key==3){
+													break;
+												}
 										}
 									}
-									echo "</ul>";
+									echo "</ol>";
 					 				echo "</div><div class='descargar'><p>";
 									if(Curso::estoy_inscrito($id_usuario,$curso['id_curso'])){
-										echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble boton-desinscribir'>DesInscribirme</button>";
-										echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble'>Ir al curso</button>";
+										if(Curso::reinscribirme($id_usuario,$curso['id_curso'])){
+											echo "<button type='button' id='curso_".$curso['id_curso']."' value='".$curso['id_curso']."' class='boton boton-doble boton-inscribir'>Inscribirme</button>";
+											echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble'>Ir al curso</button>";
+										} else {
+											echo "<button type='button' id='curso_".$curso['id_curso']."' value='".$curso['id_curso']."' class='boton boton-doble boton-desinscribir'>Desinscribirse</button>";
+											echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble'>Ir al curso</button>";
+										}
 									} else {
-										echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble boton-inscribir'>Inscribirme</button>";
+										echo "<button type='button' id='curso_".$curso['id_curso']."' value='".$curso['id_curso']."' class='boton boton-doble boton-inscribir'>Inscribirme</button>";
 										echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble'>Ir al curso</button>";
 									}
 									echo "</p></div></div></li>";

@@ -48,20 +48,54 @@ $id_usuario=$_SESSION['datos']['id_usuario'];
     		</div>
         <div class="navegacion">
           <ul id='navegacion_secundaria'>
-                 <li><a href="">Crear curso</a></li>
-                 <li><a href="">Subir temas</a></li>
+                 <li><a href="index_editores.php?pagina=1">Crear curso</a></li>
+                 <li><a href="index_editores.php?pagina=2">Subir temas</a></li>
                  <li><a href="modificaTusDatos.php">Editar tus datos</a></li>
-                 <li><a href="">Cursos</a></li>
+                 <li><a href="index_editores.php?pagina=3">Cursos</a></li>
           </ul>
         </div>
       </header>
       <div id='usuario'>
         <?php
-         $p=$curso->verCursosInscritos($id_usuario);
+        if(isset($_GET['pagina'])){
+          switch ($_GET['pagina']) {
+            case '1':
+               // Pagina Cursos //
+
+               // Pagina Cursos //
+            break;
+            case '2':
+               // Pagina Cursos //
+
+               // Pagina Cursos //
+            break;
+            case '3':
+               // Pagina Gestion Cursos //
+               $registros_cursos = $curso->ver_cursos_light();
+               echo "<ul class='temas_flex_2'>";
+               while($row = $registros_cursos->fetch_assoc()){
+                 if(Curso::soy_editor_de_este_curso($id_usuario,$row['id_curso'])=='false'){
+                   Curso::imprimir_curso_usuario($row,$id_usuario);
+                 }
+               }
+               echo "</ul>";
+               // Pagina Gestion Cursos //
+            break;
+            default:
+              $p=$curso->verCursosInscritos($id_usuario);
+            if($p=="Todavia no te has registrado en ningún curso.   ANIMATE"){
+              echo"<h1>".$p."</h1>";
+              $curso->verCursos();
+            }
+            break;
+          }
+        } else {
+          $p=$curso->verCursosInscritos($id_usuario);
           if($p=="Todavia no te has registrado en ningún curso.   ANIMATE"){
             echo"<h1>".$p."</h1>";
             $curso->verCursos();
           }
+        }
         ?>
     	</div>
       <footer>
@@ -85,5 +119,42 @@ $id_usuario=$_SESSION['datos']['id_usuario'];
           </div>
        </footer>
     </body>
-
+    <script type="text/javascript">
+      $("document").ready(function(){
+        var numero_de_cursos = $(".temas_flex_2").children().length ;
+        for (var i = 0; i <= numero_de_cursos; i++) {
+          $("#curso_"+i).click(function() {
+            var boton = $(this) ;
+            $.ajax({
+                data: { 'id_usuario' :<?php echo $_SESSION['id_usuario'] ?>, 'id_curso':boton.val() },
+                type: 'POST',
+                url: '../inc/funciones_AJAX.php?codigoFuncion=4',
+                success:function() {
+                  if(boton.hasClass('boton-inscribir')){
+                    alert("Te apuntaste correctamente al curso, ahora puedes leer la documentación.");
+                    boton.removeClass('boton-inscribir');
+                    boton.addClass('boton-desinscribir');
+                    boton.html("Desinscribirse");
+                  } else {
+                    alert("Te desapuntaste correctamente al curso.");
+                    boton.removeClass('boton-desinscribir');
+                    boton.addClass('boton-inscribir');
+                    boton.html("Inscribirme");
+                  }
+                }
+            })
+            .done(function( data, textStatus, jqXHR ) {
+                if(data==0){
+                    alert('Comprueba si estas suscrito en el curso.');
+                }
+            })
+            .fail(function( jqXHR, textStatus, errorThrown ) {
+                if ( console && console.log ) {
+                    console.log( 'La solicitud a fallado: ' +  textStatus);
+                }
+            });
+          });
+        }
+      });
+    </script>
 </html>
