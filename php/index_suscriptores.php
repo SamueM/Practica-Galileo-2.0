@@ -79,7 +79,15 @@ and open the template in the editor.
           switch ($_GET['pagina']) {
             case '1':
                // Pagina Cursos //
-
+               if($_SESSION['datos']['solicita_edicion']=='si'){
+                 echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
+               }
+                 $p=$curso->verCursosInscritos($id_usuario);
+               if($p=="Todavia no te has registrado en ningún curso.   ANIMATE"){
+                 echo"<h1>".$p."</h1>";
+                 $curso->verCursos();
+               }
+               break;
                // Pagina Cursos //
             break;
             case '2':

@@ -350,8 +350,6 @@ a.boton { padding: 15px ;}
 
 .boton:active { outline: 0; opacity: 0.6; color: #fff; -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
 
-.boton:focus { outline: 0; opacity: 0.6; background: #7892c2; color: #fff; }
-
 .boton:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #7892c2; color: #fff; }
 
 /* ULTIMOS TEMAS SUBIDOS

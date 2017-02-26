@@ -104,7 +104,7 @@
 													<h1>".$mostrar["titulo"]."</h1>
 													 <h2>Tutor:".$mostrar["nombre"]." ".$mostrar["apellidos"]."</h2>
 													 <p>".$mostrar["descripcion"]."</p>
-													 <button value=".$mostrar["id_curso"]." class='registrar'>¡APUNTATE!</button>
+													 <button value=".$mostrar["id_curso"]." class='boton'>¡APUNTATE!</button>
 													 <h5 id='resul".$mostrar["id_curso"]."'></h5>
 											 </div>";
 							 }
@@ -163,7 +163,7 @@
 														 <h1>".$mostrar["titulo"]."</h1>
 															<h2>Tutor:".$mostrar["nombre"]." ".$mostrar["apellidos"]."</h2>
 															<p>".$mostrar["descripcion"]."</p>
-															<button value=".$mostrar["id_curso"]." class='verCurso'>Ver Curso</button>
+															<button value=".$mostrar["id_curso"]." class='boton'>Ver Curso</button>
 															</div>";
 													 }
 									 $resul->free_result();

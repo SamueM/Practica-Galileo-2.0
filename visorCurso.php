@@ -42,51 +42,108 @@ if(!isset($_GET['curso'])){
 
 </head>
 <body>
-	<header id="header" class="">
-		<nav id='navegacion'>
-			<ul id='lista_principal'>
-				<li id='inicio'><a href="index.php" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
-				<!--<li id='editor'><a href="" title=""><i class="fa fa-pencil" aria-hidden="true"></i>Conviértete en editor</a></li>-->
+	<header>
+		<nav>
+      <ul id='lista_principal'>
+				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+				<?php
 
-          <li id='perfil'>
-            <?php
-            if(isset($_SESSION['id_usuario'])){
-              echo
-              "<a>
-                <img src=".substr($_SESSION['foto'],3,strlen($_SESSION['foto']))." width='50px' alt=''>
-                ".$_SESSION['datos']['nick']." <i class='fa fa-angle-down' aria-hidden='true'></i>
-              </a>";
-            } else {
-              echo
-              "<a href='./php/iniciar_sesion.php'>
-                <i class='fa fa-user' aria-hidden='true'>
-                </i> Inicia sesion
-              </a>";
-            }
-
-             ?>
-  					<ul class='perfil' id='perfil_usuario'>
-  						<li>Mis cursos</li>
-  						<li>Gestión de usuarios</li>
-  						<li>Gestión de cursos</li>
-  						<li class='editar'>Editar usuario</li>
-  					</ul>
-          </li>
-  				<li id='ini_sesion'><a href="php/cerrarSesion.php" title=""><i class="fa fa-lock" aria-hidden="true"></i>Cerrar Sesión</a></li>
-    			<li id='menu_moviles'><i class="fa fa-bars" aria-hidden="true"></i></a>
-      				<ul id='lista_movil'>
-      					<li id='perfil2'><a href=""><img src="" alt="">Miguel Costa</a>
-      						<ul class='perfil2' id='perfil_usuario2'>
-      							<li><a href="#">Mis cursos</a></li>
-      							<li><a href="#">Gestión de usuarios</a></li>
-      							<li><a href="#">Gestión de cursos</a></li>
-      							<li class='editar'><a href="#">Editar usuario</a></li>
-      						</ul></li>
-      						<li id='editor2'><a href="" title="">Conviértete en editor</a></li>
-      						<li id='ini_sesion'><a href="" title="">Cerrar Sesión</a></li>
-      				</ul>
-          </li>
-
+				if(isset($_SESSION['id_usuario'])){
+						$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+						if($id_tipo_usuario==4){
+							echo "<li id='editor'><a href='' title=''><i class='fa fa-pencil' aria-hidden='true'></i>Conviértete en editor</a></li>" ;
+						}
+				} else {
+						echo "<li id='editor'><a href='' title=''><i class='fa fa-pencil' aria-hidden='true'></i>Conviértete en editor</a></li>" ;
+				}
+				/*
+					if(isset($_SESSION['id_usuario'])){
+					} else {
+						echo "<li id='editor'><a href='' title=''><i class='fa fa-pencil' aria-hidden='true'></i>Conviértete en editor</a></li>";
+					}
+					*/
+				?>
+				<li id='registrarte'>
+					<?php
+						if(isset($_SESSION['id_usuario'])){
+							echo "<i class='fa fa-unlock-alt' aria-hidden='true'></i><a href='./php/cerrarSesion.php'>Cerrar Sesion</a>";
+							/*
+							echo "<a href='./php/cerrarSesion.php'><i class='fa fa-lock' aria-hidden='true'></i>Cerrar Sesion</a>";
+							*/
+						} else {
+							echo "<a href='./php/registrate.php' title=''><i class='fa fa-unlock-alt' aria-hidden='true'></i>Regístrate</a>";
+						}
+					?>
+				</li>
+				<li id='ini_sesion'>
+					<?php
+						if(isset($_SESSION['id_usuario'])){
+							$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+	            switch ($id_tipo_usuario){
+	                case 1:
+	                case 2:
+	                    $destino="index_administradores.php";
+	                break;
+	                case 3:
+	                    $destino="index_editores.php";
+	                break;
+	                case 4:
+	                    $destino="index_suscriptores.php";
+	                break;
+	                default:
+	                    $num=-201;
+	                    $destino="iniciar_sesion.php?num=$num";
+	                break;
+	            }
+							echo "<a href='./php/".$destino."'>";
+							echo "<img src=".substr($_SESSION['foto'],3,strlen($_SESSION['foto']))." width='50px'>".$_SESSION['datos']['nick']."</a>" ;
+						} else {
+							echo "<a href='./php/iniciar_sesion.php'><i class='fa fa-user' aria-hidden='true'></i>Inicia Sesión</a>" ;
+						}
+					?>
+				</li>
+				<li id='menu_moviles'><i class="fa fa-bars" aria-hidden="true"></i></a>
+				<ul id='lista_movil'>
+					<li id='editor2'><a href="" title="">Conviértete en editor</a></li>
+					<!--<li id='registrarte2'><a href="./php/registrate.php" title="">Regístrate</a></li>-->
+					<li id='registrarte2'>
+						<?php
+							if(isset($_SESSION['id_usuario'])){
+								$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+		            echo "<a href='./php/cerrarSesion.php'>Cerrar Sesion</a>";
+							} else {
+								echo "<a href='./php/registrate.php' title=''>Regístrate</a>";
+							}
+						?>
+					</li>
+					<li id='ini_sesion2'>
+						<?php
+							if(isset($_SESSION['id_usuario'])){
+								$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+		            switch ($id_tipo_usuario){
+		                case 1:
+		                case 2:
+		                    $destino="index_administradores.php";
+		                break;
+		                case 3:
+		                    $destino="index_editores.php";
+		                break;
+		                case 4:
+		                    $destino="index_suscriptores.php";
+		                break;
+		                default:
+		                    $num=-201;
+		                    $destino="iniciar_sesion.php?num=$num";
+		                break;
+		            }
+								echo "<a href='./php/".$destino."'>";
+								echo "<img src=".substr($_SESSION['foto'],3,strlen($_SESSION['foto']))." width='50px'>".$_SESSION['datos']['nick']."</a>" ;
+							} else {
+								echo "<a href='./php/iniciar_sesion.php'>Inicia Sesión</a>" ;
+							}
+						?>
+					</li>
+				</ul></li>
 			</ul>
 		</nav>
 		<div id='slider_perfil'>
