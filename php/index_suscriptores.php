@@ -63,8 +63,8 @@ and open the template in the editor.
     		</div>
         <div class="navegacion">
           <ul id='navegacion_secundaria'>
-                <li><a href="index_suscriptores.php">Cursos</a></li>
-                <li><a href="">Gestión de cursos</a></li>
+                <li><a href="index_suscriptores.php?pagina=1">Cursos</a></li>
+                <li><a href="index_suscriptores.php?pagina=2">Gestión de cursos</a></li>
                 <li><a href="modificaTusDatos.php">Editar usuario</a></li>
                 <?php
                 if($_SESSION['datos']['solicita_edicion']=='no'){
@@ -76,14 +76,51 @@ and open the template in the editor.
     	</header>
       <div id='usuario'>
         <?php
-        if($_SESSION['datos']['solicita_edicion']=='si'){
-          echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
-        }
-         $p=$curso->verCursosInscritos($id_usuario);
+        if(isset($_GET['pagina'])){
+          switch ($_GET['pagina']) {
+            case '1':
+               // Pagina Cursos //
+
+               // Pagina Cursos //
+            break;
+            case '2':
+               // Pagina Gestion Cursos //
+               if($_SESSION['datos']['solicita_edicion']=='si'){
+                 echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
+               }
+               $p=$curso->verCursosInscritos($id_usuario);
+               if($p=="Todavia no te has registrado en ningún curso.   ANIMATE"){
+                 $registros_cursos = $curso->ver_cursos_light();
+                 echo "<ul class='temas_flex_2'>";
+                 while($row = $registros_cursos->fetch_assoc()){
+                   Curso::imprimir_curso_usuario($row,$id_usuario);
+                 }
+                 echo "</ul>";
+
+               }
+               // Pagina Gestion Cursos //
+            break;
+            default:
+            if($_SESSION['datos']['solicita_edicion']=='si'){
+              echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
+            }
+              $p=$curso->verCursosInscritos($id_usuario);
+            if($p=="Todavia no te has registrado en ningún curso.   ANIMATE"){
+              echo"<h1>".$p."</h1>";
+              $curso->verCursos();
+            }
+            break;
+          }
+        } else {
+          if($_SESSION['datos']['solicita_edicion']=='si'){
+            echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
+          }
+          $p=$curso->verCursosInscritos($id_usuario);
           if($p=="Todavia no te has registrado en ningún curso.   ANIMATE"){
             echo"<h1>".$p."</h1>";
             $curso->verCursos();
           }
+        }
         ?>
     	</div>
       <footer>

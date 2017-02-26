@@ -344,7 +344,7 @@
           public static function get_temas($id_curso){
               $c = Connection::dameInstancia();
               $conexion = $c->dameConexion();
-              $consulta = "Select * from temas where id_curso=".$id_curso." ;" ;
+              $consulta = "Select * from temas where id_curso=".$id_curso." and activo='si' ;" ;
               $resultado = $conexion->query($consulta);
               if($resultado->num_rows ==0 ){
                   return 0 ;
@@ -353,6 +353,20 @@
                       $rows[] = $row ;
                   }
                   return json_encode($rows) ;
+              }
+          }
+					private static function get_temas_result($id_curso){
+              $c = Connection::dameInstancia();
+              $conexion = $c->dameConexion();
+              $consulta = "Select * from temas where id_curso=".$id_curso." and activo='si' ;" ;
+              $resultado = $conexion->query($consulta);
+              if($resultado->num_rows ==0 ){
+                  return 0 ;
+              } else {
+                  while($row = $resultado->fetch_assoc()){
+                      $rows[] = $row ;
+                  }
+                  return $rows ;
               }
           }
           // Metodo get_temas //
@@ -474,9 +488,6 @@
 					 */
 					 public static function imprimir_curso_mv($curso)
 					 {
-						 if($curso['foto']==NULL){
-							 	$curso['foto'] = 'curso_generico.jpg' ;
-						 }
 						 echo "<li><div class='imagen'><img src='./img_Cursos/".$curso['foto']."' /></div>
 			             <div class='modulo'><h2>".$curso['titulo']."</h2>
 			             <div class='descripcion'><ul><li>".$curso['nombre_usuario']." ".$curso['apellido_usuario']."</li>
@@ -488,6 +499,34 @@
 			 		         </div></div></li>";
 					 }
 					 // Imprimir la tarjeta del curso en el inicio //
+					 /** Imprimir curso usuario(): funcion que imprime las tarjetas de
+					 		 index_suscriptores -> gestion de cursos ;
+					 */
+					 public static function imprimir_curso_usuario($curso,$id_usuario)
+					 {
+					 	echo "<li><div class='imagen'><img src='../img_Cursos/".$curso['foto']."' /></div>
+					 				<div class='modulo'><h2>".$curso['titulo']."</h2>
+					 				<div class='descripcion'><ul><li>".$curso['tutor']."</li>
+					 				<li>".substr($curso['descripcion'],0,30)."...</li>";
+									echo "<ul>";
+									$resultado = Curso::get_temas_result($curso['id_curso']);
+									if($resultado!=0){
+										foreach ($resultado as $key => $value) {
+												echo "<li><b>".$value['titulo']."</b></li>" ;
+										}
+									}
+									echo "</ul>";
+					 				echo "</div><div class='descargar'><p>";
+									if(Curso::estoy_inscrito($id_usuario,$curso['id_curso'])){
+										echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble boton-desinscribir'>DesInscribirme</button>";
+										echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble'>Ir al curso</button>";
+									} else {
+										echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble boton-inscribir'>Inscribirme</button>";
+										echo "<button type='button' onclick=location.href='../visorCurso.php?curso=".$curso['id_curso']."' class='boton boton-doble'>Ir al curso</button>";
+									}
+									echo "</p></div></div></li>";
+					 }
+					 // Imprimir curso usuario //
 					 /** activar_desactivar_curso($id_usuario,$id_curso): dependiendo del parametro que
 					 		le pasemos inscribira a un usuario en un curso o desactivara su INSCRIPCION.
 					 */
@@ -577,6 +616,17 @@
 						}
 					}
 						/* Ultimos temas subidos */
+						/** ver cursos light(): esta funcion devuelve el resulset con todos
+							los curso.
+						*/
+						public function ver_cursos_light(){
+							$c = Connection::dameInstancia();
+  						$conexion = $c->dameConexion();
+  						$consulta = "SELECT `id_curso`, cursos.titulo,`descripcion` , `fecha_creacion`, cursos.foto, concat(usuarios.nombre,' ',usuarios.apellidos) as tutor FROM `cursos`,usuarios WHERE cursos.activo='si' and usuarios.id_usuario = cursos.id_usuario ";
+ 						  $resultado = $conexion->query($consulta);
+							return $resultado ;
+						}
+						// ver cursos light //
 
 	}
 ?>

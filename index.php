@@ -38,12 +38,20 @@
 		<nav>
 			<ul id='lista_principal'>
 				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
-				<li id='editor'><a href="" title=""><i class="fa fa-pencil" aria-hidden="true"></i>Conviértete en editor</a></li>
+				<?php
+				if(isset($_SESSION['id_usuario'])){
+						$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+						if($id_tipo_usuario==4){
+							echo "<li id='editor'><a href='' title=''><i class='fa fa-pencil' aria-hidden='true'></i>Conviértete en editor</a></li>" ;
+						}
+				} else {
+						echo "<li id='editor'><a href='' title=''><i class='fa fa-pencil' aria-hidden='true'></i>Conviértete en editor</a></li>" ;
+				}
+				?>
 				<li id='registrarte'>
 					<?php
 						if(isset($_SESSION['id_usuario'])){
-							$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
-							echo "<a href='./php/cerrarSesion.php'>Cerrar Sesion</a>";
+							echo "<i class='fa fa-unlock-alt' aria-hidden='true'></i><a href='./php/cerrarSesion.php'>Cerrar Sesion</a>";
 						} else {
 							echo "<a href='./php/registrate.php' title=''><i class='fa fa-unlock-alt' aria-hidden='true'></i>Regístrate</a>";
 						}
