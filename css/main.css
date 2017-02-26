@@ -29,7 +29,7 @@
 
 h1,h2,h3,p,ul,body {margin:0;padding:0;}
 ul {list-style: none;}
-
+a,a:hover,a:focus {text-decoration: none;}
 /* BASE
    ========================================================================= */
 
@@ -111,7 +111,6 @@ nav>ul>li>ul#lista_movil {
 nav>ul>li>ul#lista_movil a {
 	color: white;
 	font-size: 20px;
-	text-decoration: none;
 }
 
 nav>ul>li>ul#lista_movil li {
@@ -120,7 +119,6 @@ nav>ul>li>ul#lista_movil li {
 }
 
 nav>ul>li>a {
-	text-decoration: none;
 	color: white;
 	font-size: 20px;
 }

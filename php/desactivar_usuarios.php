@@ -53,7 +53,9 @@ $id_usuario=$_SESSION['id_usuario'];
 
               ?>
                 </table></div>
-               <p><input type="submit" name="enviarSolicitud" value="DESACTIVAR USUARIO(S)" class="boton rojo"/></p>
+                <div class='botones'>
+                   <p><input type="submit" name="enviarSolicitud" value="DESACTIVAR USUARIO(S)" class="boton"/></p>
+                </div>
               </form>
             <?php
             }else{

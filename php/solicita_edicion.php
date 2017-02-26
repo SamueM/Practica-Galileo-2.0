@@ -46,7 +46,9 @@ $id_usuario=$_SESSION['id_usuario'];
 
               ?>
                 </table></div>
-               <p><input type="submit" name="enviarSolicitud" value="Crear Editor(es)" class="boton rojo"/></p>
+                <div class="botones">
+                  <p><input type="submit" name="enviarSolicitud" value="Crear Editor(es)" class="boton"/></p>
+                </div>
               </form>
             <?php
             }else{

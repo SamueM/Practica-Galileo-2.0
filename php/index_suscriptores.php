@@ -40,7 +40,6 @@ and open the template in the editor.
 </script>
 </head>
     <body>
-
       <header>
     		<nav>
     			<ul id='lista_principal'>
@@ -121,25 +120,26 @@ and open the template in the editor.
         ?>
     	</div>
       <footer>
-    	<div id='conocenos'>
-    	<h3>Conócenos</h3>
-    		<ul>
-    			<li><a href="">Isabel</a></li>
-    			<li><a href="">Cristina</a></li>
-    			<li><a href="">Samuel</a></li>
-    			<li><a href="">Alejandro</a></li>
-    			<li><a href="">Miguel</a></li>
-    		</ul>
-    	</div>
-            <p>Copyright 2017 DAW<br />IES Galileo</p>
-            <div class='redes'>
+    	   <div id='conocenos'>
+    	      <h3>Conócenos</h3>
+        		<ul>
+        			<li><a href="">Isabel</a></li>
+        			<li><a href="">Cristina</a></li>
+        			<li><a href="">Samuel</a></li>
+        			<li><a href="">Alejandro</a></li>
+        			<li><a href="">Miguel</a></li>
+        		</ul>
+        	</div>
+          <p>Copyright 2017 DAW<br />IES Galileo</p>
+          <div class='redes'>
             	<h3>Síguenos en: </h3>
     	        <a href=""><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
     	        <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
     	        <a href=""><i class="fa fa-google-plus" aria-hidden="true"></i></a>
     	        <a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-    		</div>
+    		      </div>
         </footer>
+<<<<<<< HEAD
 
         <script type="text/javascript">
           $("document").ready(function(){
@@ -180,5 +180,7 @@ and open the template in the editor.
           });
         </script>
 
+=======
+>>>>>>> origin/master
     </body>
 </html>

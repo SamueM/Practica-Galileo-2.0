@@ -47,9 +47,11 @@ $id_usuario=$_SESSION['id_usuario'];
               }
 
               ?>
-            </table></div>
-               <p><input type="submit" name="enviarSolicitud" value="ACTIVAR USUARIO(S)"/></p>
-              </form>
+             </table></div>
+              <div class='botones'>
+               <p><input type="submit" name="enviarSolicitud" value="ACTIVAR USUARIO(S)" class='boton'/></p>
+             </div>
+            </form>
             <?php
             }else{
                 echo "<h2> No existen solicitudes de activación de usuarios </h2>";

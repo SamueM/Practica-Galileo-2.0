@@ -32,16 +32,6 @@ and open the template in the editor.
         <script src="../jquery/jquery-3.1.1.min.js" ></script>
         <script type="text/javascript" src="../jquery/jquery_menu_desplegable.js"></script>
         <script src="../jquery/jquery_listaDeslizante.js" ></script>
-        <style>
-            .tablas-administracion{
-               margin-top: 2rem;
-               margin-bottom: 2rem;
-             }
-             h2 {
-               margin-top: 2rem;
-               margin-bottom: 2rem;
-             }
-        </style>
     </head>
     <body>
          <header>
@@ -73,31 +63,30 @@ and open the template in the editor.
           <div class="container">
             <div class="row">
               <div class="col-md-10 col-md-push-1 col-sm-12">
-            <?php
-            if(isset($_GET['pagina'])){
-            $recibe_pagina=$_GET['pagina'];
-
-            switch ($recibe_pagina){
-                case 1:
-                  include ("solicita_edicion.php");
-               break;
-               case 2:
-                 include ("activar_usuarios.php");
-               break;
-               case 3:
-                 include ("desactivar_usuarios.php");
-               break;
-                case 4:
-                 include ("modificaTusDatos.php");
-               break;
-               default:
-               include ("solicita_edicion.php");//aqui incluyes la pagina que por defecto aparecera si no se leccionan alguna de las otras
-               }
-               }
-               if(isset($_REQUEST['num'])){
-                    echo "<p style='color:red'>".validacionExisteUsuario($_REQUEST['num'])."</p>";
-               }
-            ?>
+                <?php
+                if(isset($_GET['pagina'])){
+                $recibe_pagina=$_GET['pagina'];
+                  switch ($recibe_pagina){
+                     case 1:
+                       include ("solicita_edicion.php");
+                     break;
+                     case 2:
+                       include ("activar_usuarios.php");
+                     break;
+                     case 3:
+                       include ("desactivar_usuarios.php");
+                     break;
+                      case 4:
+                       include ("modificaTusDatos.php");
+                     break;
+                     default:
+                       include ("solicita_edicion.php");//aqui incluyes la pagina que por defecto aparecera si no se leccionan alguna de las otras
+                     }
+                   }
+                   if(isset($_REQUEST['num'])){
+                        echo "<p style='color:red'>".validacionExisteUsuario($_REQUEST['num'])."</p>";
+                   }
+                ?>
               </div>
             </div>
           </div>
