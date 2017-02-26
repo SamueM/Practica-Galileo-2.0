@@ -1,9 +1,31 @@
  <?php
-
+    require_once '../clases/Connection.php';
+     $bd=Connection::dameInstancia();
+    $con=$bd->dameConexion();
     $id_usuario=$_GET["id"];
+    $id=(int)$id_usuario;
     $id_curso=$_GET["curso"];
-    $con  = mysqli_connect("localhost","root","","bd_cursosgalileo");
-    $sql="SELECT * FROM inscritos_curso WHERE id_usuario='".$id_usuario."' AND id_curso='".$id_curso."'";
+    $tutor=false;
+
+    $sql="SELECT * FROM cursos WHERE id_curso='".$id_curso."'";
+         if($con->real_query($sql)){
+                   if($resul=$con->store_result()){
+                     if($resul->num_rows==1){
+                        $mostrar=$resul->fetch_assoc();
+                        if($mostrar["id_usuario"]==$id){
+                            $tutor=true;
+                        }else{
+                            $tutor=false;
+                        }
+                     }else{
+                        $resul->free_result();
+                     }
+                   }
+            }else{
+                  echo $con->errno." -> ".$con->error;
+            }
+    if($tutor==false){
+        $sql="SELECT * FROM inscritos_curso WHERE id_usuario='".$id_usuario."' AND id_curso='".$id_curso."'";
             if($con->real_query($sql)){
                    if($resul=$con->store_result()){
                      if($resul->num_rows==0){
@@ -21,4 +43,7 @@
             }else{
                   echo $con->errno." -> ".$con->error;
             }
+    }else{
+        echo "<h3>Eres el tutor de este curso, no puedes registrarte</h3>";
+    }
  ?>

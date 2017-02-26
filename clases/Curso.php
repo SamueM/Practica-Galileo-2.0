@@ -36,28 +36,28 @@
              return true;
             }
    		   }
-
-   		   public function addCurso($id_usuario,$title,$descri,$date,$active,$img){  //mkdir("/ruta/a/mi/directorio", 0700);  Crear un directorio
-                 echo $title;
-                 echo "<h3>Prueba</h3>";
+          public function addCurso($id_usuario,$title,$descri,$date,$active,$img){  //mkdir("/ruta/a/mi/directorio", 0700);  Crear un directorio
+                
                  if($this->existCurso($title)){
                   $foto=$this->guardarImgCurso($title,$img);
-   		   		$sql="INSERT INTO ".$this->tabla." (id_usuario,titulo,descripcion,fecha_creacion,activo,foto) VALUES(?,?,?,?,?,?)";
-   		   		$sen=$this->c->prepare($sql);
-   		   		$sen->bind_param("isssss",$id_usuario,$title,$descri,$date,$active,$foto);
-   		   		if($sen->execute()){
+                  $sql="INSERT INTO ".$this->tabla." (id_usuario,titulo,descripcion,fecha_creacion,activo,foto) VALUES(?,?,?,?,?,?)";
+                 $sen=$this->c->prepare($sql);
+                 $sen->bind_param("isssss",$id_usuario,$title,$descri,$date,$active,$foto);
+                if($sen->execute()){
                      mkdir("../cursos/".$title, 0700);
                      mkdir("../cursos/".$title."/imagenes", 0700);
-                     echo "<h2>Se ha añadido correctamente</h2>";
+                     
+                     return -402;  //Se ha creado con exito
                   }else{
-                     echo "<h1>No se pudo añadir correctamente el curso</h1>";
-                     echo $sen->error;
+                  
+                     return -401;  //No se ha podido crear
                   }
                 }else{
-                   echo "<h1>error: Ya existe la base de datos<h1>";
+                     return -400; //Este curso ya existe
+                
                 }
 
-   		   }
+         }
 				 public function guardarImgCurso($nick,$archivo_foto){
 								$foto_name = $archivo_foto['name'];
 								$foto_type=$archivo_foto['type'];
@@ -81,7 +81,7 @@
 								 //Guardamos la foto en la carpeta del proyecto "fotos" con su nick Ejemplo: Ana.jpg
 								move_uploaded_file($foto_tmp_name, $ruta);
 								//Declaramos la ruta de la imagen en la base de datos
-							 $rutaBD=$nombre_foto;
+							 $rutaBD=$ruta;
 					}
 				}else{//en caso de que el usuario no inserte imagen
 					$rutaOrigen="../img_Cursos/curso_generico.jpg";
@@ -93,7 +93,7 @@
 			}
 
 				 public function verCursos(){
-				 $sql="SELECT A.id_curso,A.titulo,A.foto,A.descripcion,B.nombre,B.apellidos FROM ".$this->tabla." A, usuarios B WHERE A.id_usuario=B.id_usuario";
+				$sql="SELECT A.id_curso,A.titulo,A.foto,A.descripcion,B.nombre,B.apellidos FROM ".$this->tabla." A, usuarios B WHERE A.id_usuario=B.id_usuario and A.activo='si'";
 				 if($this->c->real_query($sql)){
 					 /*echo "prueba";*/
 					 if($resul=$this->c->store_result()){
@@ -122,35 +122,32 @@
    		   public function verCursosCreados($id_usuario){
                   //PRINT $id_usuario ;
 
-   		   		$sql="SELECT * FROM ".$this->tabla." WHERE id_usuario='".$id_usuario."'";
-   		   		if($this->c->real_query($sql)){
-   		   			if($resul=$this->c->store_result()){
+            $sql="SELECT * FROM ".$this->tabla." WHERE id_usuario='".$id_usuario."'";
+            if($this->c->real_query($sql)){
+              if($resul=$this->c->store_result()){
                           //print $resul->num_rows;
-   		   				if($resul->num_rows>0){
-   		   				/*	$datos=array();
-   		   					$mostrar=$resul->fetch_assoc();
-   		   					foreach ($mostrar as $campo => $valor) {
-   		   						$datos[$campo]=$valor;
-   		   					}*/
-                            while($mostrar=$resul->fetch_assoc()){
-                              print "<button value=".$mostrar["id_curso"]." name=".$mostrar["titulo"].">".$mostrar["titulo"]."</button>";
-                           }
-   		   					$resul->free_result();
-   		   					return $datos;
-   		   				}else{
-   		   					$resul->free_result();
-   		   					return "Todavia no has creado ningun curso.   ANIMATE";
-   		   				}
-   		   			}
-   		   		}else{
-   		   			echo $this->c->errno." -> ".$this->c->error;
-   		   		}
-   		   }
+                if($resul->num_rows>0){
 
-				 public function verCursosInscritos($id_usuario){			//Falta Registrar Curso
+                   print "<select name='curso'>";
+                            while($mostrar=$resul->fetch_assoc()){
+                              echo "<option value=".$mostrar["id_curso"].">".$mostrar["titulo"]."</option>";
+                           }
+                   print "</select>";
+                  $resul->free_result();
+                }else{
+                  $resul->free_result();
+                  return "Todavia no has creado ningun curso.   ANIMATE";
+                }
+              }
+            }else{
+              echo $this->c->errno." -> ".$this->c->error;
+            }
+         }
+
+				 public function verCursosInscritos($id_usuario){			
 
 									//PRINT "EXITO CURSOS";
-						 $sql="SELECT A.id_curso,A.titulo,A.foto,A.descripcion,C.nombre,C.apellidos FROM ".$this->tabla." A, inscritos_curso B, usuarios C WHERE B.id_usuario='".$id_usuario."' AND B.id_curso=A.id_curso AND A.id_usuario=C.id_usuario";
+						  $sql="SELECT A.id_curso,A.titulo,A.foto,A.descripcion,C.nombre,C.apellidos FROM ".$this->tabla." A, inscritos_curso B, usuarios C WHERE B.id_usuario='".$id_usuario."' AND B.id_curso=A.id_curso AND A.id_usuario=C.id_usuario AND A.activo='si'";
 						 if($this->c->real_query($sql)){
 							 if($resul=$this->c->store_result()){
 												//print $resul->num_rows;
@@ -178,8 +175,7 @@
 						 }
 					}
 
-
-         public function addArtic($id_curso,$title,$descrip,$active,$url,$img){
+          public function addArtic($id_curso,$title,$descrip,$active,$url,$img){
                 if($this->existArtic($title)){
                   $foto=$this->guardarImgArticulo($id_curso,$title,$img);
                   $url=$this->guardarPdf($id_curso,$title,$url);
@@ -188,15 +184,16 @@
                   $sen=$this->c->prepare($sql);
                   $sen->bind_param("issssss",$id_curso,$title,$descrip,$date,$active,$url,$foto);
                   if($sen->execute()){
-                     echo "<h2>Se ha añadido correctamente el articulo</h2>";
+                     return -410;//Se ha añadido correctamente el articulo";
                   }else{
-                     echo "<h1>No se pudo añadir correctamente el curso</h1>";
-                     echo $sen->error;
+                     return -411; //No se pudo añadir correctamente al curso;
+                     //echo $sen->error;
                   }
                 }else{
-                   echo "<h1>error: Ya existe la base de datos<h1>";
+                   return -412; //Error: Ya existe este articulo
                 }
          }
+
          public function existArtic($title){
                   $sql="SELECT * FROM temas WHERE titulo='".$title."'";
                   if($this->c->real_query($sql)){
@@ -235,7 +232,7 @@
                     //Guardamos la foto en la carpeta del proyecto "fotos" con su nick Ejemplo: Ana.jpg
                    move_uploaded_file($foto_tmp_name, $ruta);
                    //Declaramos la ruta de la imagen en la base de datos
-                  $rutaBD=$nombre_foto;
+                  $rutaBD=$ruta;
              }
            }else{//en caso de que el usuario no inserte imagen
              $rutaOrigen="../fotos/sinFotoBlue.png";
@@ -260,7 +257,7 @@
                     //Guardamos la foto en la carpeta del proyecto "fotos" con su nick Ejemplo: Ana.jpg
                    move_uploaded_file($pdf_tmp_name, $ruta);
                    //Declaramos la ruta de la imagen en la base de datos
-                  $rutaBD=$nombre_pdf;
+                  $rutaBD=$ruta;
 
              return $rutaBD;
          }
