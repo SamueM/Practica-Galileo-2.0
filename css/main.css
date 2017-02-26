@@ -360,6 +360,10 @@ footer {
 	font-size: 15px;
 }
 
+footer #conocenos {
+	width: 50px;
+}
+
 .redes i {
 	font-size: 25px;
 }

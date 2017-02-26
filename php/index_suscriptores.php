@@ -26,6 +26,7 @@ and open the template in the editor.
   <link href='http://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css' />
   <script src="../jquery/jquery-3.1.1.min.js" ></script>
   <script type="text/javascript" src="../jquery/jquery_menu_desplegable.js"></script>
+  <script src="../jquery/jquery_listaDeslizante.js" ></script>
   <script>
       $(document).ready(function(){
          $(".registrar").click(function(){
@@ -47,7 +48,6 @@ and open the template in the editor.
             <li id='perfil1'><a href="modificaTusDatos.php"><img src="<?php echo $foto;?>" alt=""></a> Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
     					<ul class='perfil' id='perfil_usuario'>
     						<li>Cursos</li>
-    						<li>Gestión de usuarios</li>
     						<li>Gestión de cursos</li>
     						<li><a href="modificaTusDatos.php">Editar usuario</a></li>
                 <?php

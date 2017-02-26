@@ -25,6 +25,7 @@ if(!isset($_GET['curso'])){
 	<script type="text/javascript" src="jquery/jquery_menu_desplegable.js"></script>
 	<script type="text/javascript" src="jquery/jquery_acordeon.js"></script>
 	<script src="jquery/jquery_menuMoviles_desplegable.js" ></script>
+  <script src="jquery/jquery_listaDeslizante.js" ></script>
 	<style type="text/css">
 			.estrellas {
 				text-align: center;

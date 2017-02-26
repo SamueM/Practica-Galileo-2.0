@@ -27,6 +27,7 @@ $id_usuario=$_SESSION['datos']['id_usuario'];
       <link href='http://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css' />
       <script src="../jquery/jquery-3.1.1.min.js" ></script>
       <script type="text/javascript" src="../jquery/jquery_menu_desplegable.js"></script>
+      <script src="../jquery/jquery_listaDeslizante.js" ></script>
     </head>
     <body>
       <header>
