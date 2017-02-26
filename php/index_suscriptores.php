@@ -29,7 +29,7 @@ and open the template in the editor.
   <script src="../jquery/jquery_listaDeslizante.js" ></script>
   <script>
       $(document).ready(function(){
-         $(".registrar").click(function(){
+         $(".boton").click(function(){
            //alert($(this).val());
             console.log(<?php echo $id_usuario; ?>);
             var id=<?php echo $id_usuario; ?>;
