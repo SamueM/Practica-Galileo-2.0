@@ -72,6 +72,13 @@ nav>ul>li {
 	padding: 20px 40px 20px 40px;
 }
 
+#ini_sesion img, #ini_sesion2 img {
+	height: 50px;
+	width: auto;
+	vertical-align: middle;
+	padding-right: 10px;
+}
+
 /* Ocultamos el menú para dispositivos móviles*/
 nav>ul>li#editor,nav>ul>li#registrarte,nav>ul>li#ini_sesion,nav>ul>li#perfil {
 		display: none;
@@ -347,7 +354,7 @@ footer {
 	justify-content: space-between;;
 	align-items: center;
 	flex-flow: row wrap;
-	padding: 2% 2% 4% 2%;
+	padding: 2%;
 	color: white;
 	background-color: #1A1A1A;
 	font-size: 15px;
@@ -407,7 +414,7 @@ footer h3 {
 	}
 
 	footer {
-			font-size: 25px;
+			font-size: 20px;
 	}
 
 	footer .redes i {

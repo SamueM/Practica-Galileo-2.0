@@ -43,23 +43,21 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-
          <header>
-    		<nav>
-    			<ul id='lista_principal'>
-    				<li id='inicio'><a href="../index.php" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
-                                <li id='perfil1'><img src="<?php echo $foto;?>" width="50px" alt="">Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
-    					<ul class='perfil' id='perfil_usuario'>
-    						<li><a href="index_administradores.php?pagina=1">Solicitudes de Edición</a></li>
-                        <li><a href="index_administradores.php?pagina=2">Activar usuarios</a></li>
-                        <li><a href="index_administradores.php?pagina=3">Desactivar usuarios</a></li>
-                        <li><a href="modificaTusDatos.php">Editar tus datos</a></li>
-                        <li><a href="">Cursos</a></li>
-                        <li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
-    					</ul></li>
-    				</ul>
-    		</nav>
-
+        		<nav>
+        			<ul id='lista_principal'>
+        				<li id='inicio'><a href="../index.php" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
+                <li id='perfil1'><a href="modificaTusDatos.php"><img src="<?php echo $foto;?>" alt=""></a> Hola <?php echo $nick;?>!<i class="fa fa-angle-down" aria-hidden="true"></i>
+        					<ul class='perfil' id='perfil_usuario'>
+        						<li><a href="index_administradores.php?pagina=1">Solicitudes de Edición</a></li>
+                    <li><a href="index_administradores.php?pagina=2">Activar usuarios</a></li>
+                    <li><a href="index_administradores.php?pagina=3">Desactivar usuarios</a></li>
+                    <li><a href="modificaTusDatos.php">Editar tus datos</a></li>
+                    <li><a href="">Cursos</a></li>
+                    <li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
+        					</ul></li>
+        				</ul>
+        		</nav>
         <div class="navegacion">
           <ul id='navegacion_secundaria'>
                  <li><a href="index_administradores.php?pagina=1">Solicitudes de Edición</a></li>
@@ -67,10 +65,8 @@ and open the template in the editor.
                  <li><a href="index_administradores.php?pagina=3">Desactivar usuarios</a></li>
                  <li><a href="modificaTusDatos.php">Editar tus datos</a></li>
                  <li><a href="">Cursos</a></li>
-
           </ul>
         </div>
-
     	</header>
         <div id="contenido">
           <div class="container">
@@ -105,26 +101,25 @@ and open the template in the editor.
             </div>
           </div>
         </div>
-
-         <footer>
-    	<div id='conocenos'>
-    	<h3>Conócenos</h3>
-    		<ul>
-    			<li><a href="">Isabel</a></li>
-    			<li><a href="">Cristina</a></li>
-    			<li><a href="">Samuel</a></li>
-    			<li><a href="">Alejandro</a></li>
-    			<li><a href="">Miguel</a></li>
-    		</ul>
-    	</div>
+        <footer>
+        	<div id='conocenos'>
+          	<h3>Conócenos</h3>
+          	<ul>
+          			<li><a href="">Isabel</a></li>
+          			<li><a href="">Cristina</a></li>
+          			<li><a href="">Samuel</a></li>
+          			<li><a href="">Alejandro</a></li>
+          			<li><a href="">Miguel</a></li>
+          	</ul>
+        	</div>
             <p>Copyright 2017 DAW<br />IES Galileo</p>
             <div class='redes'>
-            	<h3>Síguenos en: </h3>
-    	        <a href=""><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
-    	        <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
-    	        <a href=""><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-    	        <a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-    		</div>
-        </footer>
+                	<h3>Síguenos en: </h3>
+        	        <a href=""><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+        	        <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        	        <a href=""><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+        	        <a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+        		</div>
+         </footer>
     </body>
 </html>

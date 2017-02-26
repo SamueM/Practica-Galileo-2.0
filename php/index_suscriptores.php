@@ -26,17 +26,17 @@ and open the template in the editor.
   <link href='http://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css' />
   <script src="../jquery/jquery-3.1.1.min.js" ></script>
   <script type="text/javascript" src="../jquery/jquery_menu_desplegable.js"></script>
-   <script>
+  <script>
       $(document).ready(function(){
          $(".registrar").click(function(){
            //alert($(this).val());
             console.log(<?php echo $id_usuario; ?>);
             var id=<?php echo $id_usuario; ?>;
-             var p="resul"+$(this).val();//Nos sirve para coger el parrafo correspondiente, dependiendo de en que curso nos queremos registrar
-           $("#"+p).load("../AJAX/registrarCurso.php?id="+id+"&curso="+$(this).val());
+            var p="resul"+$(this).val();//Nos sirve para coger el parrafo correspondiente, dependiendo de en que curso nos queremos registrar
+            $("#"+p).load("../AJAX/registrarCurso.php?id="+id+"&curso="+$(this).val());
          });
       });
-  </script>
+</script>
 </head>
     <body>
 
@@ -51,7 +51,6 @@ and open the template in the editor.
     						<li>Gestión de cursos</li>
     						<li><a href="modificaTusDatos.php">Editar usuario</a></li>
                 <?php
-
                 if($_SESSION['datos']['solicita_edicion']=='no'){
                 echo '<li><a href="convierteteEnEditor_header.php">Conviértete en editor</a></li>';
                 }
@@ -67,17 +66,17 @@ and open the template in the editor.
                 <li><a href="index_suscriptores.php">Cursos</a></li>
                 <li><a href="">Gestión de cursos</a></li>
                 <li><a href="modificaTusDatos.php">Editar usuario</a></li>
+                <?php
+                if($_SESSION['datos']['solicita_edicion']=='no'){
+                echo '<li><a href="convierteteEnEditor_header.php">Conviértete en editor</a></li>';
+                }
+                ?>
           </ul>
         </div>
-
     	</header>
-
       <div id='usuario'>
         <?php
-
-        if($_SESSION['datos']['solicita_edicion']=='no'){
-          echo '<center><a class="boton" href="convierteteEnEditor_header.php">¡QUIERO SER EDITOR!</a></center>';
-        } else {
+        if($_SESSION['datos']['solicita_edicion']=='si'){
           echo "<h3>SOLICITUD DE EDICION EN TRÁMITE</h3>";
         }
          $p=$curso->verCursosInscritos($id_usuario);
@@ -87,7 +86,6 @@ and open the template in the editor.
           }
         ?>
     	</div>
-
       <footer>
     	<div id='conocenos'>
     	<h3>Conócenos</h3>

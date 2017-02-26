@@ -52,6 +52,7 @@ li#perfil1:hover,li#perfil1:hover i,li#inicio a:hover,li#inicio a:hover i {
 
 #perfil1 img {
 	height: 50px;
+	width: auto;
 	vertical-align: middle;
 	padding-right: 10px;
 }

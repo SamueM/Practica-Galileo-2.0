@@ -30,6 +30,7 @@
 	<script src="jquery/jquery-3.1.1.min.js" ></script>
 	<script src="jquery/jquery_menuMoviles_desplegable.js" ></script>
 	<script src="jquery/jquery_formularios.js" ></script>
+	<script src="jquery/jquery_listaDeslizante.js" ></script>
 	<script src="jquery/parallax.js" ></script>
 </head>
 <body>
@@ -38,7 +39,16 @@
 			<ul id='lista_principal'>
 				<li id='inicio'><a href="" title=""><i class="fa fa-home" aria-hidden="true"></i>Inicio</a></li>
 				<li id='editor'><a href="" title=""><i class="fa fa-pencil" aria-hidden="true"></i>Conviértete en editor</a></li>
-				<li id='registrarte'><a href="./php/registrate.php" title=""><i class="fa fa-unlock-alt" aria-hidden="true"></i>Regístrate</a></li>
+				<li id='registrarte'>
+					<?php
+						if(isset($_SESSION['id_usuario'])){
+							$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+							echo "<a href='./php/cerrarSesion.php'>Cerrar Sesion</a>";
+						} else {
+							echo "<a href='./php/registrate.php' title=''><i class='fa fa-unlock-alt' aria-hidden='true'></i>Regístrate</a>";
+						}
+					?>
+				</li>
 				<li id='ini_sesion'>
 					<?php
 						if(isset($_SESSION['id_usuario'])){
@@ -69,8 +79,44 @@
 				<li id='menu_moviles'><i class="fa fa-bars" aria-hidden="true"></i></a>
 				<ul id='lista_movil'>
 					<li id='editor2'><a href="" title="">Conviértete en editor</a></li>
-					<li id='registrarte2'><a href="./php/registrate.php" title="">Regístrarte</a></li>
-					<li id='ini_sesion2'><a href="./php/iniciar_sesion.php" title="">Iniciar Sesión</a></li>
+					<!--<li id='registrarte2'><a href="./php/registrate.php" title="">Regístrate</a></li>-->
+					<li id='registrarte2'>
+						<?php
+							if(isset($_SESSION['id_usuario'])){
+								$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+		            echo "<a href='./php/cerrarSesion.php'>Cerrar Sesion</a>";
+							} else {
+								echo "<a href='./php/registrate.php' title=''>Regístrate</a>";
+							}
+						?>
+					</li>
+					<li id='ini_sesion2'>
+						<?php
+							if(isset($_SESSION['id_usuario'])){
+								$id_tipo_usuario=$_SESSION['datos']['id_tipo_usuario'];
+		            switch ($id_tipo_usuario){
+		                case 1:
+		                case 2:
+		                    $destino="index_administradores.php";
+		                break;
+		                case 3:
+		                    $destino="index_editores.php";
+		                break;
+		                case 4:
+		                    $destino="index_suscriptores.php";
+		                break;
+		                default:
+		                    $num=-201;
+		                    $destino="iniciar_sesion.php?num=$num";
+		                break;
+		            }
+								echo "<a href='./php/".$destino."'>";
+								echo "<img src=".substr($_SESSION['foto'],3,strlen($_SESSION['foto']))." width='50px'>".$_SESSION['datos']['nick']."</a>" ;
+							} else {
+								echo "<a href='./php/iniciar_sesion.php'>Inicia Sesión</a>" ;
+							}
+						?>
+					</li>
 				</ul></li>
 			</ul>
 		</nav>
